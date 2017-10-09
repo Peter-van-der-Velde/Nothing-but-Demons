@@ -1,4 +1,5 @@
 var scene, aspect, camera, WIDTH, HEIGHT, controls, renderer, geometry, material, plane;
+var loader, floorTexture;
 
 init();
 animate();
@@ -9,7 +10,7 @@ function init(){
 	scene = new THREE.Scene();
 	aspect = window.innerWidth / window.innerHeight;
 	camera = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 );
-	camera.position.set(1, 2, 4);
+	camera.position.set(10, -30, 30);
 
 	//Create renderer
 	renderer = new THREE.WebGLRenderer({antialias:true});
@@ -30,8 +31,13 @@ function init(){
 		camera.updateProjectionMatrix();
 	});
 
+	//Texture loader
+	loader = new THREE.TextureLoader();
+	floorTexture = loader.load("img/floorTexture.png");
+
+	//Create plane
 	geometry = new THREE.PlaneGeometry( 32, 32, 32 );
-	material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+	material = new THREE.MeshBasicMaterial( {map: floorTexture} );
 	plane = new THREE.Mesh( geometry, material );
 	scene.add( plane );
 
@@ -56,13 +62,6 @@ console.log(renderer);
 var clock = new THREE.Clock();
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
 controls.target.set(0, 0, 0);
-
-
-//TextureLoader
-var loader = new THREE.TextureLoader();
-var floorTexture = loader.load("img/floorTexture.png");
-var dungeonFloor = new textureBox(0, 1, 0, floorTexture,5 , 0.1, 5);
-
 
 //Lighting
 const pointLight = new THREE.PointLight(0xFFFFFF);
