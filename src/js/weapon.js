@@ -1,8 +1,10 @@
 
 class Weapon extends Item {
 
-    constructor () {
-        
+    constructor(name, value, power, elemental) {
+        super(name, value);
+        this.power = power;
+        this.elemental = elemental;
     }
 
 }
