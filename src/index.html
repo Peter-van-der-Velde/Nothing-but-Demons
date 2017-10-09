@@ -9,13 +9,32 @@
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/color/jquery.color-2.1.2.js"></script>
     </head>
     <body>
-        <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+		<div class="wrapper" id="wrapper">
+			<!-- <img class="backgroundImage" src="img/mainBackground.png" alt="Background"> -->
+			<h1>Hello!</h1>
+		</div> 
     </body>
 	<footer>
-		
+		<script>
+			function changeOpacity(){
+				<!-- var opacity = document.getElementById('wrapper'); -->
+				<!-- var temp = window.getComputedStyle(opacity).getPropertyValue("opacity"); -->
+				<!-- console.log(temp); -->
+				var temp = document.getElementById('wrapper');
+				var temp2 = window.getComputedStyle(temp).getPropertyValue("background-color");
+				console.log(temp2);
+				if(temp2 == "rgba(0, 0, 0, 0.1)"){
+					temp.style.backgroundColor = "rgba(0, 0, 0, 0.9)"; 
+				}
+				else if(temp2 == "rgba(0, 0, 0, 0.9)"){
+					temp.style.backgroundColor = "rgba(0, 0, 0, 0.1)"; 
+				}
+			}
+		</script>
 	</footer>
 </html>
