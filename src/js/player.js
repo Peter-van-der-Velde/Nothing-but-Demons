@@ -26,6 +26,16 @@ class player extends living {
 
     }
 
+    /**
+     * Calculates the needed amount for that level
+     * @param {number} level 
+     */
+    nextLevel(level) {
+        let  exponent = 1.5
+        let baseXP = 1000
+        return math.floor(baseXP * (level ^ exponent))
+    }
+
     addItem (item) {
         if (this.items.length <= 20)
             this.items.push(item);
