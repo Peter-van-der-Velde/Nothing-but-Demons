@@ -35,8 +35,8 @@ function animate() {
 	}
 	
 	setTimeout(function(){
-		changeOpacity();
-		console.log("hia");
+		//changeOpacity();
+		//console.log("hia");
 	}, 1000);
 
 	// Render the scene.
