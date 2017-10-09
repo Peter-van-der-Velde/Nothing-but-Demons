@@ -1,8 +1,52 @@
+var scene, aspect, camera, WIDTH, HEIGHT, controls, renderer, geometry, material, plane;
 
-var scene = new THREE.Scene();
-var aspect = window.innerWidth / window.innerHeight;
-var camera = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 );
-var renderer = new THREE.WebGLRenderer({antialias:true});
+init();
+animate();
+
+function init(){
+
+	//Setup the scene
+	scene = new THREE.Scene();
+	aspect = window.innerWidth / window.innerHeight;
+	camera = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 );
+	camera.position.set(1, 2, 4);
+
+	//Create renderer
+	renderer = new THREE.WebGLRenderer({antialias:true});
+	renderer.setClearColor(0xCCCCFF, 1);
+	renderer.setSize( window.innerWidth, window.innerHeight );
+	document.body.appendChild(renderer.domElement);
+
+	//create orbit controls
+	controls = new THREE.OrbitControls(camera, renderer.domElement);
+	controls.userPanSpeed = 0;
+
+	// Create an event listener that resizes the renderer with the browser window.
+	window.addEventListener('resize', function() {
+		  WIDTH = window.innerWidth,
+			HEIGHT = window.innerHeight;
+		renderer.setSize(WIDTH, HEIGHT);
+		camera.aspect = WIDTH / HEIGHT;
+		camera.updateProjectionMatrix();
+	});
+
+	geometry = new THREE.PlaneGeometry( 32, 32, 32 );
+	material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+	plane = new THREE.Mesh( geometry, material );
+	scene.add( plane );
+
+}
+
+function animate() {
+	requestAnimationFrame( animate );
+
+	// Render the scene.
+	renderer.render(scene, camera);
+	controls.update();
+}
+
+
+/*var renderer = new THREE.WebGLRenderer({antialias:true});
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap; // to antialias the shadow
@@ -34,7 +78,8 @@ scene.add(dungeonFloor);
 // add lights to scene
 pointLight.lookAt( dungeonFloor );
 scene.add(pointLight);
-scene.add(LightA);
+scene.add(LightA);*/
+
 
 
 
