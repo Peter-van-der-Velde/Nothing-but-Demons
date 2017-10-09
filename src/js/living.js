@@ -1,6 +1,7 @@
 /**
  * a basic class for all living things
  * @class
+ * @param {string} name
  * @param {number} hp 
  * @param {number} mp 
  * @param {number} strength 
@@ -11,7 +12,8 @@
  */
 class Living {
 
-    constructor (hp, mp, strength, speed, intelligence, level, experiencePoints) {
+    constructor (name, hp, mp, strength, speed, intelligence, level, experiencePoints) {
+        this.name = name;
         this.hp = hp;
         this.mp = mp;
         this.strength = strength;
@@ -20,6 +22,12 @@ class Living {
 
         this.level = level;
         this.exp = experiencePoints;
+        this.totalAttackPower;
+        this.totalDefensePower
+        this.totalMagicPower;
+        this.totalMagicDefense;
+        this.luck = 0;
+
     }
 
     move () {
