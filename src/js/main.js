@@ -26,13 +26,18 @@ function animate() {
 
 	// Calculate the delta and fps
 	delta = timer.getDelta();
-  fps = Math.trunc(1.0 / delta);
+    fps = Math.trunc(1.0 / delta);
 
-  if (frameCount < 20) {frameCount++;}
-  else {
-    document.getElementById("fps-display").textContent="FPS: " + fps;
-    frameCount = 0;
-  }
+    if (frameCount < 20) {frameCount++;}
+    else {
+		document.getElementById("fps-display").textContent="FPS: " + fps;
+		frameCount = 0;
+	}
+	
+	setTimeout(function(){
+		changeOpacity();
+		console.log("hia");
+	}, 1000);
 
 	// Render the scene.
 	render.render(testLevel, testLevel.mainCamera);
