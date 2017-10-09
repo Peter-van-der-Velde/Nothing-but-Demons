@@ -1,6 +1,7 @@
 /**
  * the player class derived from the 'Living' class
  * @class
+ * @extends Living
  * @param {string} name
  * @param {number} hp 
  * @param {number} mp 
@@ -9,16 +10,16 @@
  * @param {number} intelligence 
  * @param {number} level 
  * @param {number} experiencePoints
- * @param {WarriorClass} warriorClass
  * @param {Item[]} items
+ * @param {Weapon[]} weapons
+ * @param {WarriorClass} warriorClass
  */
 class player extends living {
     
-    constructor (name, hp, mp, strength, speed, intelligence, level, experiencePoints, warriorClass, items) {
-        super(name, hp, mp, strength, speed, intelligence, level, experiencePoints);
+    constructor (name, hp, mp, strength, speed, intelligence, level, experiencePoints, items, weapons, warriorClass) {
+        super(name, hp, mp, strength, speed, intelligence, level, experiencePoints, items, weapons);
 
         this.warriorClass = warriorClass;
-        this.items = items;
     }
 
     levelUp() {
