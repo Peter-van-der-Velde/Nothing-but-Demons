@@ -33,7 +33,7 @@ function animate() {
 		document.getElementById("fps-display").textContent="FPS: " + fps;
 		frameCount = 0;
 	}
-	
+
 	setTimeout(function(){
 		//changeOpacity();
 		//console.log("hia");
