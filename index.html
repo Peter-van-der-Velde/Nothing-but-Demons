@@ -14,15 +14,59 @@
 		<script type="text/javascript" src="http://code.jquery.com/color/jquery.color-2.1.2.js"></script>
     </head>
     <body>
+		<audio controls autoplay id="backgroundPlayer">
+			<!-- <source src="src/audio/ambient.mp3" type="audio/mp3"> -->
+		</audio>
+		<div class="menu">
+			<div class="menuBoxLeft">
+				<ul>
+					<li><a href="#">VIDEO</a></li>
+					<li><a href="#">SOUND</a></li>
+					<li><a href="#">KEY BINDINGS</a></li>
+				</ul>
+			</div>
+			<div class="menuBoxRight">
+				<ul>
+					<li>Option 1</li>
+					<li>Option 2</li>
+					<li>Option 3</li>
+				</ul>
+			</div>
+			<div class="menuBoxButtons">
+				<button>APPLY</button>
+				<button>ACCEPT</button>
+				<button>CANCEL</button>
+			</div>
+		</div>
 		<div class="wrapper" id="wrapper">
 			<!-- <img class="backgroundImage" src="src/img/mainBackground.png" alt="Background"> -->
 			<h1>Hello!</h1>
-      <a href="src/game.html">Game</a>
+			<a href="src/game.html">Game</a>
 			<a href="doc/jsdoc/index.html">Documentation</a>
 		</div>
+		
+		<a onclick='toggleMute()' ><input id="unmutedButton" type="image" src="src/img/unmuted.png" class="mutingButtons" /></a>
+		<a onclick='toggleMute()' ><input id="mutedButton" type="image" src="src/img/muted.png" class="mutingButtons" /></a>
     </body>
 	<footer>
 		<script>
+		
+			//toggleMute
+			function toggleMute() {
+				var unmuteButton = document.getElementById("unmutedButton");
+				var muteButton = document.getElementById("mutedButton");
+				if(unmuteButton.style.display == "none"){
+					unmuteButton.style.display = "block";
+					muteButton.style.display = "none";
+					document.getElementById('backgroundPlayer').muted = false;
+				}
+				else{
+					unmuteButton.style.display = "none";
+					muteButton.style.display = "block";
+					document.getElementById('backgroundPlayer').muted = true;
+				}
+			}
+		
 			function changeOpacity(){
 				//<!-- var opacity = document.getElementById('wrapper'); -->
 				//<!-- var temp = window.getComputedStyle(opacity).getPropertyValue("opacity"); -->
