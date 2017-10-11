@@ -11,11 +11,11 @@
 * @param {string} model Location to load the model from, must be a JSON file.
 * @param {THREE.Scene} scene The scene to place this object in.
 */
-class GameObject extends THREE.Mesh {
+class GameObject {
   constructor(
-    position = new THREE.Vector3(0, 0, 0), materialType = MATERIALS.UNLIT,
+    scene, position = new THREE.Vector3(0, 0, 0), materialType = MATERIALS.UNLIT,
     color = 0xFFFFFF, colorMap = null, specularMap = null, normalMap = null,
-    aoMap = null, alphaMap = null, reflectivity = 1, model, scene) {
+    aoMap = null, alphaMap = null, reflectivity = 1, model) {
 
       let jsonLoader = new THREE.JSONLoader();
       let texLoader = new THREE.TextureLoader();
@@ -54,24 +54,34 @@ class GameObject extends THREE.Mesh {
           map: colorMap,
           alphaMap: alphaMap
         });
+
+        // instantiate a loader
+        var loader = new THREE.JSONLoader();
+        var geom = new THREE.BoxGeometry( 1, 1, 1 );
+
+        // load a resource
+        loader.load(
+
+          // resource URL
+          'models/test.json',
+
+          // Function when resource is loaded
+          function ( geometry, materials ) {
+
+            geom = geometry;
+
+          }
+        );
+
+        // var ageometry = new THREE.BoxGeometry( 1, 1, 1 );
+        // var amaterial = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+        // var acube = new THREE.Mesh( ageometry, amaterial );
+        // scene.scene.add( acube );
+
+        this.mesh = new THREE.Mesh(geom, material);
+        scene.scene.add(this.mesh);
+
+        console.log(scene.scene);
       }
-
-      // load a resource
-      jsonLoader.load(
-
-        // resource URL
-        model,
-
-        // Function when resource is loaded
-        function ( geometry, materials ) {
-
-          var material = materials[ 0 ];
-          var object = new THREE.Mesh( geometry, material );
-
-        }
-      );
-
-      super();
-
     }
   }
