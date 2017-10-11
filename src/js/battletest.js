@@ -4,7 +4,7 @@ console.log(ironSword);
 console.log(ironShield);
 
 var player =  new Player (name = "Sparhawk", hp = 35, mp = 20, strength = 7, speed = 4, intelligence = 35, level = 5, experiencePoints = 12, items = [ironSword], weapons = [ironSword, ironShield, ironShield, ironShield]);
-var enemy =  new Enemy (name = "Fred ze Goblin", hp = 25, mp = 20, strength = 7, speed = 3, intelligence = 35, level = 5, experiencePoints = 12, items = [ironSword] , weapons = new Array(ironSword, undefined, ironShield, undefined));
+var enemy =  new Enemy ("Fred ze Goblin", hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
 console.log(player);
 console.log(enemy);
 
