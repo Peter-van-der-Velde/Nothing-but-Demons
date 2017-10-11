@@ -18,36 +18,24 @@
 			<!-- <source src="src/audio/ambient.mp3" type="audio/mp3"> -->
 		</audio>
 		<div class="menu">
-			<div class="menuBoxLeft menuBorderImage">
+			<div class="menuBoxLeft">
 				<ul>
-					<li><a id="video" onclick="toggleMenuItems()" href="#">VIDEO</a></li>
-					<li><a id="sound" onclick="toggleMenuItems()" href="#">SOUND</a></li>
-					<li><a id="keybind" onclick="toggleMenuItems()" href="#">KEY BINDINGS</a></li>
+					<li><a href="#">VIDEO</a></li>
+					<li><a href="#">SOUND</a></li>
+					<li><a href="#">KEY BINDINGS</a></li>
 				</ul>
 			</div>
-			<div class="menuBoxRight menuBorderImage">
-				<ul id="videoItems">
-					<li>Video option 1</li>
-					<li>Video option 2</li>
-					<li>Video option 3</li>
-				</ul>
-				<ul id="soundItems">
-					<li>Sound option 1</li>
-					<li>Sound option 2</li>
-					<li>Sound option 3</li>
-				</ul>
-				<ul id="keybindItems">
-					<li>Keybind option 1</li>
-					<li>Keybind option 2</li>
-					<li>Keybind option 3</li>
+			<div class="menuBoxRight">
+				<ul>
+					<li>Option 1</li>
+					<li>Option 2</li>
+					<li>Option 3</li>
 				</ul>
 			</div>
 			<div class="menuBoxButtons">
-				<ul>
-					<li><a href="#">APPLY</a></li>
-					<li><a href="#">ACCEPT</a></li>
-					<li><a href="#">CANCEL</a></li>
-				</ul>
+				<button>APPLY</button>
+				<button>ACCEPT</button>
+				<button>CANCEL</button>
 			</div>
 		</div>
 		<div class="wrapper" id="wrapper">
@@ -62,31 +50,7 @@
     </body>
 	<footer>
 		<script>
-			//toggleMenuItems
-			function toggleMenuItems() {
-				var video = document.getElementById("video");
-				var videoItems = document.getElementById("videoItems");
-				var sound = document.getElementById("sound");
-				var soundItems = document.getElementById("soundItems");
-				var keybind = document.getElementById("keybind");
-				var keybindItems = document.getElementById("keybindItems");
-				video.onclick = function () {
-					videoItems.style.display = "block";
-					soundItems.style.display = "none";
-					keybindItems.style.display = "none";
-				};
-				sound.onclick = function () {
-					videoItems.style.display = "none";
-					soundItems.style.display = "block";
-					keybindItems.style.display = "none";
-				};
-				keybind.onclick = function () {
-					videoItems.style.display = "none";
-					soundItems.style.display = "none";
-					keybindItems.style.display = "block";
-				};
-			}
-			
+		
 			//toggleMute
 			function toggleMute() {
 				var unmuteButton = document.getElementById("unmutedButton");

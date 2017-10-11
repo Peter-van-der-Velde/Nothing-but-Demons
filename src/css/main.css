@@ -158,49 +158,22 @@ html, body {
 	Building the menu
 */
 .menu{
-	background: url(../img/menuBackground2.jpg) no-repeat; 
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
 	width: 800px;
 	max-width:800px;
 	height: 500px;
 	max-height:500px;
 	background-color:blue;
 	margin: 10% auto;
-	border: 2px solid #000;
-	/* border: 14px solid transparent; */
-	/* -webkit-border-image: url(../img/topBorder.png) 30 stretch; /* Safari 3.1-5 */ */
-    /* -o-border-image: url(../img/topBorder.png) 30 stretch; /* Opera 11-12.1 */ */
-    /* border-image: url(../img/topBorder.png) 30 stretch; */
 	-webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 	-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-	box-shadow: 15px 15px 10px 0px rgba(0,0,0,0.75);
-	border-radius:5px;
-} 
-.menu a{
-	color:#f7ddac;
-	font-size:12px;
-	text-decoration:none;
-	text-transform:uppercase;
-	margin:0px 0px 0px 0px;
-	line-height:normal;
-	vertical-align:middle;
-	font-family: diabloFont;
-	display:block;
-	height: 25px;
-    padding: 5px 0px 0px 0px;
-} 
+	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}  
 
 .menuBoxLeft{
-	/* height:74%; */
-	width:26%;
-	/* background-color:green; */
+	height:80%;
+	width:30%;
+	background-color:green;
 	float:left;
-	border: 1px grey solid;
-	margin:4% 0% 0% 0%;
-	border-radius:10	px;
 }
 
 .menuBoxLeft ul{
@@ -212,7 +185,7 @@ html, body {
 	background-image: url(../img/unselectedButton.png);
 	background-repeat: no-repeat;
 	margin:0 auto;
-	width:100%;
+	width:84%;
 	text-align:center;
 	padding:6px 0px;
 }
@@ -222,61 +195,30 @@ html, body {
 }
 
 .menuBoxLeft ul li a{
-
+	color:#f7ddac;
+	font-size:11px;
+	text-decoration:none;
+	text-transform:uppercase;
+	margin:0px 0px 0px 0px;
+	line-height:normal;
+	vertical-align:middle;
+	font-family: diabloFont;
 }
 
 .menuBoxRight{
-	/* height:86%; */
-	width:62%;
-	/* background-color:yellow; */
+	height:80%;
+	width:70%;
+	background-color:yellow;
 	float:left;
-	color: #f7ddac;
-	margin:4% 0% 0% 0%;
-	border-radius:10px;
-	font-family: diabloFont;
-	text-transform:uppercase;
-	
 }
 .menuBoxButtons{
-	height:10%;
+	height:20%;
 	width:100%;
-	/* background-color:red; */
+	background-color:red;
 	float:left;
-}
-.menuBoxButtons ul li{
-	list-style:none;
-	background-image: url(../img/unselectedButton.png);
-	background-repeat: no-repeat;
-	margin:0 auto;
-	width:26%;
-	text-align:center;
-	padding:6px 0px;
-	float:left;
-}
-.menuBoxButtons ul li:hover{
-	background-image: url(../img/selectedButton.png);
-}
-.menuBoxButtons ul li:first-child{
-	margin-right:20%;
-}
-
-.menuBorderImage { 
-	background-image: url(../img/menuItemBackground.png);
-	background-repeat: no-repeat;
-	background-position: -7px;
-	margin:0 auto;
-    border: 14px solid transparent;
-	height:66%;
-    /* padding: 15px; */
-	margin: 10% 1% 0% 1%;
-    -webkit-border-image: url(../img/borders.png) 30 stretch; /* Safari 3.1-5 */
-    -o-border-image: url(../img/borders.jpg) 30 stretch; /* Opera 11-12.1 */
-    border-image: url(../img/borders.png) 30 stretch;
 }
    
-#videoItems{display:block;}
-#soundItems{display:none;}
-#keybindItems{display:none;}
+
 
 
 
