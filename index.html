@@ -17,7 +17,7 @@
 		<audio controls autoplay id="backgroundPlayer">
 			<!-- <source src="src/audio/ambient.mp3" type="audio/mp3"> -->
 		</audio>
-		<div class="menu">
+		<div class="menu" id="menuID" style="display:none;">
 			<div class="menuBoxLeft menuBorderImage">
 				<ul>
 					<li><a id="video" onclick="toggleMenuItems()" href="#">VIDEO</a></li>
@@ -62,6 +62,27 @@
     </body>
 	<footer>
 		<script>
+			//toggleMenu
+			document.onkeydown = (e) => {
+				e = e || window.event;
+		  
+				if (e.keyCode === 27) {
+				    console.log("esc is pressed");
+				    var menu = document.getElementById("menuID");				 
+				  
+				    
+				    console.log(menu);
+				    if(menu.style.display == "none"){
+						console.log("block");
+						menu.style.display = "block";
+					}
+					else if(menu.style.display == "block"){
+						console.log("none");
+						menu.style.display = "none";
+					}
+				}
+			}
+		
 			//toggleMenuItems
 			function toggleMenuItems() {
 				var video = document.getElementById("video");
@@ -117,6 +138,18 @@
 					temp.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
 				}
 			}
+			
 		</script>
+		<!-- <script src="src/js/global.js"></script> -->
+		<!-- <script src="src/js/three.min.js"></script> -->
+		<!-- <script src="src/js/input.js"></script> -->
+		<!-- <script src="src/js/OrbitControls.js"></script> -->
+		<!-- <script src="src/js/gameObject.js"></script> -->
+		<!-- <!-- <script src="src/js/textureBox.js"></script> -->
+		<!-- <script src="src/js/resizer.js"></script> --> -->
+		<!-- <script src="src/js/render.js"></script> -->
+		<!-- <script src="src/js/level.js"></script> -->
+		<!-- <!-- <script src="src/js/lighting.js"></script> --> -->
+		<!-- <script src="src/js/main.js"></script> -->
 	</footer>
 </html>
