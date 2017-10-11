@@ -15,11 +15,11 @@
  */
 class Player extends Living {
     
-    constructor (name, hp, mp, strength, speed, intelligence, level, experiencePoints, items, weapons) {
-        super(name, hp, mp, strength, speed, intelligence, level, experiencePoints, items, weapons);
+    // constructor (name, hp, mp, strength, speed, intelligence, level, experiencePoints, items, weapons) {
+    //      super(name, hp, mp, strength, speed, intelligence, level, experiencePoints, items, weapons);
 
-        calcDerivedStats();
-    }
+    //      calcDerivedStats();
+    // }
 
     levelUp() {
 

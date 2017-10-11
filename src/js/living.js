@@ -28,12 +28,14 @@ class Living {
         this.exp = experiencePoints;
         this.items = items;
         this.weapons = weapons;
-        this.weapon = weapons[0];
-        this.shield = weapons[2];
+        this.weapon = weapons;
+        this.shield = weapons;
 
         this.totalAttackPower;
         this.totalDefensePower
         this.luck = 0;
+
+        //calcDerivedStats();
 
     }
 
@@ -43,8 +45,8 @@ class Living {
      * magic attacks will be calculated with some algorithm
      */
     calcDerivedStats() {
-        this.totalAttackPower = this.strength + this.weapon.power;
-        this.totalDefensePower = this.defense + this.shield.defense;
+        this.totalAttackPower = (this.weapon) ? this.strength : this.strength + this.weapon.power;
+        this.totalDefensePower = (this.shield) ? this.defense :  this.defense + this.shield.defense
     }
         
 
