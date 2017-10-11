@@ -45,10 +45,10 @@ class Player extends Living {
     attack(target) {
         this.calcDerivedStats();
 
-        if (target.totalDefensePower  > this.totalAttackPower)
+        if (target.totalDefense  > this.totalAttack)
             console.log("blocked");
         else
-           target.hp = target.hp - (this.totalAttackPower - target.totalDefensePower);
+           target.hp = target.hp - (this.totalAttack - target.totalDefense);
     }
 
 }

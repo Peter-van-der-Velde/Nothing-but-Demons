@@ -31,13 +31,10 @@ class Enemy extends Living {
     }
 
     attack(target) {
-    
-        //console.log('tp ' + target.hp + 'thTSTR ' + this.totalAttackPower)
-
-        if (target.totalDefensePower > this.totalAttackPower)
+        if (target.totalDefense > this.totalAttack)
             console.log("blocked");
         else
-           target.hp = target.hp - (this.totalAttackPower - target.totalDefensePower);
+           target.hp = target.hp - (this.totalAttack - target.totalDefense);
     }
 
     
