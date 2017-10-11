@@ -28,14 +28,14 @@ class Living {
         this.exp = experiencePoints;
         this.items = items;
         this.weapons = weapons;
-        this.weapon = weapons;
-        this.shield = weapons;
+        this.weapon = weapons[0];
+        this.shield = weapons[2];
 
         this.totalAttackPower;
         this.totalDefensePower
         this.luck = 0;
 
-        //calcDerivedStats();
+        this.calcDerivedStats();
 
     }
 
@@ -47,6 +47,9 @@ class Living {
     calcDerivedStats() {
         this.totalAttackPower = (this.weapon) ? this.strength : this.strength + this.weapon.power;
         this.totalDefensePower = (this.shield) ? this.defense :  this.defense + this.shield.defense
+
+        console.log('p' + this.totalAttackPower);
+        console.log('d' + this.totalDefensePower)
     }
         
 
