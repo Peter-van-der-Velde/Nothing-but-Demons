@@ -33,8 +33,13 @@ class Level extends THREE.Scene {
     this.add( this.plane );
 
     //create moving cube
-    var person = new person(this.scene, this.plane);
-    person.build({x: 0, z: 0});
+    var cube = new cubeMovement(0,0);
+
+		var trigger_move= false;
+		document.addEventListener( 'mousemove', function(e) { if(trigger_move) { console.log('here'); Person.moveToEvent(e); } }, false );
+		document.addEventListener( 'mouseup', function(e) { console.log('up');trigger_move=false; e.stopPropagation(); return false; }, false);
+		document.addEventListener( 'mousedown', function(e) { console.log('down'); trigger_move=true;e.stopPropagation(); Person.moveToEvent(e);  return false; }, false);
+
 
   }
 }

@@ -1,125 +1,107 @@
+class cubeMovement extends THREE.Mesh
+{
+constructor (x, z){
 
-var person = function (scene, plane) {
+  let geometry = new THREE.CubeGeometry(3,3,3);
+	let material = new THREE.MeshLambertMaterial({color: 0xffffff});
+  super (geometry, material);
 
-	this.scene = scene;
-	this.plane = plane;
-	this.movementSpeed = 0.4;
-	this.isMoving = false;
+  this.movementSpeed = 1;
+  this.isMoving = false;
+  this.position.x = x;
+  this.position.y = 0;
+  this.position.z = z;
 
+  scene.add(this);
+}
 
-	this.create = function () {
-		console.log('creating material');
-		var material = new THREE.MeshLambertMaterial({color: 0xffffff});
-		var geometry = new THREE.CubeGeometry(5,5,5);
-		//material.skinning = true;
-		//material.morphTargets = true;
+getRayPos(event){
 
-		this.cube = new THREE.Mesh(geometry, material);
-		this.scene.add(this.cube);
+  var raycaster = new THREE.Raycaster();
+  var mouse = new THREE.Vector2();
+  mouse.x = (event.clientX / renderer.domElement.width) * 2 - 1;
+  mouse.y = -(event.clientX / renderer.domElement.width) * 2 + 1;
 
-		//this.cube.castShadow = true;
-		//this.cube.receiveShadow = true;
+  raycaster.setFromCamera(mouse, camera);
 
-		this.cube.position.x = 0;
-		this.cube.position.y = 0;
-		this.cube.position.z = 0;
+  var intersects = raycaster.intersectObjects([plane], false);
 
-	};
+  if (intersects.length > 0) {
+    return intersects[0].point;
+  }
+  return null;
+}
 
-	this.getRayPos = function (event) {
+lookAtEvent(event){
 
-		var raycaster = new THREE.Raycaster();
-		var mouse = new THREE.Vector2();
-		mouse.x = (event.clientX / renderer.domElement.width) * 2 - 1;
-		mouse.y = -(event.clientX / renderer.domElement.width) * 2 + 1;
+  var pos = this.getRayPos(event);
+  if(pos)
+  {
+    this.lookAt(pos);
+  }
+}
 
-		raycaster.setFromCamera(mouse, camera);
+lookAt(pos){
 
-		var intersects = raycaster.intersectObjects([plane], false);
+  if (this)
+  {
+    this.lookAt(pos);
+  }
+}
 
-		if (intersects.length > 0) {
-			return intersects[0].point;
-		}
-		return null;
-	};
+moveToEvent(pos){
 
+  var currentPos = this.position;
 
-	this.lookAt = function (pos) {
+  if (currentPos === pos) {
+    return;
+  }
+  this.isMoving = true;
 
-		if (this.cube) {
-			this.cube.lookAt(pos);
-		}
-	};
+  var distance_ab = Math.abs(currentPos.x - pos.x);
+  var distance_ac = Math.abs(currentPos.z - pos.z);
+  var total = distance_ab + distance_ac;
 
-	this.moveToEvent = function (event) {
+  var ratio_x = (total - distance_ac) / total;
+  var ratio_z = (total - distance_ab) / total;
+  var move_step_x = this.movementSpeed * ratio_x;
+  var move_step_z = this.movementSpeed * ratio_z;
 
-		var pos = this.getRayPos(event);
-		if (pos) {
-			this.lookAt(pos);
-			this.moveTo(pos);
-		}
-	};
+  this.move_step_vector = new THREE.Vector2();
+  this.move_step_vector.x = currentPos.x > pos.x ? (-move_step_x) : move_step_x;
+  this.move_step_vector.z = currentPos.z > pos.z ? (-move_step_z) : move_step_z;
 
-	this.moveTo = function (pos) {
+  this.move_destination = pos;
 
-		var currentPos = this.cube.position;
+  this.move_idx = 0;
+}
 
-		if (currentPos.equals(pos)) {
-			return;
-		}
-		this.isMoving = true;
+move_step(){
+  if (this.isMoving) {
 
-		var distance_ab = Math.abs(currentPos.x - pos.x);
-		var distance_ac = Math.abs(currentPos.z - pos.z);
-		var total = distance_ab + distance_ac;
+    this.move_idx++;
+    var moving = 0;
 
-		var ratio_x = (total - distance_ac) / total;
-		var ratio_z = (total - distance_ab) / total;
-		var move_step_x = this.movementSpeed * ratio_x;
-		var move_step_z = this.movementSpeed * ratio_z;
+    if (Math.abs(this.position.x - this.move_destination.x) > this.movementSpeed || Math.abs(this.position.z - this.move_destination.z) > this.movementSpeed) {
 
-		this.move_step_vector = new THREE.Vector2();
-		this.move_step_vector.x = currentPos.x > pos.x ? (-move_step_x) : move_step_x;
-		this.move_step_vector.z = currentPos.z > pos.z ? (-move_step_z) : move_step_z;
+      moving++;
+      this.position.add(this.move_step_vector);
+    }
+    else {
 
-		this.move_destination = pos;
+      this.position.setX(this.move_destination.x);
+      this.position.setZ(this.move_destination.z);
+    }
+    if (!moving) {
 
-		this.move_idx = 0;
-	};
+      this.isMoving = false;
+      this.move_destination = null;
+    }
+  }
+}
 
-	this.move_step = function () {
+update(){
+  this.move_step();
+}
 
-		if (this.isMoving) {
-
-			this.move_idx++;
-			var moving = 0;
-
-			if (Math.abs(this.cube.position.x - this.move_destination.x) > this.movementSpeed || Math.abs(this.cube.position.z - this.move_destination.z) > this.move_speed) {
-
-				moving++;
-				this.cube.position.add(this.move_step_vector);
-			}
-			else {
-
-				this.cube.position.setX(this.move_destination.x);
-				this.cube.position.setZ(this.move_destination.z);
-			}
-			if (!moving) {
-
-				this.isMoving = false;
-				this.move_destination = null;
-			}
-		}
-	};
-
-
-	this.update = function (delta) {
-
-		//this.mixer.update(delta);
-		this.move_step();
-	}
-};
-
-
-
-
+}
