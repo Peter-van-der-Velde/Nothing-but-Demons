@@ -13,7 +13,7 @@ class Level extends THREE.Scene {
     this.mainCamera.position.set(20, 20, 20);
 
     this.controls = new THREE.OrbitControls(this.mainCamera, render.domElement);
-  	this.controls.userPanSpeed = 0.1;
+    this.controls.userPanSpeed = 0.1;
 
     let gridSize = 100;
     let gridDivisions = 100;
@@ -26,17 +26,15 @@ class Level extends THREE.Scene {
     this.floorTexture = this.loader.load("img/floorTexture.png");
 
     //Create plane
-    this.geometry = new THREE.PlaneGeometry( 50, 50, 1 );
+    this.geometry = new THREE.PlaneGeometry( 20, 20, 1 );
     this.material = new THREE.MeshBasicMaterial( {map: this.floorTexture} );
     this.plane = new THREE.Mesh( this.geometry, this.material );
     this.plane.rotation.x = -1.5708;
     this.add( this.plane );
 
-    //Create testcube
-		this.cubeGeometry =new THREE.CubeGeometry(5, 5, 5);
-		this.cubeMaterial = new THREE.MeshBasicMaterial( { color: 0xFFFFFF } );
-		this.testCube = new THREE.Mesh(this.cubeGeometry, this.cubeMaterial);
-		this.testCube.translateY(2.5)
-		this.add(this.testCube)
+    //create moving cube
+    var person = new person(this.scene, this.plane);
+    person.build({x: 0, z: 0});
+
   }
 }

@@ -43,4 +43,5 @@ class player extends living {
             console.log("No more space available.")
     }
 
+
 }

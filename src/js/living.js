@@ -37,6 +37,7 @@ class Living {
 
     }
 
+
     /**
      * calculates the derived stats
      * derived stats are for example: totalAttackPower;
