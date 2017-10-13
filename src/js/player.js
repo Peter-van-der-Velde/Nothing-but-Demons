@@ -21,8 +21,38 @@ class Player extends Living {
     //      calcDerivedStats();
     // }
 
-    levelUp() {
+    /**
+     * for calculating rolls
+     * example: roll(2d3);
+     * @param {string} rollText the roll information but in text format,'3d2' where 3 is the amount of rolls and 2 is the max number
+     */
+    roll(rollText) {
+        let rollInfo = rollText.split("d");
+        let amountOfRolls = rollInfo[0];
+        let maxRollPoints = rollInfo[1];
+        
+        let total = 0;
 
+        for (var roll = 0; roll < amountOfRolls; roll++) {
+            total += (Math.random() * maxRollPoints) + 1; 
+        }
+        
+        return total;
+    }
+    /**
+     * levels up player
+     * based upon output ((6d4 - 3) / 3) - 2
+     */
+    levelUp() {
+        this.hpMax += Math.floor((this.roll("6d4") - 3) / 3) - 3;
+        this.mpMax += Math.floor((this.roll("6d4") - 3) / 3) - 3;
+        this.strength += Math.floor((this.roll("6d4") - 3) / 3) - 3;
+        this.defense += Math.floor((this.roll("6d4") - 3) / 3) - 3;
+        this.speed += Math.floor((this.roll("6d4") - 3) / 3) - 3;
+        this.intelligence += Math.floor((this.roll("6d4") - 3) / 3) - 3;
+        this.luck += Math.floor((this.roll("6d4") - 3) / 3) - 3;
+
+        //this.exp = experiencePoints;
     }
 
     /**
@@ -49,6 +79,17 @@ class Player extends Living {
             console.log("blocked");
         else
            target.hp = target.hp - (this.totalAttack - target.totalDefense);
+    }
+
+    update() {
+        if (hp <= 0)
+            this.die();
+    
+    }
+
+    die() {
+        alert("Game Over, you died.");
+        // reset to last shrine/bonfire/savespot
     }
 
 }

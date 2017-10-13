@@ -16,6 +16,10 @@ button.onclick = function () {
   player.attack(enemy);
   enemy.attack(player);
   updateUI();
+  // for (var index = 0; index < 100; index++) {
+  //   console.log((Math.floor((player.roll("6d4") - 3) / 3) - 3))
+  // }
+  
 }
 
 function nextRound() {

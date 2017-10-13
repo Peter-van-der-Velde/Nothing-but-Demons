@@ -9,7 +9,7 @@
  * @param {number} speed the speed of the enemy
  * @param {number} intelligence the intelligence of the enemy
  * @param {number} level the level of the enemy
- * @param {number} experiencePoints the amount of experience points the enemy has
+ * @param {number} experiencePoints the amount of experience you get when you defeat the enemy
  * @param {Item[]} items the items the enemy has
  * @param {Weapon[]} weapons the weapons the enemy has.
  */
@@ -19,17 +19,6 @@ class Enemy extends Living {
     // super(name, hp, mp, strength, speed, intelligence, level, experiencePoints, items, weapons);
     // }
 	
-    levelUp() {
-
-    }
-
-    addItem (item) {
-        if (this.items.length <= 20)
-            this.items.push(item);
-        else
-            console.log("No more space available.")
-    }
-
     attack(target) {
         if (target.totalDefense > this.totalAttack)
             console.log("blocked");
@@ -37,6 +26,8 @@ class Enemy extends Living {
            target.hp = target.hp - (this.totalAttack - target.totalDefense);
     }
 
-    
+    die() {
+        
+    }
 
 }
