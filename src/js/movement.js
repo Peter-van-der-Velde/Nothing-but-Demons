@@ -12,7 +12,7 @@ constructor (x, z){
   this.position.y = 0;
   this.position.z = z;
 
-  scene.add(this);
+  level.add(this);
 }
 
 getRayPos(event){
