@@ -12,17 +12,19 @@
  * @param {number} experiencePoints the amount of experience points the player has
  * @param {Item[]} items the items the player has
  * @param {Weapon[]} weapons the weapons the player has.
+ * @param {PlayerClass} playerClass the warrior class this player is
  */
 class Player extends Living {
     
-    // constructor (name, hp, mp, strength, speed, intelligence, level, experiencePoints, items, weapons) {
-    //      super(name, hp, mp, strength, speed, intelligence, level, experiencePoints, items, weapons);
+    constructor (name, hp, mp, strength, speed, intelligence, level, experiencePoints, items, weapons, playerClass) {
+        super(name, hp, mp, strength, speed, intelligence, level, experiencePoints, items, weapons);
 
-    //      calcDerivedStats();
-    // }
+        this.playerClass = playerClass;
+        calcDerivedStats();
+    }
 
     /**
-     * for calculating rolls
+     * for calculating dice rolls
      * example: roll(2d3);
      * @param {string} rollText the roll information but in text format,'3d2' where 3 is the amount of rolls and 2 is the max number
      */
@@ -39,20 +41,19 @@ class Player extends Living {
         
         return total;
     }
+
     /**
      * levels up player
      * based upon output ((6d4 - 3) / 3) - 2
      */
     levelUp() {
-        this.hpMax += Math.floor((this.roll("6d4") - 3) / 3) - 3;
-        this.mpMax += Math.floor((this.roll("6d4") - 3) / 3) - 3;
-        this.strength += Math.floor((this.roll("6d4") - 3) / 3) - 3;
-        this.defense += Math.floor((this.roll("6d4") - 3) / 3) - 3;
-        this.speed += Math.floor((this.roll("6d4") - 3) / 3) - 3;
-        this.intelligence += Math.floor((this.roll("6d4") - 3) / 3) - 3;
-        this.luck += Math.floor((this.roll("6d4") - 3) / 3) - 3;
-
-        //this.exp = experiencePoints;
+        this.hpMax += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
+        this.mpMax += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
+        this.strength += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
+        this.defense += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
+        this.speed += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
+        this.intelligence += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
+        this.luck += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
     }
 
     /**
@@ -65,6 +66,10 @@ class Player extends Living {
         return math.floor(baseXP * (level ^ exponent))
     }
 
+    /**
+     * Adds item to the inventory of the player
+     * @param {Item} item 
+     */
     addItem (item) {
         if (this.items.length <= 20)
             this.items.push(item);
@@ -72,6 +77,10 @@ class Player extends Living {
             console.log("No more space available.")
     }
 
+    /**
+     * Player attacks target
+     * @param {Enemy} target  
+     */
     attack(target) {
         this.calcDerivedStats();
 
@@ -81,12 +90,18 @@ class Player extends Living {
            target.hp = target.hp - (this.totalAttack - target.totalDefense);
     }
 
-    update() {
+    /**
+     * update loop player
+     * @param {number} dt delta time  
+     */
+    update(dt) {
         if (hp <= 0)
             this.die();
-    
     }
 
+    /**
+     * when player dies use this function
+     */
     die() {
         alert("Game Over, you died.");
         // reset to last shrine/bonfire/savespot
