@@ -31,21 +31,25 @@ class Living {
         this.weapon = weapons[0];
         this.shield = weapons[2];
 
-        this.totalAttackPower;
-        this.totalDefensePower
+        this.totalAttack;
+        this.totalDefense
         this.luck = 0;
 
+        this.calcDerivedStats();
     }
 
 
     /**
      * calculates the derived stats
-     * derived stats are for example: totalAttackPower;
+     * derived stats are for example: totalAttack;
      * magic attacks will be calculated with some algorithm
      */
     calcDerivedStats() {
-        this.totalAttackPower = this.strength + this.weapon.power;
-        this.totalDefensePower = this.defense + this.shield.defense;
+        this.totalAttack = (this.weapon) ? this.strength : this.strength + this.weapon.power;
+        this.totalDefense = (this.shield) ? this.defense :  this.defense + this.shield.defense
+
+        console.log('p' + this.totalAttack);
+        console.log('d' + this.totalDefense)
     }
         
 

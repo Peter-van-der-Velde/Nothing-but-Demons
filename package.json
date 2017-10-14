@@ -11,6 +11,7 @@
   ],
 
   "scripts": {
+    "start": "http-server -c-1",
     "doc": "node node_modules/jsdoc/jsdoc.js -c ./doc/config.json --readme README.md"
   },
 
@@ -19,7 +20,8 @@
   },
 
   "devDependencies": {
-    "jsdoc": "^3.3.3"
+    "jsdoc": "^3.3.3",
+    "http-server": "^0.10.0"
   },
 
   "repository": {
