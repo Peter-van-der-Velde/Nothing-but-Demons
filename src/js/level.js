@@ -9,8 +9,10 @@ class Level {
     this.scene = new THREE.Scene();
     this.levelName = levelName;
 
-    this.mainCamera = new THREE.PerspectiveCamera( 75, render.aspect, 0.1, 1000 );
+
+		this.mainCamera = new THREE.PerspectiveCamera( 75, render.aspect, 0.1, 1000 );
     this.mainCamera.position.set(20, 20, 20);
+
 
     this.controls = new THREE.OrbitControls(this.mainCamera, render.domElement);
     this.controls.userPanSpeed = 0.1;
@@ -32,14 +34,20 @@ class Level {
     this.plane.rotation.x = -1.5708;
     this.scene.add( this.plane );
 
-    // //Create testcube
-    // this.cubeGeometry =new THREE.CubeGeometry(5, 5, 5);
-    // this.cubeMaterial = new THREE.MeshBasicMaterial( { color: 0xFFFFFF } );
-    // this.testCube = new THREE.Mesh(this.cubeGeometry, this.cubeMaterial);
-    // this.testCube.translateY(2.5)
-    // this.add(this.testCube)
+		//this.cube = new cubeMovement (0,0, this.plane);
+		//this.scene.add(this.cube);
+
+    var perso = new Perso(this.scene, this.plane);
+    perso.create({x: 0, z: 0});
+
+		var trigger_move= false;
+		document.addEventListener( 'mousemove', function(e) { if(trigger_move) { console.log('here'); perso.moveToEvent(e); } }, false );
+		addEventListener( 'mouseup', function(e) { console.log('up');trigger_move=false; e.stopPropagation(); return false; }, false);
+		document.addEventListener( 'mousedown', function(e) { console.log('down'); trigger_move=true;e.stopPropagation(); perso.moveToEvent(e);  return false; }, false);
+
 
     console.log(this.scene);
     let b = new GameObject({scene: this.scene, model: 'models/test.json'});
   }
+
 }

@@ -7,6 +7,7 @@ function init(){
   timer = new THREE.Clock();
   frameCount = 20;
 
+
   render = new Render(true, window.innerWidth, window.innerHeight);
   testLevel = new Level("testLevel", render);
 
@@ -27,6 +28,7 @@ function init(){
 	// 	var mesh = new THREE.Mesh(geometry, materials);
 	// 	testLevel.add(mesh);
 	// }
+
 }
 
 function animate() {

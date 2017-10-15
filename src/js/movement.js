@@ -1,26 +1,24 @@
 class cubeMovement extends THREE.Mesh
 {
-constructor (x, z){
+constructor (x, z, plane) {
 
-  let geometry = new THREE.CubeGeometry(3,3,3);
+	let geometry = new THREE.CubeGeometry(3, 3, 3);
 	let material = new THREE.MeshLambertMaterial({color: 0xffffff});
-  super (geometry, material);
+	super(geometry, material);
 
-  this.movementSpeed = 1;
-  this.isMoving = false;
-  this.position.x = x;
-  this.position.y = 0;
-  this.position.z = z;
+	this.movementSpeed = 1;
+	this.isMoving = false;
+	this.position.x = x;
+	this.position.y = 1.5;
+	this.position.z = z;
 
-  level.add(this);
 }
-
 getRayPos(event){
 
   var raycaster = new THREE.Raycaster();
   var mouse = new THREE.Vector2();
-  mouse.x = (event.clientX / renderer.domElement.width) * 2 - 1;
-  mouse.y = -(event.clientX / renderer.domElement.width) * 2 + 1;
+  mouse.x = (event.clientX / render.domElement.width) * 2 - 1;
+  mouse.y = -(event.clientX / render.domElement.width) * 2 + 1;
 
   raycaster.setFromCamera(mouse, camera);
 
@@ -49,7 +47,16 @@ lookAt(pos){
   }
 }
 
-moveToEvent(pos){
+moveToEvent(event){
+
+  var pos = this.getRayPos(event);
+  if(pos){
+    this.lookAt(pos);
+    this.moveTo(pos);
+  }
+}
+
+moveTo(pos){
 
   var currentPos = this.position;
 
