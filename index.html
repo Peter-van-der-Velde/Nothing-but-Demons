@@ -1,167 +1,127 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>C3</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <link rel="stylesheet" href="src/css/normalize.css">
-        <link rel="stylesheet" href="src/css/main.css">
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script type="text/javascript" src="http://code.jquery.com/color/jquery.color-2.1.2.js"></script>
-    </head>
-    <body>
-		<audio controls autoplay id="backgroundPlayer">
-			<!-- <source src="src/audio/ambient.mp3" type="audio/mp3"> -->
-		</audio>
-		<div class="menu" id="menuID" style="display:none;">
-			<div class="menuBoxLeft menuBorderImage">
-				<ul>
-					<li><a id="video" onclick="toggleMenuItems()" href="#">VIDEO</a></li>
-					<li><a id="sound" onclick="toggleMenuItems()" href="#">SOUND</a></li>
-					<li><a id="keybind" onclick="toggleMenuItems()" href="#">KEY BINDINGS</a></li>
-				</ul>
-			</div>
-			<div class="menuBoxRight menuBorderImage">
-				<ul id="videoItems">
-					<li>Video option 1</li>
-					<li>Video option 2</li>
-					<li>Video option 3</li>
-				</ul>
-				<ul id="soundItems">
-					<li>
-						<p>Background volume : </p>
-						<div id="slidecontainer">
-							<input type="range" min="0" max="1" step="0.1" value="0.5" class="slider" id="myRange">
-						</div>
-					</li>
-					<li>
-						<p>Sound option 1</p>
-					</li>
-					<li>
-						<p>Sound option 2</p>
-					</li>
-					<li>
-						<p>Sound option 3</p>
-					</li>
-				</ul>
-				<ul id="keybindItems">
-					<li>Keybind option 1</li>
-					<li>Keybind option 2</li>
-					<li>Keybind option 3</li>
-				</ul>
-			</div>
-			<div class="menuBoxButtons">
-				<ul>
-					<li><a href="#">APPLY</a></li>
-					<li><a href="#">ACCEPT</a></li>
-					<li><a href="#">CANCEL</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="wrapper" id="wrapper">
-			<!-- <img class="backgroundImage" src="src/img/mainBackground.png" alt="Background"> -->
-			<h1>Hello!</h1>
-			<a href="src/game.html">Game</a>
-			<a href="doc/jsdoc/index.html">Documentation</a>
-			<a href="src/battletest.html">battletest</a>
-		</div>
-			<a onclick='toggleMute()' ><input id="unmutedButton" type="image" src="src/img/unmuted.png" class="mutingButtons" /></a>
-			<a onclick='toggleMute()' ><input id="mutedButton" type="image" src="src/img/muted.png" class="mutingButtons" /></a>
-		</div> 
-    </body>
-	<footer>
-		<script>
-			//toggleMenu
-			document.onkeydown = (e) => {
-				e = e || window.event;
-		  
-				if (e.keyCode === 27) {
-				    console.log("esc is pressed");
-				    var menu = document.getElementById("menuID");				 
-				  
-				    
-				    console.log(menu);
-				    if(menu.style.display == "none"){
-						console.log("block");
-						menu.style.display = "block";
-					}
-					else if(menu.style.display == "block"){
-						console.log("none");
-						menu.style.display = "none";
-					}
-				}
-			}
-		
-			//toggleMenuItems
-			function toggleMenuItems() {
-				var video = document.getElementById("video");
-				var videoItems = document.getElementById("videoItems");
-				var sound = document.getElementById("sound");
-				var soundItems = document.getElementById("soundItems");
-				var keybind = document.getElementById("keybind");
-				var keybindItems = document.getElementById("keybindItems");
-				video.onclick = function () {
-					videoItems.style.display = "block";
-					soundItems.style.display = "none";
-					keybindItems.style.display = "none";
-				};
-				sound.onclick = function () {
-					videoItems.style.display = "none";
-					soundItems.style.display = "block";
-					keybindItems.style.display = "none";
-				};
-				keybind.onclick = function () {
-					videoItems.style.display = "none";
-					soundItems.style.display = "none";
-					keybindItems.style.display = "block";
-				};
-			}
-			
-			//toggleMute
-			function toggleMute() {
-				var unmuteButton = document.getElementById("unmutedButton");
-				var muteButton = document.getElementById("mutedButton");
-				if(unmuteButton.style.display == "none"){
-					unmuteButton.style.display = "block";
-					muteButton.style.display = "none";
-					document.getElementById('backgroundPlayer').muted = false;
-				}
-				else{
-					unmuteButton.style.display = "none";
-					muteButton.style.display = "block";
-					document.getElementById('backgroundPlayer').muted = true;
-				}
-			}
-		
-			function changeOpacity(){
-				//<!-- var opacity = document.getElementById('wrapper'); -->
-				//<!-- var temp = window.getComputedStyle(opacity).getPropertyValue("opacity"); -->
-				//<!-- console.log(temp); -->
-				var temp = document.getElementById('wrapper');
-				var temp2 = window.getComputedStyle(temp).getPropertyValue("background-color");
-				console.log(temp2);
-				if(temp2 == "rgba(0, 0, 0, 0.1)"){
-					temp.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
-				}
-				else if(temp2 == "rgba(0, 0, 0, 0.9)"){
-					temp.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
-				}
-			}
-			
-		</script>
-		<!-- <script src="src/js/global.js"></script> -->
-		<!-- <script src="src/js/three.min.js"></script> -->
-		<!-- <script src="src/js/input.js"></script> -->
-		<!-- <script src="src/js/OrbitControls.js"></script> -->
-		<!-- <script src="src/js/gameObject.js"></script> -->
-		<!-- <!-- <script src="src/js/textureBox.js"></script> -->
-		<!-- <script src="src/js/resizer.js"></script> --> -->
-		<!-- <script src="src/js/render.js"></script> -->
-		<!-- <script src="src/js/level.js"></script> -->
-		<!-- <!-- <script src="src/js/lighting.js"></script> --> -->
-		<!-- <script src="src/js/main.js"></script> -->
-	</footer>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>C3</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="src/css/normalize.css">
+    <link rel="stylesheet" href="src/css/main.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/color/jquery.color-2.1.2.js"></script>
+    <script type="text/javascript"> 
+      $(document).ready(function(){
+      	$( "#menuID" ).load( "src/options.html", function() {
+      		console.log( "Menu Loaded." );
+      	});
+      });
+    </script>
+  </head>
+  <body>
+    <!-- Audio player -->
+    <audio controls autoplay id="backgroundPlayer">
+      <source src="src/audio/ambient.mp3" type="audio/mp3">
+    </audio>
+    <!-- Options menu -->
+    <div class="menu" id="menuID" style="display:none;"></div>
+    <!-- Actual page -->
+    <div class="wrapper" id="wrapper">
+      <h1>Hello!</h1>
+      <a href="src/game.html">Game</a>
+      <a href="doc/jsdoc/index.html">Documentation</a>
+      <a href="src/battletest.html">battletest</a>
+      <a onclick='toggleMute()' ><input id="unmutedButton" type="image" src="src/img/unmuted.png" class="mutingButtons" /></a>
+      <a onclick='toggleMute()' ><input id="mutedButton" type="image" src="src/img/muted.png" class="mutingButtons" /></a>
+    </div>
+  </body>
+  <footer>
+    <script>
+      //toggleMenu
+      document.onkeydown = (e) => {
+      	e = e || window.event;
+       
+      	if (e.keyCode === 27) {
+      	    console.log("esc is pressed");
+      	    var menu = document.getElementById("menuID");				 
+      	  
+      	    
+      	    console.log(menu);
+      	    if(menu.style.display == "none"){
+      			console.log("block");
+      			menu.style.display = "block";
+      		}
+      		else if(menu.style.display == "block"){
+      			console.log("none");
+      			menu.style.display = "none";
+      		}
+      	}
+      }
+      
+      //toggleMenuItems
+      function toggleMenuItems() {
+      	var video = document.getElementById("video");
+      	var videoItems = document.getElementById("videoItems");
+      	var sound = document.getElementById("sound");
+      	var soundItems = document.getElementById("soundItems");
+      	var keybind = document.getElementById("keybind");
+      	var keybindItems = document.getElementById("keybindItems");
+      	video.onclick = function () {
+      		videoItems.style.display = "block";
+      		soundItems.style.display = "none";
+      		keybindItems.style.display = "none";
+      	};
+      	sound.onclick = function () {
+      		videoItems.style.display = "none";
+      		soundItems.style.display = "block";
+      		keybindItems.style.display = "none";
+      	};
+      	keybind.onclick = function () {
+      		videoItems.style.display = "none";
+      		soundItems.style.display = "none";
+      		keybindItems.style.display = "block";
+      	};
+      }
+      
+      
+      //Update sound text value
+      function applyChanges(){
+      	backgroundPlayer.volume = valueOutputId.value / 100;
+      	console.log(backgroundPlayer.volume);
+      }
+      
+      //toggleMute
+      function toggleMute() {
+      	var unmuteButton = document.getElementById("unmutedButton");
+      	var muteButton = document.getElementById("mutedButton");
+      	if(unmuteButton.style.display == "none"){
+      		unmuteButton.style.display = "block";
+      		muteButton.style.display = "none";
+      		document.getElementById('backgroundPlayer').muted = false;
+      	}
+      	else{
+      		unmuteButton.style.display = "none";
+      		muteButton.style.display = "block";
+      		document.getElementById('backgroundPlayer').muted = true;
+      	}
+      }
+      
+      function changeOpacity(){
+      	//<!-- var opacity = document.getElementById('wrapper'); -->
+      	//<!-- var temp = window.getComputedStyle(opacity).getPropertyValue("opacity"); -->
+      	//<!-- console.log(temp); -->
+      	var temp = document.getElementById('wrapper');
+      	var temp2 = window.getComputedStyle(temp).getPropertyValue("background-color");
+      	console.log(temp2);
+      	if(temp2 == "rgba(0, 0, 0, 0.1)"){
+      		temp.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
+      	}
+      	else if(temp2 == "rgba(0, 0, 0, 0.9)"){
+      		temp.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+      	}
+      }
+      
+    </script>
+  </footer>
 </html>
