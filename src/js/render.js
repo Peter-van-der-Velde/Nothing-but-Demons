@@ -11,7 +11,5 @@ class Render extends THREE.WebGLRenderer {
     this.setSize(renderWidth, renderHeight);
     document.body.appendChild(this.domElement);
     this.aspect = window.innerWidth / window.innerHeight;
-	
-	update();
   }
 }

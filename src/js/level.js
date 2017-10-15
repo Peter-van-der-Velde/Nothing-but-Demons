@@ -39,8 +39,7 @@ class Level {
     // this.testCube.translateY(2.5)
     // this.add(this.testCube)
 
-    console.log(this.scene);
-    let b = new GameObject({scene: this.scene, model: 'models/test.json'});
+    let b = new GameObject({scene: this.scene, materialType: 1, color: 0xFF00FF, model: 'models/test.json'});
 
   }
 }

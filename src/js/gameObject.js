@@ -17,6 +17,8 @@ class GameObject {
     color = 0xFFFFFF, colorMap = null, specularMap = null, normalMap = null,
     aoMap = null, alphaMap = null, reflectivity = 1, model) {
 
+      console.log("materialType: " + materialType);
+
       let jsonLoader = new THREE.JSONLoader();
       let texLoader = new THREE.TextureLoader();
       let material = null;
@@ -28,7 +30,7 @@ class GameObject {
       alphaMap = (alphaMap != null) ? texLoader.load(alphaMap) : null;
 
       // Material Selection
-      if (materialType === MATERIALS.PHONG) {
+      if (materialType == MATERIALS.PHONG) {
         material = new THREE.MeshPhongMaterial({
           color: color,
           map: colorMap,
@@ -39,7 +41,7 @@ class GameObject {
           reflectivity: reflectivity
         });
       }
-      else if (materialType === MATERIALS.LAMBERT) {
+      else if (materialType == MATERIALS.LAMBERT) {
         material = new THREE.MeshLambertMaterial({
           color: color,
           map: colorMap,
@@ -48,40 +50,38 @@ class GameObject {
           alphaMap: alphaMap
         });
       }
-      else if (materialType === MATERIALS.UNLIT) {
+      else if (materialType == MATERIALS.UNLIT) {
         material = new THREE.MeshBasicMaterial({
           color: color,
           map: colorMap,
           alphaMap: alphaMap
         });
-
-        // instantiate a loader
-        var loader = new THREE.JSONLoader();
-        var geom = new THREE.BoxGeometry( 1, 1, 1 );
-
-        // load a resource
-        loader.load(
-
-          // resource URL
-          'models/test.json',
-
-          // Function when resource is loaded
-          function ( geometry, materials ) {
-
-            geom = geometry;
-
-          }
-        );
-
-        // var ageometry = new THREE.BoxGeometry( 1, 1, 1 );
-        // var amaterial = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-        // var acube = new THREE.Mesh( ageometry, amaterial );
-        // scene.scene.add( acube );
-
-        this.mesh = new THREE.Mesh(geom, material);
-        scene.scene.add(this.mesh);
-
-        console.log(scene.scene);
       }
+
+      // instantiate a loader
+      var loader = new THREE.JSONLoader();
+      var geom = new THREE.BoxGeometry( 1, 1, 1 );
+      var bool = false;
+
+      var mesh = new THREE.Mesh();
+
+      // load a resource
+      loader.load(
+
+        // resource URL
+        'models/test.json',
+
+        // Function when resource is loaded
+        function ( geometry, materials ) {
+
+          mesh = new THREE.Mesh(geometry, material)
+          console.log(material);
+          scene.scene.add(mesh);
+          mesh.position.y = 3;
+
+        }
+      );
+
+      console.log();
     }
   }
