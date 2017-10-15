@@ -9,59 +9,27 @@
 
         <link rel="stylesheet" href="src/css/normalize.css">
         <link rel="stylesheet" href="src/css/main.css">
-
+		
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/color/jquery.color-2.1.2.js"></script>
+		<script type="text/javascript"> 
+			$(document).ready(function(){
+				$( "#menuID" ).load( "options.html", function() {
+					console.log( "Menu Loaded." );
+				});
+			});
+		</script>
     </head>
     <body>
 		<audio controls autoplay id="backgroundPlayer">
 			<!-- <source src="src/audio/ambient.mp3" type="audio/mp3"> -->
 		</audio>
+		<!-- Here comes the menu -->
 		<div class="menu" id="menuID" style="display:none;">
-			<div class="menuBoxLeft menuBorderImage">
-				<ul>
-					<li><a id="video" onclick="toggleMenuItems()" href="#">VIDEO</a></li>
-					<li><a id="sound" onclick="toggleMenuItems()" href="#">SOUND</a></li>
-					<li><a id="keybind" onclick="toggleMenuItems()" href="#">KEY BINDINGS</a></li>
-				</ul>
-			</div>
-			<div class="menuBoxRight menuBorderImage">
-				<ul id="videoItems">
-					<li>Video option 1</li>
-					<li>Video option 2</li>
-					<li>Video option 3</li>
-				</ul>
-				<ul id="soundItems">
-					<li>
-						<p>Background volume : </p>
-						<div id="slidecontainer">
-							<input type="range" min="0" max="1" step="0.1" value="0.5" class="slider" id="myRange">
-						</div>
-					</li>
-					<li>
-						<p>Sound option 1</p>
-					</li>
-					<li>
-						<p>Sound option 2</p>
-					</li>
-					<li>
-						<p>Sound option 3</p>
-					</li>
-				</ul>
-				<ul id="keybindItems">
-					<li>Keybind option 1</li>
-					<li>Keybind option 2</li>
-					<li>Keybind option 3</li>
-				</ul>
-			</div>
-			<div class="menuBoxButtons">
-				<ul>
-					<li><a href="#">APPLY</a></li>
-					<li><a href="#">ACCEPT</a></li>
-					<li><a href="#">CANCEL</a></li>
-				</ul>
-			</div>
+			
 		</div>
+		
 		<div class="wrapper" id="wrapper">
 			<!-- <img class="backgroundImage" src="src/img/mainBackground.png" alt="Background"> -->
 			<h1>Hello!</h1>
