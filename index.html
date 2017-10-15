@@ -62,7 +62,7 @@
     <body>
 		<!-- Audio player -->
 		<audio controls autoplay id="backgroundPlayer">
-			<!-- <source src="src/audio/ambient.mp3" type="audio/mp3"> -->
+			<source src="src/audio/ambient.mp3" type="audio/mp3">
 		</audio>
 		
 		<!-- Options menu -->
@@ -82,15 +82,6 @@
 	<footer>
 		<script>
 			var resolution = "";
-
-			
-
-		
-		
-		
-		
-		
-		
 			//toggleMenu
 			document.onkeydown = (e) => {
 				e = e || window.event;
@@ -104,6 +95,9 @@
 				    if(menu.style.display == "none"){
 						console.log("block");
 						menu.style.display = "block";
+						var openMenu = new Audio('src/audio/openMenu.wav');
+						openMenu.volume = 0.1;
+						openMenu.play();
 					}
 					else if(menu.style.display == "block"){
 						console.log("none");
