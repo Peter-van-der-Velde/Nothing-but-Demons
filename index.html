@@ -16,15 +16,53 @@
 		<script type="text/javascript"> 
 			$(document).ready(function(){
 				$( "#menuID" ).load( "src/options.html", function() {
-					console.log( "Menu Loaded." );
+					console.log("#Menu Loaded");
 				});
 			});
+		</script>
+		<script>
+			document.onreadystatechange = function () {
+				if (document.readyState === "complete"){
+					var setResolutions = {
+						'1920px,1080px' : '1920 x 1080',
+						'1280px,720px' : '1280 x 720',
+						'720px,576px' : '720 x 576',
+						'720px,480px' : '720 x 480'
+					};
+					var select = document.getElementById("selectResolution");
+					for(index in setResolutions){
+						select.options[select.options.length] = new Option(setResolutions[index], index);
+					}
+					console.log(" - Resolutions filled in");
+
+					var savedMenuWidth = localStorage.getItem('menuWidth');
+					var savedMenuHeight = localStorage.getItem('menuHeight');	
+					var savedSelectedIndex = localStorage.getItem('selectedIndex');
+					var temp = document.getElementById('menuID');
+					var e = document.getElementById("selectResolution");
+					if(savedMenuWidth == ""){
+						setOnce();
+						console.log("Initial setup");
+					}
+					else{
+						console.log("Height and width loaded from memory at : " + savedMenuWidth + " " + savedMenuHeight);
+						temp.style.width = savedMenuWidth;
+						temp.style.height = savedMenuHeight;
+						console.log(savedSelectedIndex);
+						e.value = savedSelectedIndex;
+					}
+
+					//checkCookie();
+				}
+			}
+			
+			
 		</script>
     </head>
     <body>
 		<!-- Audio player -->
 		<audio controls autoplay id="backgroundPlayer">
-			<source src="src/audio/ambient.mp3" type="audio/mp3">
+			<!-- <source src="src/audio/ambient.mp3" type="audio/mp3"> -->
 		</audio>
 		
 		<!-- Options menu -->
@@ -43,6 +81,16 @@
     </body>
 	<footer>
 		<script>
+			var resolution = "";
+
+			
+
+		
+		
+		
+		
+		
+		
 			//toggleMenu
 			document.onkeydown = (e) => {
 				e = e || window.event;
@@ -90,11 +138,102 @@
 			}
 			
 			
-			//Update sound text value
+			//Sets resolution for the first time
+			function setOnce(){
+				var savedMenuWidth = localStorage.getItem('menuWidth') || 1920;
+				var savedMenuHeight = localStorage.getItem('menuHeight') || 1080;
+				console.log("Saved values : " + savedMenuWidth + savedMenuHeight);
+				
+				var temp = document.getElementById('menuID');
+				var menuHeight = window.getComputedStyle(temp).getPropertyValue("height")
+				var menuWidth = window.getComputedStyle(temp).getPropertyValue("width")
+				
+				console.log("setOnce() Height : " + menuHeight + ", Width : " + menuWidth);
+				
+				var e = document.getElementById("selectResolution");
+				resolution = e.options[e.selectedIndex].value;
+				console.log("setOnce() Resolution : " + resolution);
+				var splitResolution = resolution.split(',');
+				console.log(splitResolution);
+				menuWidth = splitResolution[0];
+				menuHeight = splitResolution[1];
+				console.log("setOnce() Height : " + menuHeight + ", Width : " + menuWidth);
+			}
+			
+			
+			//Update values
 			function applyChanges(){
 				backgroundPlayer.volume = valueOutputId.value / 100;
-				console.log(backgroundPlayer.volume);
+								
+				var temp = document.getElementById('menuID');
+				var menuHeight = window.getComputedStyle(temp).getPropertyValue("height");
+				var menuWidth = window.getComputedStyle(temp).getPropertyValue("width");
+				var e = document.getElementById("selectResolution");
+				resolution = e.options[e.selectedIndex].value;
+				var splitResolution = resolution.split(',');
+				menuWidth = splitResolution[0];
+				menuHeight = splitResolution[1];
+				localStorage.setItem('menuWidth', menuWidth);
+				localStorage.setItem('menuHeight', menuHeight);
+				localStorage.setItem('selectedIndex', resolution);
+				resolution = menuWidth + "," + menuHeight;
+				
+				window.location.reload(true); 
 			}
+			
+			
+			
+			
+			
+			<!-- //Sets the cookie with values -->
+			<!-- function setCookie(cName,cValue,exDays) { -->
+				<!-- var d = new Date(); -->
+				<!-- d.setTime(d.getTime() + (exDays*24*60*60*1000)); //Hold cookie input days -->
+				<!-- var expires = "expires=" + d.toGMTString(); -->
+				<!-- document.cookie = cName + "=" + cValue + ";" + expires + ";path=/"; -->
+			<!-- } -->
+
+			<!-- //Gets the cookie values -->
+			<!-- function getCookie(cName) { -->
+				<!-- var name = cName + "="; -->
+				<!-- var decodedCookie = decodeURIComponent(document.cookie); -->
+				<!-- var ca = decodedCookie.split(';'); -->
+				<!-- for(var i = 0; i < ca.length; i++) { -->
+					<!-- var c = ca[i]; -->
+					<!-- while (c.charAt(0) == ' ') { -->
+						<!-- c = c.substring(1); -->
+					<!-- } -->
+					<!-- if (c.indexOf(name) == 0) { -->
+						<!-- return c.substring(name.length, c.length); -->
+					<!-- } -->
+				<!-- } -->
+				<!-- return ""; -->
+			<!-- } -->
+
+			<!-- //Checks if cookie's contain values -->
+			<!-- function checkCookie() { -->
+				<!-- var cookieValue = getCookie("cookieName"); -->
+				<!-- console.log("checkCookie() CookieValue : " + cookieValue); -->
+				<!-- console.log("checkCookie() Resolution : " + resolution); -->
+				<!-- if (cookieValue == resolution){ -->
+					<!-- console.log("Resolution has not changed"); -->
+					<!-- console.log(cookieValue); -->
+				<!-- } -->
+				<!-- else if (cookieValue != "" && cookieValue != resolution) { -->
+					<!-- console.log("Update cookie with new value"); -->
+					<!-- cookieValue = resolution; -->
+					<!-- setCookie("cookieName", cookieValue, 30); -->
+				<!-- } else { -->
+					<!-- console.log("Cookie was empty, filling cookie"); -->
+					<!-- cookieValue = resolution; -->
+					<!-- if (cookieValue != "" && cookieValue != null) { -->
+					   <!-- setCookie("cookieName", cookieValue, 30); //Hold cookie for 30 days -->
+					<!-- } -->
+				<!-- } -->
+			<!-- } -->
+			
+			
+
 			
 			//toggleMute
 			function toggleMute() {
