@@ -16,7 +16,10 @@
 			<li>
 				<p>Background volume : </p>
 				<div id="slidecontainer">
-					<input type="range" min="0" max="1" step="0.1" value="0.5" class="slider" id="myRange">
+					<form name="backgroundVolume">
+						<input type="range" min="0" max="1" step="0.01" value="0.5" class="slider" oninput="valueOutputId.value = parseInt(valueInputId.value * 100)" id="valueInputId">
+						<output name="valueOutputIdName" id="valueOutputId">0</output>
+					</form>
 				</div>
 			</li>
 			<li>
@@ -37,7 +40,7 @@
 	</div>
 	<div class="menuBoxButtons">
 		<ul>
-			<li><a href="#">APPLY</a></li>
+			<li><a href="#" onclick="applyChanges()">APPLY</a></li>
 			<li><a href="#">ACCEPT</a></li>
 			<li><a href="#">CANCEL</a></li>
 		</ul>

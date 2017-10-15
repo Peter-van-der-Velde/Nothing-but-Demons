@@ -22,21 +22,21 @@
 		</script>
     </head>
     <body>
+		<!-- Audio player -->
 		<audio controls autoplay id="backgroundPlayer">
-			<!-- <source src="src/audio/ambient.mp3" type="audio/mp3"> -->
+			<source src="src/audio/ambient.mp3" type="audio/mp3">
 		</audio>
-		<!-- Here comes the menu -->
-		<div class="menu" id="menuID" style="display:none;">
-			
-		</div>
 		
+		<!-- Options menu -->
+		<div class="menu" id="menuID" style="display:none;"></div>
+		
+		<!-- Actual page -->
 		<div class="wrapper" id="wrapper">
-			<!-- <img class="backgroundImage" src="src/img/mainBackground.png" alt="Background"> -->
 			<h1>Hello!</h1>
 			<a href="src/game.html">Game</a>
 			<a href="doc/jsdoc/index.html">Documentation</a>
 			<a href="src/battletest.html">battletest</a>
-		</div>
+		
 			<a onclick='toggleMute()' ><input id="unmutedButton" type="image" src="src/img/unmuted.png" class="mutingButtons" /></a>
 			<a onclick='toggleMute()' ><input id="mutedButton" type="image" src="src/img/muted.png" class="mutingButtons" /></a>
 		</div> 
@@ -89,6 +89,13 @@
 				};
 			}
 			
+			
+			//Update sound text value
+			function applyChanges(){
+				backgroundPlayer.volume = valueOutputId.value / 100;
+				console.log(backgroundPlayer.volume);
+			}
+			
 			//toggleMute
 			function toggleMute() {
 				var unmuteButton = document.getElementById("unmutedButton");
@@ -121,16 +128,5 @@
 			}
 			
 		</script>
-		<!-- <script src="src/js/global.js"></script> -->
-		<!-- <script src="src/js/three.min.js"></script> -->
-		<!-- <script src="src/js/input.js"></script> -->
-		<!-- <script src="src/js/OrbitControls.js"></script> -->
-		<!-- <script src="src/js/gameObject.js"></script> -->
-		<!-- <!-- <script src="src/js/textureBox.js"></script> -->
-		<!-- <script src="src/js/resizer.js"></script> --> -->
-		<!-- <script src="src/js/render.js"></script> -->
-		<!-- <script src="src/js/level.js"></script> -->
-		<!-- <!-- <script src="src/js/lighting.js"></script> --> -->
-		<!-- <script src="src/js/main.js"></script> -->
 	</footer>
 </html>
