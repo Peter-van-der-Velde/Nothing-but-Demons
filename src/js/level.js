@@ -11,11 +11,13 @@ class Level {
 
 		this.mainCamera = new THREE.PerspectiveCamera( 75, render.aspect, 0.1, 1000 );
     this.mainCamera.position.set(20, 20, 20);
+    this.mainCamera.lookAt(new THREE.Vector3(0, 0, 0));
 
     render.setClearColor(0xCCCCFF, 1);
 
     this.controls = new THREE.OrbitControls(this.mainCamera, render.domElement);
     this.controls.userPanSpeed = 0.1;
+
 
     let gridSize = 100;
     let gridDivisions = 100;
@@ -34,6 +36,7 @@ class Level {
     this.plane.rotation.x = -1.5708;
     this.scene.add( this.plane );
 
+
     //var dungeon = new Dungeon(dungeon, render);
     //this.scene.add(dungeon);
 
@@ -46,10 +49,12 @@ class Level {
 		//document.addEventListener( 'mousemove', function(e) { if(trigger_move) { console.log('here'); perso.moveToEvent(e); } }, false );
 		//addEventListener( 'mouseup', function(e) { console.log('up');trigger_move=false; e.stopPropagation(); return false; }, false);
 		//document.addEventListener( 'mousedown', function(e) { console.log('down'); trigger_move=true;e.stopPropagation(); perso.moveToEvent(e);  return false; }, false);
-
-
-    console.log(this.scene);
+    // console.log(this.scene);
     let b = new GameObject({scene: this.scene, model: 'models/test.json'});
+  }
+
+  add (mesh) {
+    this.scene.add(mesh);
   }
 
 }

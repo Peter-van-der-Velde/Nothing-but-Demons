@@ -1,3 +1,5 @@
+//"use strict"
+
 class cubeMovement extends THREE.Mesh
 {
   constructor (x, z, plane) {
@@ -71,7 +73,6 @@ class cubeMovement extends THREE.Mesh
     var total = distance_ab + distance_ac;
 
     console.log(distance_ab, distance_ac);
-
     var ratio_x = (total - distance_ac) / total;
     var ratio_z = (total - distance_ab) / total;
     var move_step_x = this.movementSpeed * ratio_x;
@@ -81,8 +82,9 @@ class cubeMovement extends THREE.Mesh
     this.move_step_vector.x = currentPos.x > pos.x ? (-move_step_x) : move_step_x;
     this.move_step_vector.z = currentPos.z > pos.z ? (-move_step_z) : move_step_z;
 
+    this.move_idx = 0;
+ 
     this.move_destination = pos;
-
     this.move_idx = 0;
   }
 

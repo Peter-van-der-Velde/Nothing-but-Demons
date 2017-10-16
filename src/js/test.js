@@ -1,3 +1,5 @@
+//"use strict"
+
 var Perso = function(scene, plane)
 {
 
@@ -130,16 +132,4 @@ var Perso = function(scene, plane)
       }
     }
   };
-
-
-  this.update= function(delta)
-  {
-    this.mixer.update(delta);
-
-    //this.move_step();
-    this.move_weight();
-  };
-
-
-
 };
