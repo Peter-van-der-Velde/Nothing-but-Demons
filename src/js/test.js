@@ -1,17 +1,17 @@
 var Perso = function(scene, plane)
 {
-  var self=this;
-  self.scene = scene;
-  self.plane = plane;
 
-  self.move_speed= 0.4;
+  this.scene = scene;
+  this.plane = plane;
 
-  self.is_moving=false;
+  this.move_speed= 1;
+
+  this.is_moving=false;
 
   this.create =function(options)
   {
-    let geometry = new THREE.CubeGeometry(3, 3, 3);
-    let material = new THREE.MeshLambertMaterial({color: 0xffffff});
+    var geometry = new THREE.CubeGeometry(3, 3, 3);
+    var material = new THREE.MeshLambertMaterial({color: 0xffffff});
 
     this.mesh = new THREE.SkinnedMesh( geometry, material);
     this.scene.add(this.mesh);
@@ -20,10 +20,8 @@ var Perso = function(scene, plane)
     this.mesh.receiveShadow=true;
 
     this.mesh.position.x = options.x;
-    this.mesh.position.y = 0;
+    this.mesh.position.y = 1.5;
     this.mesh.position.z = options.z;
-
-    console.log('perso ',this.mesh);
   };
 
   this.getRayPos= function(event)
@@ -63,6 +61,7 @@ var Perso = function(scene, plane)
   this.moveToEvent= function(event)
   {
     var pos = this.getRayPos(event);
+
     if(pos)
     {
       this.lookAt(pos);
@@ -131,6 +130,16 @@ var Perso = function(scene, plane)
       }
     }
   };
+
+
+  this.update= function(delta)
+  {
+    this.mixer.update(delta);
+
+    //this.move_step();
+    this.move_weight();
+  };
+
 
 
 };

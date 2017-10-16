@@ -9,10 +9,10 @@ class Level {
     this.scene = new THREE.Scene();
     this.levelName = levelName;
 
-
 		this.mainCamera = new THREE.PerspectiveCamera( 75, render.aspect, 0.1, 1000 );
     this.mainCamera.position.set(20, 20, 20);
 
+    render.setClearColor(0xCCCCFF, 1);
 
     this.controls = new THREE.OrbitControls(this.mainCamera, render.domElement);
     this.controls.userPanSpeed = 0.1;
@@ -25,25 +25,27 @@ class Level {
 
     //Texture loader
     this.loader = new THREE.TextureLoader();
-    this.floorTexture = this.loader.load("img/floorTexture.png");
+    this.floorTexture = this.loader.load("img/floorTexture1.png");
 
     //Create plane
-    this.geometry = new THREE.PlaneGeometry( 20, 20, 1 );
+    this.geometry = new THREE.PlaneGeometry( 100, 100, 1 );
     this.material = new THREE.MeshBasicMaterial( {map: this.floorTexture} );
     this.plane = new THREE.Mesh( this.geometry, this.material );
     this.plane.rotation.x = -1.5708;
     this.scene.add( this.plane );
 
-		//this.cube = new cubeMovement (0,0, this.plane);
-		//this.scene.add(this.cube);
+    //var dungeon = new Dungeon(dungeon, render);
+    //this.scene.add(dungeon);
 
-    var perso = new Perso(this.scene, this.plane);
-    perso.create({x: 0, z: 0});
 
-		var trigger_move= false;
-		document.addEventListener( 'mousemove', function(e) { if(trigger_move) { console.log('here'); perso.moveToEvent(e); } }, false );
-		addEventListener( 'mouseup', function(e) { console.log('up');trigger_move=false; e.stopPropagation(); return false; }, false);
-		document.addEventListener( 'mousedown', function(e) { console.log('down'); trigger_move=true;e.stopPropagation(); perso.moveToEvent(e);  return false; }, false);
+
+    //var perso = new Perso(this.scene, this.plane);
+    //perso.create({x: 0, z: 0});
+
+		//var trigger_move= false;
+		//document.addEventListener( 'mousemove', function(e) { if(trigger_move) { console.log('here'); perso.moveToEvent(e); } }, false );
+		//addEventListener( 'mouseup', function(e) { console.log('up');trigger_move=false; e.stopPropagation(); return false; }, false);
+		//document.addEventListener( 'mousedown', function(e) { console.log('down'); trigger_move=true;e.stopPropagation(); perso.moveToEvent(e);  return false; }, false);
 
 
     console.log(this.scene);

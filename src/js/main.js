@@ -9,7 +9,7 @@ function init(){
 
 
   render = new Render(true, window.innerWidth, window.innerHeight);
-  testLevel = new Level("testLevel", render);
+  testLevel = new Dungeon("dungeon", render);
 
 	// Create an event listener that resizes the renderer with the browser window.
 	window.addEventListener('resize', function() {
@@ -18,6 +18,7 @@ function init(){
 		render.setSize(WIDTH, HEIGHT);
 		testLevel.mainCamera.aspect = WIDTH / HEIGHT;
 		testLevel.mainCamera.updateProjectionMatrix();
+
 	});
 
 	// MODEL
