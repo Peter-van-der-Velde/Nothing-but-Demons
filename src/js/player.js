@@ -17,7 +17,11 @@
 class Player extends Living {
     
     constructor (name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, playerClass) {
+
         super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
+        
+        this.input = new Input(); 
+        
         var geometry = new THREE.BoxGeometry( 1, 1, 1 );
         var material = new THREE.MeshNormalMaterial();
         this.mesh = new THREE.Mesh( geometry, material );
@@ -101,6 +105,9 @@ class Player extends Living {
     update(dt) {
         if (hp <= 0)
             this.die();
+
+        if(this.input.click)
+            this.move(dt);
     }
 
     /**
@@ -111,24 +118,27 @@ class Player extends Living {
         // reset to last shrine/bonfire/savespot
     }
 
-    move() {
+    move(dt) {
+        let rayPos = getRayPos();
+
+        //if (rayPos)
 
     }
 
-    // getRayPos(event){
-    //     var raycaster = new THREE.Raycaster();
-    //     var mouse = new THREE.Vector2();
-    //     mouse.x = (event.clientX / render.domElement.width) * 2 - 1;
-    //     mouse.y = -(event.clientX / render.domElement.width) * 2 + 1;
+    getRayPos(){
+        var raycaster = new THREE.Raycaster();
+        var mouse = new THREE.Vector2();
+        mouse.x = (event.clientX / render.domElement.width) * 2 - 1;
+        mouse.y = -(event.clientX / render.domElement.width) * 2 + 1;
         
-    //     raycaster.setFromCamera(mouse, camera);
+        raycaster.setFromCamera(mouse, camera);
         
-    //     var intersects = raycaster.intersectObjects([plane], false);
+        var intersects = raycaster.intersectObjects([plane], false);
         
-    //     if (intersects.length > 0) {
-    //         return intersects[0].point;
-    //     }
-    //     return null;
-    // }
+        if (intersects.length > 0) {
+            return intersects[0].point;
+        }
+        return null;
+    }
 
 }

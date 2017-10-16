@@ -1,3 +1,4 @@
+"use strict";
 class Input {
   constructor() {
     this.left = false;
@@ -6,33 +7,28 @@ class Input {
     this.down = false;
     this.space = false;
 
-    this.trigger_move;
-
-    document.addEventListener( 'mousemove', function(e) 
-    { 
-      if(trigger_move) {
-         console.log('here');
-         //perso.moveToEvent(e);
-      }
-    }, false );
-
-    addEventListener( 'mouseup', function(e) {
-      console.log('up');
-      trigger_move = false;
-      e.stopPropagation();
-      return false;
-    }, false);
-
-		document.addEventListener( 'mousedown', function(e) {
-      console.log('down');
-      trigger_move = true;
-      e.stopPropagation();
-      perso.moveToEvent(e);
-      return false;
-     }, false);
+    this.mouseDown = false;
+    this.click = false;
   }
 
   update() {
+    this.click = false;
+
+    document.onmousedown = (e) => {
+      e = e || window.event;
+
+      if (e.buttons === 1) {
+        this.mouseDown = true;
+      }
+    }
+
+    document.onmouseup = (e) => {
+      e = e || window.event;
+
+      this.click = true;
+      this.mouseDown = false;
+    }
+
     document.onkeydown = (e) => {
       e = e || window.event;
 

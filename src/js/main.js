@@ -1,4 +1,4 @@
-var WIDTH, HEIGHT, testLevel, aspect, controls, delta, fps, frameCount, timer;
+var WIDTH, HEIGHT, testLevel, aspect, controls, delta, fps, frameCount, timer, input;
 
 init();
 animate();
@@ -6,6 +6,7 @@ animate();
 function init(){
 	timer = new THREE.Clock();
   frameCount = 20;
+	input = new Input();
 
 	//player
 	var ironShield = new Weapon(name = "iron shield", value = "1", power = "0", defense = "3", attackRange = 0, attackSpeed = 0);
@@ -19,7 +20,6 @@ function init(){
   render = new Render(true, window.innerWidth, window.innerHeight);
 	testLevel = new Level("testLevel", render);
 	testLevel.add(player.mesh);
-	
 
 	// Create an event listener that resizes the renderer with the browser window.
 	window.addEventListener('resize', function() {
@@ -31,7 +31,7 @@ function init(){
 	});
 
 
-	
+
 	// MODEL
 	// var loader = new THREE.JSONLoader();
 	// loader.load('models/test.json', handle_load());
@@ -60,6 +60,8 @@ function animate() {
 		//changeOpacity();
 		//console.log("hia");
 	}, 1000);
+
+	input.update();
 
 	// Render the scene.
 	render.render(testLevel.scene, testLevel.mainCamera);
