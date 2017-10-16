@@ -33,7 +33,7 @@ class Level {
     this.plane = new THREE.Mesh( this.geometry, this.material );
     this.plane.rotation.x = -1.5708;
     this.scene.add( this.plane );
-
+    
 		//this.cube = new cubeMovement (0,0, this.plane);
 		//this.scene.add(this.cube);
 
