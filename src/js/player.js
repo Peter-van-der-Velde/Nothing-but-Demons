@@ -18,7 +18,9 @@ class Player extends Living {
     
     constructor (name, hp, mp, strength, speed, intelligence, level, experiencePoints, items, weapons, playerClass) {
         super(name, hp, mp, strength, speed, intelligence, level, experiencePoints, items, weapons);
-
+        var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+        var material = new THREE.MeshNormalMaterial();
+        this.mesh = new THREE.Mesh( geometry, material );
         this.playerClass = playerClass;
         calcDerivedStats();
     }
@@ -105,6 +107,26 @@ class Player extends Living {
     die() {
         alert("Game Over, you died.");
         // reset to last shrine/bonfire/savespot
+    }
+
+    move() {
+
+    }
+
+    getRayPos(event){
+        var raycaster = new THREE.Raycaster();
+        var mouse = new THREE.Vector2();
+        mouse.x = (event.clientX / render.domElement.width) * 2 - 1;
+        mouse.y = -(event.clientX / render.domElement.width) * 2 + 1;
+        
+        raycaster.setFromCamera(mouse, camera);
+        
+        var intersects = raycaster.intersectObjects([plane], false);
+        
+        if (intersects.length > 0) {
+            return intersects[0].point;
+        }
+        return null;
     }
 
 }
