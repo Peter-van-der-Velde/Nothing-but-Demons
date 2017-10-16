@@ -6,13 +6,16 @@ animate();
 function init(){
 	timer = new THREE.Clock();
   frameCount = 20;
+	input = new Input();
 
 	//player
-	var ironShield = new Weapon({name: "iron shield", value: "1", power: "0", defense: "3", attackRange: 0, attackSpeed: 0});
-	var ironSword = new Weapon({name: "iron sword", value: 1, power: 4, defense: 0.5, attackReange: 2, attackSpeed: 1});
-	// var player =  new Player ({name: "Sparhawk", hp: 35, mp: 20, strength: 7, defense: 4, speed: 4, intelligence: 35, level: 5, experiencePoints: 12, items: undefined, weapons: [ironSword, ironShield, ironShield, ironShield], playerClass: "Black Mage"});
-	// var enemy =  new Enemy ({name: "Fred der Goblin", hp: 25, mp: 10, strength: 9, defense: 5, speed: 3, intelligence: 250, level: 3, experiencePoints: 9, items: undefined, weapons: [ironSword, ironShield, ironShield, ironShield]});
-	input = new Input();
+	var ironShield = new Weapon(name = "iron shield", value = "1", power = "0", defense = "3", attackRange = 0, attackSpeed = 0);
+	var ironSword = new Weapon(name = "iron sword", value = 1, power = 4, defense = 0.5, attackReange = 2, attackSpeed = 1);
+	var player =  new Player (name = "Sparhawk", hp = 35, mp = 20, strength = 7, defense = 4, speed = 4, intelligence = 35, level = 5, experiencePoints = 12, items = undefined, weapons = [ironSword, ironShield, ironShield, ironShield], playerClass = "Black Mage");
+	var enemy =  new Enemy (name = "Fred der Goblin", hp = 25, mp = 10, strength = 9, defense = 5, speed = 3, intelligence = 250, level = 3, experiencePoints = 9, items = undefined, weapons = [ironSword, ironShield, ironShield, ironShield]);
+	console.log(player);
+	console.log(enemy);
+
 
   render = new Render(true, window.innerWidth, window.innerHeight);
 	testLevel = new Level("testLevel", render);
@@ -49,7 +52,7 @@ function animate() {
 
 	if (frameCount < 20) {frameCount++;}
 	else {
-		document.getElementById("fps-display").textContent="FPS: " + fps;
+		document.getElementById("fps-display").textContent="FPS = " + fps;
 		frameCount = 0;
 	}
 

@@ -40,11 +40,6 @@ class Level {
     //var perso = new Perso(this.scene, this.plane);
     //perso.create({x: 0, z: 0});
 
-		// var trigger_move= false;
-		// document.addEventListener( 'mousemove', function(e) { if(trigger_move) { console.log('here'); perso.moveToEvent(e); } }, false );
-		// addEventListener( 'mouseup', function(e) { console.log('up');trigger_move=false; e.stopPropagation(); return false; }, false);
-		// document.addEventListener( 'mousedown', function(e) { console.log('down'); trigger_move=true;e.stopPropagation(); perso.moveToEvent(e);  return false; }, false);
-
 
     // console.log(this.scene);
     let b = new GameObject({scene: this.scene, model: 'models/test.json'});

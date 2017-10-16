@@ -35,7 +35,7 @@ class Living {
         this.totalDefense
         this.luck = 0;
 
-        this.calcDerivedStats();
+        //this.calcDerivedStats();
     }
 
 
