@@ -21,8 +21,10 @@ class Player extends Living {
         var geometry = new THREE.BoxGeometry( 1, 1, 1 );
         var material = new THREE.MeshNormalMaterial();
         this.mesh = new THREE.Mesh( geometry, material );
+        this.mesh.position.set(0, 1, 0);
         this.playerClass = playerClass;
-        //calcDerivedStats();
+
+        this.calcDerivedStats();
     }
 
     /**

@@ -18,6 +18,7 @@ function init(){
 
   render = new Render(true, window.innerWidth, window.innerHeight);
 	testLevel = new Level("testLevel", render);
+	testLevel.add(player.mesh);
 	
 
 	// Create an event listener that resizes the renderer with the browser window.
@@ -51,7 +52,7 @@ function animate() {
 
 	if (frameCount < 20) {frameCount++;}
 	else {
-		document.getElementById("fps-display").textContent="FPS = " + fps;
+		document.getElementById("fps-display").textContent="FPS: " + fps;
 		frameCount = 0;
 	}
 
