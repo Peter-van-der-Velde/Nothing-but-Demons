@@ -1,3 +1,4 @@
+"use strict";
 class Input {
   constructor() {
     this.left = false;
@@ -5,9 +6,29 @@ class Input {
     this.up = false;
     this.down = false;
     this.space = false;
+
+    this.mouseDown = false;
+    this.click = false;
   }
 
   update() {
+    this.click = false;
+
+    document.onmousedown = (e) => {
+      e = e || window.event;
+
+      if (e.buttons === 1) {
+        this.mouseDown = true;
+      }
+    }
+
+    document.onmouseup = (e) => {
+      e = e || window.event;
+
+      this.click = true;
+      this.mouseDown = false;
+    }
+
     document.onkeydown = (e) => {
       e = e || window.event;
 
