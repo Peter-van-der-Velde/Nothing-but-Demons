@@ -38,6 +38,7 @@
 					var savedMenuWidth = localStorage.getItem('menuWidth');
 					var savedMenuHeight = localStorage.getItem('menuHeight');	
 					var savedSelectedIndex = localStorage.getItem('selectedIndex');
+
 					var temp = document.getElementById('menuID');
 					var e = document.getElementById("selectResolution");
 					if(savedMenuWidth == ""){
@@ -51,6 +52,7 @@
 						console.log(savedSelectedIndex);
 						e.value = savedSelectedIndex;
 					}
+
 
 					//checkCookie();
 				}
@@ -70,27 +72,37 @@
 		
 		<!-- Actual page -->
 		<div class="wrapper" id="wrapper">
-			<h1>Hello!</h1>
-			<a href="src/game.html">Game</a>
-			<a href="doc/jsdoc/index.html">Documentation</a>
-			<a href="src/battletest.html">battletest</a>
-		
-			<a onclick='toggleMute()' ><input id="unmutedButton" type="image" src="src/img/unmuted.png" class="mutingButtons" /></a>
-			<a onclick='toggleMute()' ><input id="mutedButton" type="image" src="src/img/muted.png" class="mutingButtons" /></a>
+			<div class="contentWrapper">
+				<h1>Nothing but Demons</h1>
+				<div class="button" id="button">
+					<a href="src/game.html">Play<span class="shift">›</span></a>
+					<div class="mask"></div>
+				</div>
+				<div class="button" id="button">
+					<a href="doc/jsdoc/index.html">Documentation<span class="shift">›</span></a>
+					<div class="mask"></div>
+				</div>
+				<div class="button" id="button">
+					<a href="src/battletest.html">Test the battle<span class="shift">›</span></a>
+					<div class="mask"></div>
+				</div>
+				<a onclick='toggleMute()' ><input id="unmutedButton" type="image" src="src/img/unmuted.png" class="mutingButtons" /></a>
+				<a onclick='toggleMute()' ><input id="mutedButton" type="image" src="src/img/muted.png" class="mutingButtons" /></a>
+			</div>
+			
 		</div> 
     </body>
 	<footer>
 		<script>
 			var resolution = "";
+
 			//toggleMenu
 			document.onkeydown = (e) => {
 				e = e || window.event;
 		  
 				if (e.keyCode === 27) {
 				    console.log("esc is pressed");
-				    var menu = document.getElementById("menuID");				 
-				  
-				    
+				    var menu = document.getElementById("menuID");
 				    console.log(menu);
 				    if(menu.style.display == "none"){
 						console.log("block");
@@ -134,8 +146,8 @@
 			
 			//Sets resolution for the first time
 			function setOnce(){
-				var savedMenuWidth = localStorage.getItem('menuWidth') || 1920;
-				var savedMenuHeight = localStorage.getItem('menuHeight') || 1080;
+				var savedMenuWidth = localStorage.getItem('menuWidth');
+				var savedMenuHeight = localStorage.getItem('menuHeight');
 				console.log("Saved values : " + savedMenuWidth + savedMenuHeight);
 				
 				var temp = document.getElementById('menuID');
@@ -152,13 +164,32 @@
 				menuWidth = splitResolution[0];
 				menuHeight = splitResolution[1];
 				console.log("setOnce() Height : " + menuHeight + ", Width : " + menuWidth);
+				setVolume();
 			}
-			
+
+			function setVolume(){
+                var backgroundPlayer = document.getElementById('backgroundPlayer');
+                localStorage.setItem('lorem', valueOutputId.value/100);
+                var lorem = localStorage.getItem('lorem');
+                console.log(lorem);
+                backgroundPlayer.volume = lorem;
+                /*var savedSelectedBGVolume = localStorage.getItem('selectedBGVolume');
+                backgroundPlayer.volume = valueOutputId.value / 100;
+			    if(savedSelectedBGVolume == ""){
+                    localStorage.setItem('selectedBGVolume', 50);
+                    console.log("SavedBGVolume was empty, filled it with" + savedSelectedBGVolume);
+                }
+                else{
+                    localStorage.setItem('selectedBGVolume', backgroundPlayer.volume);
+                    savedSelectedBGVolume = localStorage.getItem('selectedBGVolume');
+                    backgroundPlayer.volume = savedSelectedBGVolume;
+				}*/
+			}
+
 			
 			//Update values
 			function applyChanges(){
-				backgroundPlayer.volume = valueOutputId.value / 100;
-								
+				setVolume();
 				var temp = document.getElementById('menuID');
 				var menuHeight = window.getComputedStyle(temp).getPropertyValue("height");
 				var menuWidth = window.getComputedStyle(temp).getPropertyValue("width");
@@ -174,57 +205,8 @@
 				
 				window.location.reload(true); 
 			}
-			
-			
-			
-			
-			
-			<!-- //Sets the cookie with values -->
-			<!-- function setCookie(cName,cValue,exDays) { -->
-				<!-- var d = new Date(); -->
-				<!-- d.setTime(d.getTime() + (exDays*24*60*60*1000)); //Hold cookie input days -->
-				<!-- var expires = "expires=" + d.toGMTString(); -->
-				<!-- document.cookie = cName + "=" + cValue + ";" + expires + ";path=/"; -->
-			<!-- } -->
 
-			<!-- //Gets the cookie values -->
-			<!-- function getCookie(cName) { -->
-				<!-- var name = cName + "="; -->
-				<!-- var decodedCookie = decodeURIComponent(document.cookie); -->
-				<!-- var ca = decodedCookie.split(';'); -->
-				<!-- for(var i = 0; i < ca.length; i++) { -->
-					<!-- var c = ca[i]; -->
-					<!-- while (c.charAt(0) == ' ') { -->
-						<!-- c = c.substring(1); -->
-					<!-- } -->
-					<!-- if (c.indexOf(name) == 0) { -->
-						<!-- return c.substring(name.length, c.length); -->
-					<!-- } -->
-				<!-- } -->
-				<!-- return ""; -->
-			<!-- } -->
 
-			<!-- //Checks if cookie's contain values -->
-			<!-- function checkCookie() { -->
-				<!-- var cookieValue = getCookie("cookieName"); -->
-				<!-- console.log("checkCookie() CookieValue : " + cookieValue); -->
-				<!-- console.log("checkCookie() Resolution : " + resolution); -->
-				<!-- if (cookieValue == resolution){ -->
-					<!-- console.log("Resolution has not changed"); -->
-					<!-- console.log(cookieValue); -->
-				<!-- } -->
-				<!-- else if (cookieValue != "" && cookieValue != resolution) { -->
-					<!-- console.log("Update cookie with new value"); -->
-					<!-- cookieValue = resolution; -->
-					<!-- setCookie("cookieName", cookieValue, 30); -->
-				<!-- } else { -->
-					<!-- console.log("Cookie was empty, filling cookie"); -->
-					<!-- cookieValue = resolution; -->
-					<!-- if (cookieValue != "" && cookieValue != null) { -->
-					   <!-- setCookie("cookieName", cookieValue, 30); //Hold cookie for 30 days -->
-					<!-- } -->
-				<!-- } -->
-			<!-- } -->
 			
 			
 
