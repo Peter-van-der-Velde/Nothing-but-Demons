@@ -51,5 +51,5 @@ function animate() {
 
 	// Render the scene.
 	render.render(testLevel.scene, testLevel.mainCamera);
-	testLevel.controls.update();
+	//testLevel.controls.update();
 }

@@ -12,10 +12,10 @@ class Level {
 
 		this.mainCamera = new THREE.PerspectiveCamera( 75, render.aspect, 0.1, 1000 );
     this.mainCamera.position.set(20, 20, 20);
+    this.mainCamera.lookAt(new THREE.Vector3(0, 0, 0));
 
-
-    this.controls = new THREE.OrbitControls(this.mainCamera, render.domElement);
-    this.controls.userPanSpeed = 0.1;
+    // this.controls = new THREE.OrbitControls(this.mainCamera, render.domElement);
+    // this.controls.userPanSpeed = 0.1;
 
     let gridSize = 100;
     let gridDivisions = 100;

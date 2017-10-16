@@ -1,3 +1,5 @@
+"use strict"
+
 var Perso = function(scene, plane)
 {
 	var self=this;
@@ -89,8 +91,8 @@ var Perso = function(scene, plane)
 
 		var ratio_x = (total-distance_ac) / total;
 		var ratio_z = (total-distance_ab) / total;
-		move_step_x = this.move_speed * ratio_x;
-		move_step_z = this.move_speed * ratio_z;
+		var move_step_x = this.move_speed * ratio_x;
+		var move_step_z = this.move_speed * ratio_z;
 
 		this.move_step_vector = new THREE.Vector2();
 		this.move_step_vector.x = current_pos.x>pos.x ?  (- move_step_x) : move_step_x;
