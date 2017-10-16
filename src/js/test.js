@@ -1,141 +1,118 @@
-var Perso = function(scene, plane)
+class cubeMovement extends THREE.Mesh
 {
-	var self=this;
-	self.scene = scene;
-	self.plane = plane;
+  constructor (x, z, plane) {
 
-	self.move_speed= 0.4;
+    let geometry = new THREE.CubeGeometry(3, 3, 3);
+    let material = new THREE.MeshLambertMaterial({color: 0xffffff});
+    super(geometry, material);
 
-	self.is_moving=false;
+    this.movementSpeed = 1;
+    this.isMoving = false;
+    this.position.x = x;
+    this.position.y = 1.5;
+    this.position.z = z;
 
-	this.create =function(options)
-	{
-		let geometry = new THREE.CubeGeometry(3, 3, 3);
-		let material = new THREE.MeshLambertMaterial({color: 0xffffff});
+  }
+  getRayPos(event){
 
-		this.mesh = new THREE.SkinnedMesh( geometry, material);
-		this.scene.add(this.mesh);
+    var raycaster = new THREE.Raycaster();
+    var mouse = new THREE.Vector2();
+    mouse.x = (event.clientX / render.domElement.width) * 2 - 1;
+    mouse.y = -(event.clientX / render.domElement.width) * 2 + 1;
 
-		this.mesh.castShadow=true;
-		this.mesh.receiveShadow=true;
+    raycaster.setFromCamera(mouse, camera);
 
-		this.mesh.position.x = options.x;
-		this.mesh.position.y = 0;
-		this.mesh.position.z = options.z;
+    var intersects = raycaster.intersectObjects([plane], false);
 
-		console.log('perso ',this.mesh);
-	};
+    if (intersects.length > 0) {
+      return intersects[0].point;
+    }
+    return null;
+  }
 
-	this.getRayPos= function(event)
-	{
-		var raycaster = new THREE.Raycaster();
-		var mouse = new THREE.Vector2();
-		mouse.x = ( event.clientX / render.domElement.width ) * 2 - 1;
-		mouse.y = - ( event.clientY / render.domElement.height ) * 2 + 1;
+  lookAtEvent(event){
 
-		raycaster.setFromCamera( mouse, testLevel.mainCamera );
+    var pos = this.getRayPos(event);
+    if(pos)
+    {
+      this.lookAt(pos);
+    }
+  }
 
-		var intersects = raycaster.intersectObjects( [plane], false );
+  lookAt(pos){
 
-		if ( intersects.length > 0 ) {
-			return intersects[0].point;
-		}
-		return null;
-	}
+    if (this)
+    {
+      this.lookAt(pos);
+    }
+  }
 
-	this.lookAtEvent= function(event)
-	{
-		var pos = this.getRayPos(event);
-		if(pos)
-		{
-			this.lookAt(pos);
-		}
-	}
+  moveToEvent(event){
 
-	this.lookAt= function(pos)
-	{
-		if(this.mesh)
-		{
-			this.mesh.lookAt(pos);
-		}
-	}
+    var pos = this.getRayPos(event);
+    if(pos){
+      this.lookAt(pos);
+      this.moveTo(pos);
+    }
+  }
 
-	this.moveToEvent= function(event)
-	{
-		var pos = this.getRayPos(event);
-		if(pos)
-		{
-			this.lookAt(pos);
-			this.moveTo(pos);
-		}
-	}
+  moveTo(pos){
 
-	this.moveTo= function(pos)
-	{
-		var current_pos = this.mesh.position;
-		// Last part of moving
-		if(current_pos.equals(pos))
-		{
-			return;
-		}
-		this.is_moving=true;
+    var currentPos = this.position;
+    console.log(currentPos);
 
-		// A: bottom right rectangle
-		// B: start
-		// C: destination
-		var distance_ab = Math.abs(current_pos.x - pos.x);
-		var distance_ac = Math.abs(current_pos.z - pos.z);
-		var total = distance_ab + distance_ac;
+    if (currentPos === pos) {
+      return;
+    }
+    this.isMoving = true;
 
-		var ratio_x = (total-distance_ac) / total;
-		var ratio_z = (total-distance_ab) / total;
-		move_step_x = this.move_speed * ratio_x;
-		move_step_z = this.move_speed * ratio_z;
+    var distance_ab = Math.abs(currentPos.x - pos.x);
+    var distance_ac = Math.abs(currentPos.z - pos.z);
+    var total = distance_ab + distance_ac;
 
-		this.move_step_vector = new THREE.Vector2();
-		this.move_step_vector.x = current_pos.x>pos.x ?  (- move_step_x) : move_step_x;
-		this.move_step_vector.z = current_pos.z>pos.z ?  (- move_step_z) : move_step_z;
+    console.log(distance_ab, distance_ac);
 
-		console.log('tests ',current_pos.x>pos.x,  current_pos.y>pos.y);
-		console.log('FROM ',current_pos);
-		console.log('move steps vector ',this.move_step_vector);
-		console.log('TO ',pos);
+    var ratio_x = (total - distance_ac) / total;
+    var ratio_z = (total - distance_ab) / total;
+    var move_step_x = this.movementSpeed * ratio_x;
+    var move_step_z = this.movementSpeed * ratio_z;
 
-		// Actually moving...
-		this.move_destination = pos;
-		this.move_idx=0;
-	};
+    this.move_step_vector = new THREE.Vector2();
+    this.move_step_vector.x = currentPos.x > pos.x ? (-move_step_x) : move_step_x;
+    this.move_step_vector.z = currentPos.z > pos.z ? (-move_step_z) : move_step_z;
 
-	this.move_step= function()
-	{
-		if(this.is_moving)
-		{
-			this.move_idx++;
-			var moving=0;
-			if(Math.abs(this.mesh.position.x - this.move_destination.x) > this.move_speed || Math.abs(this.mesh.position.z - this.move_destination.z) > this.move_speed)
-			{
-				moving++;
-				this.mesh.position.add(this.move_step_vector);
-			}
-			else
-			{
-				this.mesh.position.setX(this.move_destination.x);
-				this.mesh.position.setZ(this.move_destination.z);
-			}
-			if(!moving)
-			{
-				this.is_moving=false;
-				this.move_destination=null;
-			}
-		}
-	};
+    this.move_destination = pos;
 
-	this.update= function(delta)
-	{
+    this.move_idx = 0;
+  }
 
+  move_step(){
+    if (this.isMoving) {
 
-		this.move_step();
+      this.move_idx++;
+      var moving = 0;
 
-	};
+      if (Math.abs(this.position.x - this.move_destination.x) > this.movementSpeed || Math.abs(this.position.z - this.move_destination.z) > this.movementSpeed) {
 
-};
+        moving++;
+        this.position.add(this.move_step_vector);
+        console.log(moving);
+      }
+      else {
+
+        this.position.setX(this.move_destination.x);
+        this.position.setZ(this.move_destination.z);
+      }
+      if (!moving) {
+
+        this.isMoving = false;
+        this.move_destination = null;
+      }
+    }
+  }
+
+  update(){
+    this.move_step();
+  }
+
+}
