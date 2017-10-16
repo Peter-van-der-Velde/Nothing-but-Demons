@@ -6,7 +6,6 @@ animate();
 function init(){
 	timer = new THREE.Clock();
   frameCount = 20;
-	input = new Input();
 
 	//player
 	var ironShield = new Weapon(name = "iron shield", value = "1", power = "0", defense = "3", attackRange = 0, attackSpeed = 0);
@@ -60,8 +59,6 @@ function animate() {
 		//changeOpacity();
 		//console.log("hia");
 	}, 1000);
-
-	input.update();
 
 	// Render the scene.
 	render.render(testLevel.scene, testLevel.mainCamera);

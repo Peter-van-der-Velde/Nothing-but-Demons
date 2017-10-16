@@ -108,10 +108,12 @@ class Player extends Living {
         
         this.input.update();
 
-        if(this.input.click) {
-            console.log("click");
-            this.move(dt);
-        }
+        console.log(this.input.click);
+
+        // if(this.input.click) {
+        //     console.log("click");
+        //     this.move(dt);
+        // }
     }
 
     /**
