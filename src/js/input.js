@@ -24,7 +24,6 @@ class Input {
 
     document.onmousemove = (e) => {
       this.mouseLocation.set(e.clientX, e.clientY);
-      console.log(this.mouseLocation);
     }
 
     document.onmousedown = (e) => {
@@ -42,7 +41,6 @@ class Input {
       this.click = true;
       this.mouseDown = false;
       this.clickedOnce = true;
-      console.log('up');
     }
 
     document.onkeydown = (e) => {
