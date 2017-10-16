@@ -6,13 +6,19 @@ class Input {
     this.up = false;
     this.down = false;
     this.space = false;
+
     this.mouseDown = false;
     this.click = false;
-    this.clickLocation = new THREE.Vector2(0, 0);
+    this.mouseLocation = new THREE.Vector2(0, 0);
   }
 
   update() {
     this.click = false;
+
+    document.onmousemove = (e) => {
+      this.mouseLocation.set(e.clientX, e.clientY);
+      console.log(this.mouseLocation);
+    }
 
     document.onmousedown = (e) => {
       e = e || window.event;
@@ -27,7 +33,6 @@ class Input {
 
       this.click = true;
       this.mouseDown = false;
-      this.clickLocation.set(e.clientX, e.clientY);
     }
 
     document.onkeydown = (e) => {
