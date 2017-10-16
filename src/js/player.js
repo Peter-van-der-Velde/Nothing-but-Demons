@@ -104,10 +104,14 @@ class Player extends Living {
      */
     update(dt) {
         if (hp <= 0)
-            this.die();
+        this.die();
+        
+        this.input.update();
 
-        if(this.input.click)
+        if(this.input.click) {
+            console.log("click");
             this.move(dt);
+        }
     }
 
     /**
@@ -121,15 +125,17 @@ class Player extends Living {
     move(dt) {
         let rayPos = getRayPos();
 
-        //if (rayPos)
+        console.log(rayPos);
 
+        if (rayPos)
+            console.log(rayPos);
     }
 
     getRayPos(){
         var raycaster = new THREE.Raycaster();
         var mouse = new THREE.Vector2();
-        mouse.x = (event.clientX / render.domElement.width) * 2 - 1;
-        mouse.y = -(event.clientX / render.domElement.width) * 2 + 1;
+        mouse.x = (this.input.clickLocation.x / render.domElement.width) * 2 - 1;
+        mouse.y = -(this.input.clickLocation.y / render.domElement.width) * 2 + 1;
         
         raycaster.setFromCamera(mouse, camera);
         
