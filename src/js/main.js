@@ -48,8 +48,8 @@ function animate() {
 
 	if (frameCount < 20) {frameCount++;}
 	else {
-		document.getElementById("fps-display").textContent="FPS: " + fps;
-		frameCount = 0;
+		// document.getElementById("fps-display").textContent="FPS: " + fps;
+		// frameCount = 0;
 	}
 
 	setTimeout(function(){
