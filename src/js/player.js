@@ -126,6 +126,7 @@ class Player extends Living {
     move(dt) {
         if(this.input.click) {
             this.destination = this.getRayPos(this.scene);
+            this.mesh.lookAt(new THREE.Vector3(this.destination.x, this.mesh.position.y, this.destination.z));
         }
 
         
