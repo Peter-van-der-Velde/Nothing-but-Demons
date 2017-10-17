@@ -16,7 +16,7 @@
  */
 class Player extends Living {
     
-    constructor (name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, playerClass,  camera) {
+    constructor (name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, playerClass,  camera, scene) {
 
         super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
         
@@ -29,6 +29,7 @@ class Player extends Living {
         this.playerClass = playerClass;
 
         this.calcDerivedStats();
+        this.scene = scene;
     }
 
     /**
@@ -123,7 +124,7 @@ class Player extends Living {
     }
 
     move(dt) {
-        let rayPos = this.getRayPos();
+        let rayPos = this.getRayPos(this.scene);
 
         console.log(rayPos);
 
@@ -131,15 +132,20 @@ class Player extends Living {
             console.log(rayPos);
     }
 
-    getRayPos() {
-        var raycaster = new THREE.Raycaster();
+    getRayPos(scene) {
         var mouse = new THREE.Vector2();
         mouse.x = (this.input.mouseLocation.x / render.domElement.width) * 2 - 1;
         mouse.y = -(this.input.mouseLocation.y / render.domElement.width) * 2 + 1;
         
-        raycaster.setFromCamera(mouse, camera);
+        var raycaster = new THREE.Raycaster();
         
-        var intersects = raycaster.intersectObjects([plane], false);
+        var vector = new THREE.Vector3( mouse.x, mouse.y, 1 ).unproject( camera );
+        
+        raycaster.set( camera.position, vector.sub( camera.position ).normalize() );
+        
+        var intersects = raycaster.intersectObjects( scene.children );
+        
+        //INTERSECTED = intersects[ 0 ].object;
         
         if (intersects.length > 0) {
             return intersects[0].point;
