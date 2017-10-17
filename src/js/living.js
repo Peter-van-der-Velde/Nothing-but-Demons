@@ -38,6 +38,7 @@ class Living {
         this.calcDerivedStats();
     }
 
+
     /**
      * calculates the derived stats
      * derived stats are for example: totalAttack;

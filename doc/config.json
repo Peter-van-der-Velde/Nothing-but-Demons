@@ -1,6 +1,7 @@
 {
   "source": {
-    "include": ["./src/js"]
+    "include": ["./src/js"],
+    "exclude": ["./src/js/lib"]
   },
   "opts": {
     "recurse": true,

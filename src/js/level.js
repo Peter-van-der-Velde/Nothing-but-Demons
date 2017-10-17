@@ -9,11 +9,13 @@ class Level {
     this.scene = new THREE.Scene();
     this.levelName = levelName;
 
-    this.mainCamera = new THREE.PerspectiveCamera( 75, render.aspect, 0.1, 1000 );
-    this.mainCamera.position.set(20, 20, 20);
 
-    this.controls = new THREE.OrbitControls(this.mainCamera, render.domElement);
-    this.controls.userPanSpeed = 0.1;
+		this.mainCamera = new THREE.PerspectiveCamera( 75, render.aspect, 1, 1000 );
+    this.mainCamera.position.set(20, 20, 20);
+    this.mainCamera.lookAt(new THREE.Vector3(0, 0, 0));
+
+    // this.controls = new THREE.OrbitControls(this.mainCamera, render.domElement);
+    // this.controls.userPanSpeed = 0.1;
 
     let gridSize = 100;
     let gridDivisions = 100;
@@ -26,21 +28,25 @@ class Level {
     this.floorTexture = this.loader.load("img/floorTexture.png");
 
     //Create plane
-    this.geometry = new THREE.PlaneGeometry( 50, 50, 1 );
+    this.geometry = new THREE.PlaneGeometry( 20, 20, 1 );
     this.material = new THREE.MeshBasicMaterial( {map: this.floorTexture} );
     this.plane = new THREE.Mesh( this.geometry, this.material );
     this.plane.rotation.x = -1.5708;
     this.scene.add( this.plane );
 
-    // //Create testcube
-    // this.cubeGeometry =new THREE.CubeGeometry(5, 5, 5);
-    // this.cubeMaterial = new THREE.MeshBasicMaterial( { color: 0xFFFFFF } );
-    // this.testCube = new THREE.Mesh(this.cubeGeometry, this.cubeMaterial);
-    // this.testCube.translateY(2.5)
-    // this.add(this.testCube)
+    //this.cube = new cubeMovement (0,0, this.plane);
+		//this.scene.add(this.cube);
 
-    console.log(this.scene);
+    //var perso = new Perso(this.scene, this.plane);
+    //perso.create({x: 0, z: 0});
+
+
+    // console.log(this.scene);
     let b = new GameObject({scene: this.scene, model: 'models/test.json'});
-
   }
+
+  add (mesh) {
+    this.scene.add(mesh);
+  }
+
 }

@@ -16,11 +16,23 @@
  */
 class Player extends Living {
     
-    constructor (name, hp, mp, strength, speed, intelligence, level, experiencePoints, items, weapons, playerClass) {
-        super(name, hp, mp, strength, speed, intelligence, level, experiencePoints, items, weapons);
+    constructor (name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, playerClass,  camera, scene) {
 
+        super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
+        
+        this.input = new Input(); 
+        
+        var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+        var material = new THREE.MeshNormalMaterial();
+        this.mesh = new THREE.Mesh( geometry, material );
+        this.mesh.position.set(0, 1, 0);
         this.playerClass = playerClass;
-        calcDerivedStats();
+
+        this.calcDerivedStats();
+        //
+        this.scene = scene;
+        this.destination = undefined;
+        this.direction = new THREE.Vector3(0, 0, 0);
     }
 
     /**
@@ -97,6 +109,10 @@ class Player extends Living {
     update(dt) {
         if (hp <= 0)
             this.die();
+        
+        this.input.update();
+
+        this.move(dt);
     }
 
     /**
@@ -105,6 +121,49 @@ class Player extends Living {
     die() {
         alert("Game Over, you died.");
         // reset to last shrine/bonfire/savespot
+    }
+
+    move(dt) {
+        if(this.input.click) {
+            this.destination = this.getRayPos(this.scene);
+        }
+
+        
+        if (this.destination) {
+            console.log('m: ')
+            console.log(this.mesh.position);
+            console.log('d: ');
+            console.log(this.destination);
+
+            if (this.destination === this.mesh.position) {
+                this.destination = null;
+                return;
+            }
+            this.direction.set(this.destination.x - this.mesh.position.x, 0, this.destination.z - this.mesh.position.z).normalize();
+            this.mesh.position.set(this.mesh.position.x + this.direction.x * dt, this.mesh.position.y, this.mesh.position.z + this.direction.z * dt);
+        }
+    }
+
+
+    /**
+     * get's the position of the 2d click in the 3d world
+     * @param {THREE.Scene} scene 
+     */
+    getRayPos(scene) {
+        var mouse = new THREE.Vector2();
+        mouse.x = (this.input.mouseLocation.x / window.innerWidth) * 2 - 1;
+        mouse.y = -(this.input.mouseLocation.y / window.innerHeight) * 2 + 1;
+
+        var raycaster = new THREE.Raycaster();
+        
+        var vector = new THREE.Vector3( mouse.x, mouse.y, 1).unproject( camera );
+        raycaster.set( camera.position, vector.sub( camera.position ).normalize() );
+        var intersects = raycaster.intersectObjects( scene.children );
+        
+        if (intersects.length > 0) {
+            return intersects[0].point;
+        }
+        return null;
     }
 
 }
