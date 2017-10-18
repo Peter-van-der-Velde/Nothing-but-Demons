@@ -45,7 +45,7 @@ class Player extends Living {
         
         // Movement stats
         this.scene = scene;
-        this.destination = undefined;
+        this.destination = 0;
         this.direction = new THREE.Vector3(0, 0, 0);
         this.playerMovementSpeed = 19;
 
@@ -138,7 +138,7 @@ class Player extends Living {
 
         this.target = null;
         
-        if (destination != undefined) {
+        if (this.destination) {
             for (let i = 0; i < enemies.length; i++) {
                 if (enemies[i].mesh.position.distanceTo(this.destination) < 0.5)
                     this.target = enemies[i];
@@ -177,7 +177,7 @@ class Player extends Living {
             // console.log(this.destination);
 
             if (Math.abs(this.destination.x - this.mesh.position.x) < 0.1 || Math.abs(this.destination.z - this.mesh.position.z) < 0.1 ) {
-                this.destination = null;
+                this.destination = 0;
                 return;
             }
             dt = dt * this.playerMovementSpeed;

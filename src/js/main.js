@@ -73,5 +73,5 @@ function animate() {
 	}, this);
 
 	testLevel.update();
-	testLevel.controls.update();
+	//testLevel.controls.update();
 }
