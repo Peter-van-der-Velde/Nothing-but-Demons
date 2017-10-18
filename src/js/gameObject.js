@@ -72,16 +72,16 @@ class GameObject {
         'models/test.json',
 
         // Function when resource is loaded
-        function ( geometry, materials ) {
-
-          mesh = new THREE.Mesh(geometry, material)
-          console.log(material);
-          scene.scene.add(mesh);
-          mesh.position.y = 3;
-
-        }
+        load ( geometry, materials )
       );
 
       console.log();
+    }
+
+    load(geometry, materials) {
+      mesh = new THREE.Mesh(geometry, material)
+      console.log(material);
+      scene.scene.add(mesh);
+      mesh.position.y = 3;
     }
   }

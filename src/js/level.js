@@ -32,6 +32,10 @@ class Level {
     this.plane.rotation.x = -1.5708;
     this.scene.add( this.plane );
 
+    var lamp = new THREE.DirectionalLight(0xffffff, 1, 50, 0);
+    var aLight = new THREE.AmbientLight(0x404040);
+    this.scene.add(lamp, aLight);
+
     // //Create testcube
     // this.cubeGeometry =new THREE.CubeGeometry(5, 5, 5);
     // this.cubeMaterial = new THREE.MeshBasicMaterial( { color: 0xFFFFFF } );
@@ -39,7 +43,12 @@ class Level {
     // this.testCube.translateY(2.5)
     // this.add(this.testCube)
 
-    let b = new GameObject({scene: this.scene, materialType: 1, color: 0xFF00FF, model: 'models/test.json'});
+    //let b = new GameObject({scene: this.scene, materialType: 1, color: 0xFF00FF, model: 'models/test.json'});
+    this.a = new Model(this.scene, 'models/sword/sword.json', 'img/floorTexture.png');
 
+  }
+
+  update() {
+    this.a.animate();
   }
 }
