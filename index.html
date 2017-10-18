@@ -48,11 +48,11 @@
       	  
       	    
       	    console.log(menu);
-      	    if(menu.style.display == "none"){
+      	    if(menu.style.display === "none"){
       			console.log("block");
       			menu.style.display = "block";
       		}
-      		else if(menu.style.display == "block"){
+      		else if(menu.style.display === "block"){
       			console.log("none");
       			menu.style.display = "none";
       		}
@@ -95,7 +95,7 @@
       function toggleMute() {
       	var unmuteButton = document.getElementById("unmutedButton");
       	var muteButton = document.getElementById("mutedButton");
-      	if(unmuteButton.style.display == "none"){
+      	if(unmuteButton.style.display === "none"){
       		unmuteButton.style.display = "block";
       		muteButton.style.display = "none";
       		document.getElementById('backgroundPlayer').muted = false;
@@ -114,10 +114,10 @@
       	var temp = document.getElementById('wrapper');
       	var temp2 = window.getComputedStyle(temp).getPropertyValue("background-color");
       	console.log(temp2);
-      	if(temp2 == "rgba(0, 0, 0, 0.1)"){
+      	if(temp2 === "rgba(0, 0, 0, 0.1)"){
       		temp.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
       	}
-      	else if(temp2 == "rgba(0, 0, 0, 0.9)"){
+      	else if(temp2 === "rgba(0, 0, 0, 0.9)"){
       		temp.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
       	}
       }
