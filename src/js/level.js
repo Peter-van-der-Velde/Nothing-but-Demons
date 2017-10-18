@@ -10,7 +10,7 @@ class Level {
     this.levelName = levelName;
 
     this.mainCamera = new THREE.PerspectiveCamera( 75, render.aspect, 0.1, 1000 );
-    this.mainCamera.position.set(20, 20, 20);
+    this.mainCamera.position.set(5, 5, 5);
 
     this.controls = new THREE.OrbitControls(this.mainCamera, render.domElement);
     this.controls.userPanSpeed = 0.1;
@@ -44,11 +44,11 @@ class Level {
     // this.add(this.testCube)
 
     //let b = new GameObject({scene: this.scene, materialType: 1, color: 0xFF00FF, model: 'models/test.json'});
-    this.a = new Model(this.scene, 'models/sword/sword.json', 'img/floorTexture.png');
-
+    this.chest = new Model("chest_01", true);
+    this.chest.load(this.scene);
   }
 
   update() {
-    this.a.animate();
+
   }
 }
