@@ -65,4 +65,6 @@ function animate() {
 	render.render(testLevel.scene, testLevel.mainCamera);
 	//testLevel.controls.update();
 	this.player.update(delta);
+	testLevel.update();
+	testLevel.controls.update();
 }
