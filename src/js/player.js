@@ -22,19 +22,31 @@ class Player extends Living {
         
         this.input = new Input(); 
         
-        var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-        var material = new THREE.MeshNormalMaterial();
-        this.mesh = new THREE.Mesh( geometry, material );
-        this.mesh.position.set(0, 1, 0);
-        this.playerClass = playerClass;
+        // Create player mesh
+        var group = new THREE.Group();
+        var bodyGeometry = new THREE.BoxGeometry( 1, 5, 1 );
+        var bodyMaterial = new THREE.MeshNormalMaterial();
+        this.bodyMesh = new THREE.Mesh( bodyGeometry, bodyMaterial );
+        var hatGeometry = new THREE.CylinderGeometry( 0, 0.7, 1.3, 12 );
+        var hatMaterial = new THREE.MeshBasicMaterial( {color: 0x008000} );
+        this.hatMesh = new THREE.Mesh( hatGeometry, hatMaterial );
+        this.hatMesh.position.set(0,3.05,0);
 
+        group.add(this.hatMesh);        
+        group.add(this.bodyMesh);
+        
+        this.mesh = group;
+        this.mesh.position.set(0, 0, 0);
+
+
+        this.playerClass = playerClass;
         this.calcDerivedStats();
         
         // Movement stats
         this.scene = scene;
         this.destination = undefined;
         this.direction = new THREE.Vector3(0, 0, 0);
-        this.playerMovementSpeed = 1;
+        this.playerMovementSpeed = 5;
     }
 
     /**
@@ -137,7 +149,7 @@ class Player extends Living {
             console.log('d: ');
             console.log(this.destination);
 
-            if (this.destination === this.mesh.position) {
+            if (this.destination.distanceTo(this.mesh.position) < 1) {
                 this.destination = null;
                 return;
             }
