@@ -29,10 +29,12 @@ class Player extends Living {
         this.playerClass = playerClass;
 
         this.calcDerivedStats();
-        //
+        
+        // Movement stats
         this.scene = scene;
         this.destination = undefined;
         this.direction = new THREE.Vector3(0, 0, 0);
+        this.playerMovementSpeed = 1;
     }
 
     /**
@@ -128,7 +130,6 @@ class Player extends Living {
             this.destination = this.getRayPos(this.scene);
             this.mesh.lookAt(new THREE.Vector3(this.destination.x, this.mesh.position.y, this.destination.z));
         }
-
         
         if (this.destination) {
             console.log('m: ')
@@ -140,6 +141,7 @@ class Player extends Living {
                 this.destination = null;
                 return;
             }
+            dt = dt * this.playerMovementSpeed;
             this.direction.set(this.destination.x - this.mesh.position.x, 0, this.destination.z - this.mesh.position.z).normalize();
             this.mesh.position.set(this.mesh.position.x + this.direction.x * dt, this.mesh.position.y, this.mesh.position.z + this.direction.z * dt);
         }
