@@ -71,4 +71,7 @@ function animate() {
 	enemies.forEach(function(enemy) {
 		enemy.update(delta);
 	}, this);
+
+	testLevel.update();
+	testLevel.controls.update();
 }

@@ -176,7 +176,7 @@ class Player extends Living {
             // console.log('d: ');
             // console.log(this.destination);
 
-            if (this.destination.distanceTo(this.mesh.position) < 1) {
+            if (Math.abs(this.destination.x - this.mesh.position.x) < 0.1 || Math.abs(this.destination.z - this.mesh.position.z) < 0.1 ) {
                 this.destination = null;
                 return;
             }
