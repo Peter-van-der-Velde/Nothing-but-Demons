@@ -22,9 +22,6 @@ class Level {
     let gridSize = 200;
     let gridDivisions = 200;
 
-    let gridHelper = new THREE.GridHelper( gridSize, gridDivisions );
-    this.scene.add( gridHelper );
-
     //Texture loader
     this.loader = new THREE.TextureLoader();
     this.floorTexture = this.loader.load("img/floorTexture1.png");
