@@ -9,8 +9,8 @@ class Level {
     this.scene = new THREE.Scene();
     this.levelName = levelName;
 
-		this.mainCamera = new THREE.PerspectiveCamera( 75, render.aspect, 0.1, 1000 );
-    this.mainCamera.position.set(40, 100, 40);
+		this.mainCamera = new THREE.PerspectiveCamera( 75, render.aspect, 1, 1000 );
+    this.mainCamera.position.set(20, 20, 20);
     this.mainCamera.lookAt(new THREE.Vector3(0, 0, 0));
 
     render.setClearColor(0xCCCCFF, 1);

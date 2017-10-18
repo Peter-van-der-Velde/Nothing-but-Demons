@@ -16,7 +16,7 @@
  */
 class Player extends Living {
     
-    constructor (name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, playerClass) {
+    constructor (name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, playerClass,  camera, scene) {
 
         super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
         
@@ -29,6 +29,10 @@ class Player extends Living {
         this.playerClass = playerClass;
 
         this.calcDerivedStats();
+        //
+        this.scene = scene;
+        this.destination = undefined;
+        this.direction = new THREE.Vector3(0, 0, 0);
     }
 
     /**
@@ -105,9 +109,10 @@ class Player extends Living {
     update(dt) {
         if (hp <= 0)
             this.die();
+        
+        this.input.update();
 
-        if(this.input.click)
-            this.move(dt);
+        this.move(dt);
     }
 
     /**
@@ -119,21 +124,41 @@ class Player extends Living {
     }
 
     move(dt) {
-        let rayPos = getRayPos();
+        if(this.input.click) {
+            this.destination = this.getRayPos(this.scene);
+        }
 
-        //if (rayPos)
+        
+        if (this.destination) {
+            console.log('m: ')
+            console.log(this.mesh.position);
+            console.log('d: ');
+            console.log(this.destination);
 
+            if (this.destination === this.mesh.position) {
+                this.destination = null;
+                return;
+            }
+            this.direction.set(this.destination.x - this.mesh.position.x, 0, this.destination.z - this.mesh.position.z).normalize();
+            this.mesh.position.set(this.mesh.position.x + this.direction.x * dt, this.mesh.position.y, this.mesh.position.z + this.direction.z * dt);
+        }
     }
 
-    getRayPos(){
-        var raycaster = new THREE.Raycaster();
+
+    /**
+     * get's the position of the 2d click in the 3d world
+     * @param {THREE.Scene} scene 
+     */
+    getRayPos(scene) {
         var mouse = new THREE.Vector2();
-        mouse.x = (event.clientX / render.domElement.width) * 2 - 1;
-        mouse.y = -(event.clientX / render.domElement.width) * 2 + 1;
+        mouse.x = (this.input.mouseLocation.x / window.innerWidth) * 2 - 1;
+        mouse.y = -(this.input.mouseLocation.y / window.innerHeight) * 2 + 1;
+
+        var raycaster = new THREE.Raycaster();
         
-        raycaster.setFromCamera(mouse, camera);
-        
-        var intersects = raycaster.intersectObjects([plane], false);
+        var vector = new THREE.Vector3( mouse.x, mouse.y, 1).unproject( camera );
+        raycaster.set( camera.position, vector.sub( camera.position ).normalize() );
+        var intersects = raycaster.intersectObjects( scene.children );
         
         if (intersects.length > 0) {
             return intersects[0].point;
