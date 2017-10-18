@@ -210,9 +210,6 @@ class Dungeon extends Level {
     ];
 
 
-
-
-
     this.scene.add(outerWall1, outerWall2, outerWall3, outerWall4);
 
     for (let j = 0; j < dungeonPillars.length; j++){
@@ -229,12 +226,5 @@ class Dungeon extends Level {
       rotatedDungeonWalls[k].rotateY(Math.PI/ 2);
       this.scene.add(rotatedDungeonWalls[k]);
     }
-
-
-
   }
-
-
-
-
 }
