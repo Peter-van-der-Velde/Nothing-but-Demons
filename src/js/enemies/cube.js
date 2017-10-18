@@ -6,7 +6,12 @@ class CubeEnemy extends Enemy {
     var bodyGeometry = new THREE.BoxGeometry( 2, 4, 2 );
     var bodyMaterial = new THREE.MeshBasicMaterial({color: 0x008000});
     this.mesh = new THREE.Mesh( bodyGeometry, bodyMaterial );
+    this.mesh.name = name + enemies.length.toString();
     this.mesh.position.set(4, 4, 0);
+
+    // add enemies to the enemy array
+    enemies.push(this);
+    console.log(this);
   }
 
 }

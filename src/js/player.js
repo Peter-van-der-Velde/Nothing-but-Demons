@@ -48,6 +48,10 @@ class Player extends Living {
         this.destination = undefined;
         this.direction = new THREE.Vector3(0, 0, 0);
         this.playerMovementSpeed = 19;
+
+        // the target of the player
+        this.target = null;
+        console.log(this);
     }
 
     /**
@@ -109,8 +113,11 @@ class Player extends Living {
      * @param {Enemy} target  
      */
     attack(target) {
-        this.calcDerivedStats();
+        if (target.mesh.position.distanceTo(this.mesh.position) > this.weapon.attackRange)
+            return;
 
+        this.calcDerivedStats();
+        
         if (target.totalDefense  > this.totalAttack)
             console.log("blocked");
         else
@@ -126,8 +133,23 @@ class Player extends Living {
             this.die();
         
         this.input.update();
-
+        
         this.move(dt);
+
+        this.target = null;
+        
+        if (destination != undefined) {
+            for (let i = 0; i < enemies.length; i++) {
+                if (enemies[i].mesh.position.distanceTo(this.destination) < 0.5)
+                    this.target = enemies[i];
+            }
+        }
+
+        if (this.target === null)
+            return;
+        
+        this.attack(this.target);
+
     }
 
     /**
