@@ -16,11 +16,38 @@
  */
 class Player extends Living {
     
-    constructor (name, hp, mp, strength, speed, intelligence, level, experiencePoints, items, weapons, playerClass) {
-        super(name, hp, mp, strength, speed, intelligence, level, experiencePoints, items, weapons);
+    constructor (name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, playerClass,  camera, scene) {
+
+        super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
+        
+        this.input = new Input(); 
+        
+        // Create player mesh
+        var group = new THREE.Group();
+        var bodyGeometry = new THREE.BoxGeometry( 1, 3, 1 );
+        var bodyMaterial = new THREE.MeshNormalMaterial();
+        this.bodyMesh = new THREE.Mesh( bodyGeometry, bodyMaterial );
+        this.bodyMesh.position.set(0,1.5,0);
+        var hatGeometry = new THREE.CylinderGeometry( 0, 0.7, 1.3, 12 );
+        var hatMaterial = new THREE.MeshBasicMaterial( {color: 0x008000} );
+        this.hatMesh = new THREE.Mesh( hatGeometry, hatMaterial );
+        this.hatMesh.position.set(0,3.6,0);
+
+        group.add(this.hatMesh);        
+        group.add(this.bodyMesh);
+        
+        this.mesh = group;
+        this.mesh.position.set(0, 0, 0);
+
 
         this.playerClass = playerClass;
-        calcDerivedStats();
+        this.calcDerivedStats();
+        
+        // Movement stats
+        this.scene = scene;
+        this.destination = undefined;
+        this.direction = new THREE.Vector3(0, 0, 0);
+        this.playerMovementSpeed = 19;
     }
 
     /**
@@ -97,6 +124,10 @@ class Player extends Living {
     update(dt) {
         if (hp <= 0)
             this.die();
+        
+        this.input.update();
+
+        this.move(dt);
     }
 
     /**
@@ -105,6 +136,54 @@ class Player extends Living {
     die() {
         alert("Game Over, you died.");
         // reset to last shrine/bonfire/savespot
+    }
+
+    /**
+     * moves the playes
+     * @param {number} dt delta time 
+     */
+    move(dt) {
+        if(this.input.click) {
+            this.destination = this.getRayPos(this.scene);
+            this.mesh.lookAt(new THREE.Vector3(this.destination.x, this.mesh.position.y, this.destination.z));
+        }
+        
+        if (this.destination) {
+            // console.log('m: ')
+            // console.log(this.mesh.position);
+            // console.log('d: ');
+            // console.log(this.destination);
+
+            if (this.destination.distanceTo(this.mesh.position) < 1) {
+                this.destination = null;
+                return;
+            }
+            dt = dt * this.playerMovementSpeed;
+            this.direction.set(this.destination.x - this.mesh.position.x, 0, this.destination.z - this.mesh.position.z).normalize();
+            this.mesh.position.set(this.mesh.position.x + this.direction.x * dt, this.mesh.position.y, this.mesh.position.z + this.direction.z * dt);
+        }
+    }
+
+
+    /**
+     * get's the position of the 2d click in the 3d world
+     * @param {THREE.Scene} scene 
+     */
+    getRayPos(scene) {
+        var mouse = new THREE.Vector2();
+        mouse.x = (this.input.mouseLocation.x / window.innerWidth) * 2 - 1;
+        mouse.y = -(this.input.mouseLocation.y / window.innerHeight) * 2 + 1;
+
+        var raycaster = new THREE.Raycaster();
+        
+        var vector = new THREE.Vector3( mouse.x, mouse.y, 1).unproject( camera );
+        raycaster.set( camera.position, vector.sub( camera.position ).normalize() );
+        var intersects = raycaster.intersectObjects( scene.children );
+        
+        if (intersects.length > 0) {
+            return intersects[0].point;
+        }
+        return null;
     }
 
 }

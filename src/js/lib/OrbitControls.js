@@ -13,8 +13,7 @@
 //    Zoom - middle mouse, or mousewheel / touch: two finger spread or squish
 //    Pan - right mouse, or arrow keys / touch: three finger swipe
 
-THREE.OrbitControls = function (object, domElement) {
-
+THREE.OrbitControls = function (object, domElement){
     this.object = object;
 
     this.domElement = (domElement !== undefined) ? domElement : document;
