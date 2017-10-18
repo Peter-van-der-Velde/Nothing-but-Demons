@@ -24,13 +24,14 @@ class Player extends Living {
         
         // Create player mesh
         var group = new THREE.Group();
-        var bodyGeometry = new THREE.BoxGeometry( 1, 5, 1 );
+        var bodyGeometry = new THREE.BoxGeometry( 1, 3, 1 );
         var bodyMaterial = new THREE.MeshNormalMaterial();
         this.bodyMesh = new THREE.Mesh( bodyGeometry, bodyMaterial );
+        this.bodyMesh.position.set(0,1.5,0);
         var hatGeometry = new THREE.CylinderGeometry( 0, 0.7, 1.3, 12 );
         var hatMaterial = new THREE.MeshBasicMaterial( {color: 0x008000} );
         this.hatMesh = new THREE.Mesh( hatGeometry, hatMaterial );
-        this.hatMesh.position.set(0,3.05,0);
+        this.hatMesh.position.set(0,3.6,0);
 
         group.add(this.hatMesh);        
         group.add(this.bodyMesh);
@@ -46,7 +47,7 @@ class Player extends Living {
         this.scene = scene;
         this.destination = undefined;
         this.direction = new THREE.Vector3(0, 0, 0);
-        this.playerMovementSpeed = 5;
+        this.playerMovementSpeed = 19;
     }
 
     /**
@@ -137,6 +138,10 @@ class Player extends Living {
         // reset to last shrine/bonfire/savespot
     }
 
+    /**
+     * moves the playes
+     * @param {number} dt delta time 
+     */
     move(dt) {
         if(this.input.click) {
             this.destination = this.getRayPos(this.scene);
@@ -144,10 +149,10 @@ class Player extends Living {
         }
         
         if (this.destination) {
-            console.log('m: ')
-            console.log(this.mesh.position);
-            console.log('d: ');
-            console.log(this.destination);
+            // console.log('m: ')
+            // console.log(this.mesh.position);
+            // console.log('d: ');
+            // console.log(this.destination);
 
             if (this.destination.distanceTo(this.mesh.position) < 1) {
                 this.destination = null;
