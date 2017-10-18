@@ -25,7 +25,7 @@ class Living {
         this.intelligence = intelligence;
 
         this.level = level;
-        this.exp = experiencePoints;
+        this.experiencePoints = experiencePoints;
         this.items = items;
         this.weapons = weapons;
         this.weapon = weapons[0];
