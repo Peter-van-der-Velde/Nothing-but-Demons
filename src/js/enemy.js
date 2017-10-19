@@ -1,3 +1,6 @@
+// an array in wich all the enemies will  be pushed.
+var enemies = [];
+
 /**
  * the enemy class derived from the 'Living' class
  * @class
@@ -15,9 +18,9 @@
  */
 class Enemy extends Living {
     
-    // constructor (name, hp, mp, strength, speed, intelligence, level, experiencePoints, items, weapons) {
-    // super(name, hp, mp, strength, speed, intelligence, level, experiencePoints, items, weapons);
-    // }
+    constructor (name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons) {
+        super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
+    }
 	
     attack(target) {
         if (target.totalDefense > this.totalAttack)
@@ -27,7 +30,17 @@ class Enemy extends Living {
     }
 
     die() {
-        
+        console.log(this.name + 'is dead');
+        replaceWithCorpse();
+    }
+
+    update() {
+        if (this.hp <= 0)
+            this.die();
+    }
+
+    replaceWithCorpse() {
+        console('this is a corpse');
     }
 
 }

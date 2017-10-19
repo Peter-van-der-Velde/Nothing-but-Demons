@@ -9,8 +9,8 @@ class Level {
     this.scene = new THREE.Scene();
     this.levelName = levelName;
 
-		this.mainCamera = new THREE.PerspectiveCamera( 75, render.aspect, 1, 1000 );
-    this.mainCamera.position.set(20, 30, 20);
+    this.mainCamera = new THREE.PerspectiveCamera( 75, render.aspect, 0.1, 1000 );
+    this.mainCamera.position.set(5, 5, 5);
     this.mainCamera.lookAt(new THREE.Vector3(0, 0, 0));
 
     render.setClearColor(0xCCCCFF, 1);
@@ -33,8 +33,15 @@ class Level {
     this.plane.rotation.x = -1.5708;
     this.scene.add( this.plane );
 
-    // console.log(this.scene);
-    let b = new GameObject({scene: this.scene, model: 'models/test.json'});
+    var lamp = new THREE.DirectionalLight(0xffffff, 1, 50, 0);
+    var aLight = new THREE.AmbientLight(0x404040);
+    this.scene.add(lamp, aLight);
+
+    this.chest = new Model("chest_01", true);
+    this.chest.load(this.scene);
+  }
+
+  update() {
 
     let loader = new THREE.ObjectLoader();
     // load a resource

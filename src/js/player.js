@@ -45,9 +45,13 @@ class Player extends Living {
         
         // Movement stats
         this.scene = scene;
-        this.destination = undefined;
+        this.destination = 0;
         this.direction = new THREE.Vector3(0, 0, 0);
         this.playerMovementSpeed = 19;
+
+        // the target of the player
+        this.target = null;
+        console.log(this);
     }
 
     /**
@@ -109,8 +113,11 @@ class Player extends Living {
      * @param {Enemy} target  
      */
     attack(target) {
-        this.calcDerivedStats();
+        if (target.mesh.position.distanceTo(this.mesh.position) > this.weapon.attackRange * 2)
+            return;
 
+        this.calcDerivedStats();
+        
         if (target.totalDefense  > this.totalAttack)
             console.log("blocked");
         else
@@ -126,8 +133,26 @@ class Player extends Living {
             this.die();
         
         this.input.update();
-
+        
         this.move(dt);
+
+        // if (Math.abs(this.target.mesh.position.x - this.mesh.position.x) < 0.1 || Math.abs(this.target.mesh.position.x - this.mesh.position.z) < 0.1 )
+            // this.target = null;
+        
+        if (this.destination != 0) {
+            for (let i = 0; i < enemies.length; i++) {
+                if (enemies[i].mesh.position.distanceTo(this.destination) < 2)
+                    this.target = enemies[i];
+            }
+        }
+
+        console.log(this.target);
+        
+        if (this.target === null)
+            return;
+        
+        this.attack(this.target);
+
     }
 
     /**
@@ -154,8 +179,8 @@ class Player extends Living {
             // console.log('d: ');
             // console.log(this.destination);
 
-            if (this.destination.distanceTo(this.mesh.position) < 1) {
-                this.destination = null;
+            if (Math.abs(this.destination.x - this.mesh.position.x) < 0.1 || Math.abs(this.destination.z - this.mesh.position.z) < 0.1 ) {
+                this.destination = 0;
                 return;
             }
             dt = dt * this.playerMovementSpeed;
