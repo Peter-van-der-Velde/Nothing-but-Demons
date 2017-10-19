@@ -24,14 +24,14 @@ class Player extends Living {
         
         // Create player mesh
         var group = new THREE.Group();
-        var bodyGeometry = new THREE.BoxGeometry( 1, 3, 1 );
+        var bodyGeometry = new THREE.BoxGeometry( 0.5, 2, 0.5 );
         var bodyMaterial = new THREE.MeshNormalMaterial();
         this.bodyMesh = new THREE.Mesh( bodyGeometry, bodyMaterial );
-        this.bodyMesh.position.set(0,1.5,0);
-        var hatGeometry = new THREE.CylinderGeometry( 0, 0.7, 1.3, 12 );
+        this.bodyMesh.position.set(0,1,0);
+        var hatGeometry = new THREE.CylinderGeometry( 0, 0.4, 0.8, 12 );
         var hatMaterial = new THREE.MeshBasicMaterial( {color: 0x008000} );
         this.hatMesh = new THREE.Mesh( hatGeometry, hatMaterial );
-        this.hatMesh.position.set(0,3.6,0);
+        this.hatMesh.position.set(0, 2.4 ,0);
 
         group.add(this.hatMesh);        
         group.add(this.bodyMesh);
