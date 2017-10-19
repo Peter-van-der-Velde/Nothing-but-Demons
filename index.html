@@ -11,6 +11,13 @@
         <link rel="stylesheet" href="src/css/normalize.css">
         <link rel="stylesheet" href="src/css/main.css">
 
+    <script src="src/js/lib/three.min.js"></script>
+    <script src="src/js/input.js"></script>
+    <script src="src/js/item.js"></script>
+    <script src="src/js/weapon.js"></script>
+    <script src="src/js/living.js"></script>
+    <script src="src/js/player.js"></script>
+    <script src="src/js/saveload.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/color/jquery.color-2.1.2.js"></script>
@@ -84,7 +91,7 @@
 					<div class="mask"></div>
 				</div>
 				<div class="button" id="button">
-					<a href="src/battletest.html">Test the battle<span class="shift">›</span></a>
+					<a href="src/saveload.html">Test the battle<span class="shift">›</span></a>
 					<div class="mask"></div>
 				</div>
 				<a onclick='toggleMute()' ><input id="unmutedButton" type="image" src="src/img/unmuted.png" class="mutingButtons" /></a>
@@ -127,20 +134,32 @@
 				var soundItems = document.getElementById("soundItems");
 				var keybind = document.getElementById("keybind");
 				var keybindItems = document.getElementById("keybindItems");
+				var saveload = document.getElementById("saveLoad");
+        var saveLoadItems = document.getElementById("saveLoadItems");
+
 				video.onclick = function () {
 					videoItems.style.display = "block";
 					soundItems.style.display = "none";
 					keybindItems.style.display = "none";
+          saveLoadItems.style.display = "none";
 				};
 				sound.onclick = function () {
 					videoItems.style.display = "none";
 					soundItems.style.display = "block";
 					keybindItems.style.display = "none";
+          saveLoadItems.style.display = "none";
 				};
-				keybind.onclick = function () {
+        keybind.onclick = function () {
 					videoItems.style.display = "none";
 					soundItems.style.display = "none";
 					keybindItems.style.display = "block";
+          saveLoadItems.style.display = "none";
+				};
+        saveload.onclick = function () {
+					videoItems.style.display = "none";
+					soundItems.style.display = "none";
+					keybindItems.style.display = "none";
+          saveLoadItems.style.display = "block";
 				};
 			}
 
@@ -227,6 +246,26 @@
 					document.getElementById('backgroundPlayer').muted = true;
 				}
 			}
+
+			var saveLoad = new SaveLoad();
+            var ironShield = new Weapon(name = "iron shield", value = "1", power = "0", defense = "3", attackRange = 0, attackSpeed = 0);
+            var ironSword = new Weapon(name = "iron sword", value = 1, power = 4, defense = 0.5, attackReange = 2, attackSpeed = 1);
+            var player = new Player (name = "KingArthur", hp = 35, mp = 20, strength = 10, defense = 4, speed = 4, intelligence = 35, level = 5, experiencePoints = 10, items = undefined, weapons = [ironSword, ironShield, ironShield, ironShield], playerClass = "Black Mage");
+
+			  function clickSave() {
+			  saveLoad.save(player);
+			  console.log("Saved:");
+			  console.log(player);
+			  alert("Saved!");
+
+			}
+
+            function clickLoad() {
+              saveLoad.load(player);
+              console.log("Loaded:");
+              console.log(player);
+              alert("Loaded!");
+            }
 
 			function changeOpacity(){
 				//<!-- var opacity = document.getElementById('wrapper'); -->
