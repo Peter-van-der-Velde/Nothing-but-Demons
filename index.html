@@ -11,7 +11,7 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/color/jquery.color-2.1.2.js"></script>
-    <script type="text/javascript"> 
+    <script type="text/javascript">
       $(document).ready(function(){
       	$( "#menuID" ).load( "src/options.html", function() {
       		console.log( "Menu Loaded." );
@@ -31,7 +31,8 @@
       <h1>Hello!</h1>
       <a href="src/game.html">Game</a>
       <a href="doc/jsdoc/index.html">Documentation</a>
-      <a href="src/battletest.html">battletest</a>
+      <a href="src/saveload.html">battletest</a>
+
       <a onclick='toggleMute()' ><input id="unmutedButton" type="image" src="src/img/unmuted.png" class="mutingButtons" /></a>
       <a onclick='toggleMute()' ><input id="mutedButton" type="image" src="src/img/muted.png" class="mutingButtons" /></a>
     </div>
@@ -41,12 +42,12 @@
       //toggleMenu
       document.onkeydown = (e) => {
       	e = e || window.event;
-       
+
       	if (e.keyCode === 27) {
       	    console.log("esc is pressed");
-      	    var menu = document.getElementById("menuID");				 
-      	  
-      	    
+      	    var menu = document.getElementById("menuID");
+
+
       	    console.log(menu);
       	    if(menu.style.display === "none"){
       			console.log("block");
@@ -58,7 +59,7 @@
       		}
       	}
       }
-      
+
       //toggleMenuItems
       function toggleMenuItems() {
       	var video = document.getElementById("video");
@@ -83,14 +84,14 @@
       		keybindItems.style.display = "block";
       	};
       }
-      
-      
+
+
       //Update sound text value
       function applyChanges(){
       	backgroundPlayer.volume = valueOutputId.value / 100;
       	console.log(backgroundPlayer.volume);
       }
-      
+
       //toggleMute
       function toggleMute() {
       	var unmuteButton = document.getElementById("unmutedButton");
@@ -106,7 +107,7 @@
       		document.getElementById('backgroundPlayer').muted = true;
       	}
       }
-      
+
       function changeOpacity(){
       	//<!-- var opacity = document.getElementById('wrapper'); -->
       	//<!-- var temp = window.getComputedStyle(opacity).getPropertyValue("opacity"); -->
@@ -121,7 +122,7 @@
       		temp.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
       	}
       }
-      
+
     </script>
   </footer>
 </html>
