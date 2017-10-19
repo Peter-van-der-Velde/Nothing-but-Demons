@@ -45,9 +45,9 @@ class Player extends Living {
         
         // Movement stats
         this.scene = scene;
-        this.destination = 0;
+        this.destination = null;
         this.direction = new THREE.Vector3(0, 0, 0);
-        this.playerMovementSpeed = 19;
+        this.playerMovementSpeed = 10;
 
         // the target of the player
         this.target = null;
@@ -109,7 +109,10 @@ class Player extends Living {
     }
 
     /**
-     * Player attacks target
+     * Player attacks target <br>
+     * damage reduction is calculated with the formula: <br>
+     * y = -30 + 2 * \sqrt{x*25 +220 } <br>
+     * where y is this.totalAttack and x is target.totalDefense <br>
      * @param {Enemy} target  
      */
     attack(target) {
@@ -118,10 +121,16 @@ class Player extends Living {
 
         this.calcDerivedStats();
         
-        if (target.totalDefense  > this.totalAttack)
-            console.log("blocked");
-        else
-           target.hp = target.hp - (this.totalAttack - target.totalDefense);
+        if(this.totalAttack - target.totalDefense > 0)
+            target.hp = target.hp - (this.totalAttack - target.totalDefense);
+
+           
+        console.log('a: ' + this.totalAttack)
+        console.log(target.totalDefense)
+        console.log('thp = ' + (target.hp - (this.totalAttack - target.totalDefense)));
+        console.log(target.hp)
+        //console.log(this.totalAttack -30 + 2 * Math.sqrt(target.totalDefense * 25 + 220));
+        
     }
 
     /**
@@ -137,19 +146,18 @@ class Player extends Living {
         this.move(dt);
 
         // if (Math.abs(this.target.mesh.position.x - this.mesh.position.x) < 0.1 || Math.abs(this.target.mesh.position.x - this.mesh.position.z) < 0.1 )
-            // this.target = null;
+        this.target = null;
         
-        if (this.destination != 0) {
+        if (this.destination != null) {
             for (let i = 0; i < enemies.length; i++) {
                 if (enemies[i].mesh.position.distanceTo(this.destination) < 2)
                     this.target = enemies[i];
             }
         }
 
-        console.log(this.target);
-        
-        if (this.target === null)
+        if (this.target == null) {
             return;
+        }
         
         this.attack(this.target);
 
@@ -173,20 +181,30 @@ class Player extends Living {
             this.mesh.lookAt(new THREE.Vector3(this.destination.x, this.mesh.position.y, this.destination.z));
         }
         
-        if (this.destination) {
-            // console.log('m: ')
-            // console.log(this.mesh.position);
-            // console.log('d: ');
-            // console.log(this.destination);
-
+        if (this.destination != null) {
+                        
             if (Math.abs(this.destination.x - this.mesh.position.x) < 0.1 || Math.abs(this.destination.z - this.mesh.position.z) < 0.1 ) {
-                this.destination = 0;
+                this.destination = null;
                 return;
             }
+
+            if (this.target != null) {
+                if(Math.abs(this.destination.x - this.target.mesh.position.x) < this.weapon.attackRange || Math.abs(this.destination.z - this.target.mesh.position.z) < this.weapon.attackRange)
+                this.destination = null;
+            }
+
+
+            if (this.destination == null)
+                return;
+
             dt = dt * this.playerMovementSpeed;
             this.direction.set(this.destination.x - this.mesh.position.x, 0, this.destination.z - this.mesh.position.z).normalize();
             this.mesh.position.set(this.mesh.position.x + this.direction.x * dt, this.mesh.position.y, this.mesh.position.z + this.direction.z * dt);
+            
+            return;
         }
+
+        // this.target = null;
     }
 
 

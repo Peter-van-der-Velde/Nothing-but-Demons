@@ -20,27 +20,51 @@ class Enemy extends Living {
     
     constructor (name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons) {
         super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
+
+        this.id = name + enemies.length.toString();
     }
-	
+    
+    /**
+     * enemy attacks player <br>
+     * damage reduction is calculated with the formula: <br>
+     * y = -30 + 2 * \sqrt{x*25 +220 } <br>
+     * where y is this.totalAttack and x is target.totalDefense <br>
+     * @param {Enemy} target  
+     */
     attack(target) {
         if (target.totalDefense > this.totalAttack)
             console.log("blocked");
         else
-           target.hp = target.hp - (this.totalAttack - target.totalDefense);
+            target.hp = target.hp - (this.totalAttack - (-30 + 2 * Math.sqrt(target.totalDefense * 25 + 220)));
     }
 
     die() {
-        console.log(this.name + 'is dead');
-        replaceWithCorpse();
+        console.log(this.name + ' is dead');
+
+        let i;
+        for (i = 0; i < enemies.length; i++) {
+            if (enemies[i].id == this.id) {
+                console.log('found him!')
+                break;
+            }
+        }
+        enemies.splice(i, 1);
+
+
+        this.replaceWithCorpse();
     }
 
     update() {
         if (this.hp <= 0)
             this.die();
+
+        if (this.hp > this.hpMax)
+            this.hp = this.hpMax;
     }
 
     replaceWithCorpse() {
-        console('this is a corpse');
+        console.log('this is a corpse');
+        this.mesh.material.color.setHex( 0xff0000 );
     }
 
 }
