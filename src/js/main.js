@@ -72,6 +72,6 @@ function animate() {
 		enemy.update(delta);
 	}, this);
 
-	testLevel.update();
+	//testLevel.update();
 	//testLevel.controls.update();
 }

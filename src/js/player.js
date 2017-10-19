@@ -113,7 +113,7 @@ class Player extends Living {
      * @param {Enemy} target  
      */
     attack(target) {
-        if (target.mesh.position.distanceTo(this.mesh.position) > this.weapon.attackRange)
+        if (target.mesh.position.distanceTo(this.mesh.position) > this.weapon.attackRange * 2)
             return;
 
         this.calcDerivedStats();
@@ -136,15 +136,18 @@ class Player extends Living {
         
         this.move(dt);
 
-        this.target = null;
+        // if (Math.abs(this.target.mesh.position.x - this.mesh.position.x) < 0.1 || Math.abs(this.target.mesh.position.x - this.mesh.position.z) < 0.1 )
+            // this.target = null;
         
-        if (this.destination) {
+        if (this.destination != 0) {
             for (let i = 0; i < enemies.length; i++) {
-                if (enemies[i].mesh.position.distanceTo(this.destination) < 0.5)
+                if (enemies[i].mesh.position.distanceTo(this.destination) < 2)
                     this.target = enemies[i];
             }
         }
 
+        console.log(this.target);
+        
         if (this.target === null)
             return;
         
