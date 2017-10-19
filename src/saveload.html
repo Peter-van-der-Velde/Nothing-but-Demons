@@ -24,7 +24,7 @@
         var saveLoad = new SaveLoad();
         var ironShield = new Weapon(name = "iron shield", value = "1", power = "0", defense = "3", attackRange = 0, attackSpeed = 0);
         var ironSword = new Weapon(name = "iron sword", value = 1, power = 4, defense = 0.5, attackReange = 2, attackSpeed = 1);
-        var player = new Player (name = "test", hp = 35, mp = 20, strength = 7, defense = 4, speed = 4, intelligence = 35, level = 5, experiencePoints = undefined, items = undefined, weapons = [ironSword, ironShield, ironShield, ironShield], playerClass = "Black Mage");
+        var player = new Player (name = "Player", hp = 35, mp = 20, strength = 10, defense = 4, speed = 4, intelligence = 35, level = 5, experiencePoints = undefined, items = undefined, weapons = [ironSword, ironShield, ironShield, ironShield], playerClass = "Black Mage");
 
         console.log("test:");
         console .log(player);
@@ -32,14 +32,14 @@
         function clickSave() {
         console.log("Saved:");
         console.log(player);
-        saveLoad.save();
+        saveLoad.save(player);
         alert("Saved!");
       }
 
         function clickLoad() {
+          saveLoad.load(player);
           console.log("Loaded:");
           console.log(player);
-          saveLoad.load();
           alert("Loaded!");
         }
 

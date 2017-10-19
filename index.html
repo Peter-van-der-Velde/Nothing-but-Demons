@@ -1,247 +1,129 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>C3</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>C3</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="src/css/normalize.css">
+    <link rel="stylesheet" href="src/css/main.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/color/jquery.color-2.1.2.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+      	$( "#menuID" ).load( "src/options.html", function() {
+      		console.log( "Menu Loaded." );
+      	});
+      });
+    </script>
+  </head>
+  <body>
+    <!-- Audio player -->
+    <audio controls autoplay id="backgroundPlayer">
+      <source src="src/audio/ambient.mp3" type="audio/mp3">
+    </audio>
+    <!-- Options menu -->
+    <div class="menu" id="menuID" style="display:none;"></div>
+    <!-- Actual page -->
+    <div class="wrapper" id="wrapper">
+      <h1>Hello!</h1>
+      <a href="src/game.html">Game</a>
+      <a href="doc/jsdoc/index.html">Documentation</a>
+      <a href="src/saveload.html">battletest</a>
 
-        <link rel="stylesheet" href="src/css/normalize.css">
-        <link rel="stylesheet" href="src/css/main.css">
-		
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script type="text/javascript" src="http://code.jquery.com/color/jquery.color-2.1.2.js"></script>
-		<script type="text/javascript"> 
-			$(document).ready(function(){
-				$( "#menuID" ).load( "src/options.html", function() {
-					console.log("#Menu Loaded");
-				});
-			});
-		</script>
-		<script>
-			document.onreadystatechange = function () {
-				if (document.readyState === "complete"){
-					var setResolutions = {
-						'1920px,1080px' : '1920 x 1080',
-						'1280px,720px' : '1280 x 720',
-						'720px,576px' : '720 x 576',
-						'720px,480px' : '720 x 480'
-					};
-					var select = document.getElementById("selectResolution");
-					for(index in setResolutions){
-						select.options[select.options.length] = new Option(setResolutions[index], index);
-					}
-					console.log(" - Resolutions filled in");
+      <a onclick='toggleMute()' ><input id="unmutedButton" type="image" src="src/img/unmuted.png" class="mutingButtons" /></a>
+      <a onclick='toggleMute()' ><input id="mutedButton" type="image" src="src/img/muted.png" class="mutingButtons" /></a>
+    </div>
+  </body>
+  <footer>
+    <script>
+      //toggleMenu
+      document.onkeydown = (e) => {
+      	e = e || window.event;
 
-					var savedMenuWidth = localStorage.getItem('menuWidth');
-					var savedMenuHeight = localStorage.getItem('menuHeight');	
-					var savedSelectedIndex = localStorage.getItem('selectedIndex');
-
-					var temp = document.getElementById('menuID');
-					var e = document.getElementById("selectResolution");
-					if(savedMenuWidth == ""){
-						setOnce();
-						console.log("Initial setup");
-					}
-					else{
-						console.log("Height and width loaded from memory at : " + savedMenuWidth + " " + savedMenuHeight);
-						temp.style.width = savedMenuWidth;
-						temp.style.height = savedMenuHeight;
-						console.log(savedSelectedIndex);
-						e.value = savedSelectedIndex;
-					}
+      	if (e.keyCode === 27) {
+      	    console.log("esc is pressed");
+      	    var menu = document.getElementById("menuID");
 
 
-					//checkCookie();
-				}
-			}
-			
-			
-		</script>
-    </head>
-    <body>
-		<!-- Audio player -->
-		<audio controls autoplay id="backgroundPlayer">
-			<source src="src/audio/ambient.mp3" type="audio/mp3">
-		</audio>
-		
-		<!-- Options menu -->
-		<div class="menu" id="menuID" style="display:none;"></div>
-		
-		<!-- Actual page -->
-		<div class="wrapper" id="wrapper">
-			<div class="contentWrapper">
-				<h1>Nothing but Demons</h1>
-				<div class="button" id="button">
-					<a href="src/game.html">Play<span class="shift">›</span></a>
-					<div class="mask"></div>
-				</div>
-				<div class="button" id="button">
-					<a href="doc/jsdoc/index.html">Documentation<span class="shift">›</span></a>
-					<div class="mask"></div>
-				</div>
-				<div class="button" id="button">
-					<a href="src/battletest.html">Test the battle<span class="shift">›</span></a>
-					<div class="mask"></div>
-				</div>
-				<a onclick='toggleMute()' ><input id="unmutedButton" type="image" src="src/img/unmuted.png" class="mutingButtons" /></a>
-				<a onclick='toggleMute()' ><input id="mutedButton" type="image" src="src/img/muted.png" class="mutingButtons" /></a>
-			</div>
-			
-		</div> 
-    </body>
-	<footer>
-		<script>
-			var resolution = "";
+      	    console.log(menu);
+      	    if(menu.style.display === "none"){
+      			console.log("block");
+      			menu.style.display = "block";
+      		}
+      		else if(menu.style.display === "block"){
+      			console.log("none");
+      			menu.style.display = "none";
+      		}
+      	}
+      }
 
-			//toggleMenu
-			document.onkeydown = (e) => {
-				e = e || window.event;
-		  
-				if (e.keyCode === 27) {
-				    console.log("esc is pressed");
-				    var menu = document.getElementById("menuID");
-				    console.log(menu);
-				    if(menu.style.display == "none"){
-						console.log("block");
-						menu.style.display = "block";
-						var openMenu = new Audio('src/audio/openMenu.wav');
-						openMenu.volume = 0.1;
-						openMenu.play();
-					}
-					else if(menu.style.display == "block"){
-						console.log("none");
-						menu.style.display = "none";
-					}
-				}
-			}
-		
-			//toggleMenuItems
-			function toggleMenuItems() {
-				var video = document.getElementById("video");
-				var videoItems = document.getElementById("videoItems");
-				var sound = document.getElementById("sound");
-				var soundItems = document.getElementById("soundItems");
-				var keybind = document.getElementById("keybind");
-				var keybindItems = document.getElementById("keybindItems");
-				video.onclick = function () {
-					videoItems.style.display = "block";
-					soundItems.style.display = "none";
-					keybindItems.style.display = "none";
-				};
-				sound.onclick = function () {
-					videoItems.style.display = "none";
-					soundItems.style.display = "block";
-					keybindItems.style.display = "none";
-				};
-				keybind.onclick = function () {
-					videoItems.style.display = "none";
-					soundItems.style.display = "none";
-					keybindItems.style.display = "block";
-				};
-			}
-			
-			
-			//Sets resolution for the first time
-			function setOnce(){
-				var savedMenuWidth = localStorage.getItem('menuWidth');
-				var savedMenuHeight = localStorage.getItem('menuHeight');
-				console.log("Saved values : " + savedMenuWidth + savedMenuHeight);
-				
-				var temp = document.getElementById('menuID');
-				var menuHeight = window.getComputedStyle(temp).getPropertyValue("height")
-				var menuWidth = window.getComputedStyle(temp).getPropertyValue("width")
-				
-				console.log("setOnce() Height : " + menuHeight + ", Width : " + menuWidth);
-				
-				var e = document.getElementById("selectResolution");
-				resolution = e.options[e.selectedIndex].value;
-				console.log("setOnce() Resolution : " + resolution);
-				var splitResolution = resolution.split(',');
-				console.log(splitResolution);
-				menuWidth = splitResolution[0];
-				menuHeight = splitResolution[1];
-				console.log("setOnce() Height : " + menuHeight + ", Width : " + menuWidth);
-				setVolume();
-			}
-
-			function setVolume(){
-                var backgroundPlayer = document.getElementById('backgroundPlayer');
-                localStorage.setItem('lorem', valueOutputId.value/100);
-                var lorem = localStorage.getItem('lorem');
-                console.log(lorem);
-                backgroundPlayer.volume = lorem;
-                /*var savedSelectedBGVolume = localStorage.getItem('selectedBGVolume');
-                backgroundPlayer.volume = valueOutputId.value / 100;
-			    if(savedSelectedBGVolume == ""){
-                    localStorage.setItem('selectedBGVolume', 50);
-                    console.log("SavedBGVolume was empty, filled it with" + savedSelectedBGVolume);
-                }
-                else{
-                    localStorage.setItem('selectedBGVolume', backgroundPlayer.volume);
-                    savedSelectedBGVolume = localStorage.getItem('selectedBGVolume');
-                    backgroundPlayer.volume = savedSelectedBGVolume;
-				}*/
-			}
-
-			
-			//Update values
-			function applyChanges(){
-				setVolume();
-				var temp = document.getElementById('menuID');
-				var menuHeight = window.getComputedStyle(temp).getPropertyValue("height");
-				var menuWidth = window.getComputedStyle(temp).getPropertyValue("width");
-				var e = document.getElementById("selectResolution");
-				resolution = e.options[e.selectedIndex].value;
-				var splitResolution = resolution.split(',');
-				menuWidth = splitResolution[0];
-				menuHeight = splitResolution[1];
-				localStorage.setItem('menuWidth', menuWidth);
-				localStorage.setItem('menuHeight', menuHeight);
-				localStorage.setItem('selectedIndex', resolution);
-				resolution = menuWidth + "," + menuHeight;
-				
-				window.location.reload(true); 
-			}
+      //toggleMenuItems
+      function toggleMenuItems() {
+      	var video = document.getElementById("video");
+      	var videoItems = document.getElementById("videoItems");
+      	var sound = document.getElementById("sound");
+      	var soundItems = document.getElementById("soundItems");
+      	var keybind = document.getElementById("keybind");
+      	var keybindItems = document.getElementById("keybindItems");
+      	video.onclick = function () {
+      		videoItems.style.display = "block";
+      		soundItems.style.display = "none";
+      		keybindItems.style.display = "none";
+      	};
+      	sound.onclick = function () {
+      		videoItems.style.display = "none";
+      		soundItems.style.display = "block";
+      		keybindItems.style.display = "none";
+      	};
+      	keybind.onclick = function () {
+      		videoItems.style.display = "none";
+      		soundItems.style.display = "none";
+      		keybindItems.style.display = "block";
+      	};
+      }
 
 
-			
-			
+      //Update sound text value
+      function applyChanges(){
+      	backgroundPlayer.volume = valueOutputId.value / 100;
+      	console.log(backgroundPlayer.volume);
+      }
 
-			
-			//toggleMute
-			function toggleMute() {
-				var unmuteButton = document.getElementById("unmutedButton");
-				var muteButton = document.getElementById("mutedButton");
-				if(unmuteButton.style.display == "none"){
-					unmuteButton.style.display = "block";
-					muteButton.style.display = "none";
-					document.getElementById('backgroundPlayer').muted = false;
-				}
-				else{
-					unmuteButton.style.display = "none";
-					muteButton.style.display = "block";
-					document.getElementById('backgroundPlayer').muted = true;
-				}
-			}
-		
-			function changeOpacity(){
-				//<!-- var opacity = document.getElementById('wrapper'); -->
-				//<!-- var temp = window.getComputedStyle(opacity).getPropertyValue("opacity"); -->
-				//<!-- console.log(temp); -->
-				var temp = document.getElementById('wrapper');
-				var temp2 = window.getComputedStyle(temp).getPropertyValue("background-color");
-				console.log(temp2);
-				if(temp2 == "rgba(0, 0, 0, 0.1)"){
-					temp.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
-				}
-				else if(temp2 == "rgba(0, 0, 0, 0.9)"){
-					temp.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
-				}
-			}
-			
-		</script>
-	</footer>
+      //toggleMute
+      function toggleMute() {
+      	var unmuteButton = document.getElementById("unmutedButton");
+      	var muteButton = document.getElementById("mutedButton");
+      	if(unmuteButton.style.display === "none"){
+      		unmuteButton.style.display = "block";
+      		muteButton.style.display = "none";
+      		document.getElementById('backgroundPlayer').muted = false;
+      	}
+      	else{
+      		unmuteButton.style.display = "none";
+      		muteButton.style.display = "block";
+      		document.getElementById('backgroundPlayer').muted = true;
+      	}
+      }
+
+      function changeOpacity(){
+      	//<!-- var opacity = document.getElementById('wrapper'); -->
+      	//<!-- var temp = window.getComputedStyle(opacity).getPropertyValue("opacity"); -->
+      	//<!-- console.log(temp); -->
+      	var temp = document.getElementById('wrapper');
+      	var temp2 = window.getComputedStyle(temp).getPropertyValue("background-color");
+      	console.log(temp2);
+      	if(temp2 === "rgba(0, 0, 0, 0.1)"){
+      		temp.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
+      	}
+      	else if(temp2 === "rgba(0, 0, 0, 0.9)"){
+      		temp.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+      	}
+      }
+
+    </script>
+  </footer>
 </html>
+>>>>>>> playerMovement
