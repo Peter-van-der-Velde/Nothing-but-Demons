@@ -13,4 +13,8 @@ class CubeEnemy extends Enemy {
     enemies.push(this);
     console.log(this);
   }
+
+  replaceWithCorpse() {
+    this.mesh.material.color.setHex( 0xff0000 );
+  }
 }

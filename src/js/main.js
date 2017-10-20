@@ -10,7 +10,6 @@ function init(){
 	
   render = new Render(true, window.innerWidth, window.innerHeight);
   testLevel = new Dungeon("dungeon", render);
-	//	testLevel = new Level("testLevel", render);
 
 	// Create an event listener that resizes the renderer with the browser window.
 	window.addEventListener('resize', function() {
@@ -34,17 +33,6 @@ function init(){
 		testLevel.add(enemy.mesh);
 	}, this);
 	testLevel.add(player.mesh);
-
-
-	// MODEL
-	// var loader = new THREE.JSONLoader();
-	// loader.load('models/test.json', handle_load());
-	//
-	// function handle_load(geometry, materials) {
-	// 	var mesh = new THREE.Mesh(geometry, materials);
-	// 	testLevel.add(mesh);
-	// }
-
 }
 
 function animate() {
@@ -62,18 +50,13 @@ function animate() {
 
 	setTimeout(function(){
 		//changeOpacity();
-		//console.log("hia");
 	}, 1000);
 
 	// Render the scene.
 	render.render(testLevel.scene, testLevel.mainCamera);
-	//testLevel.controls.update();
 	this.player.update(delta);
 
 	enemies.forEach(function(enemy) {
 		enemy.update(delta);
 	}, this);
-
-	//testLevel.update();
-	//testLevel.controls.update();
 }

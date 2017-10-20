@@ -20,6 +20,7 @@ class Player extends Living {
 
         super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
         
+        this.baseAttackSpeed = 2;
         this.input = new Input(); 
         
         // Create player mesh
@@ -32,10 +33,8 @@ class Player extends Living {
         var hatMaterial = new THREE.MeshBasicMaterial( {color: 0x008000} );
         this.hatMesh = new THREE.Mesh( hatGeometry, hatMaterial );
         this.hatMesh.position.set(0, 2.4 ,0);
-
         group.add(this.hatMesh);        
         group.add(this.bodyMesh);
-        
         this.mesh = group;
         this.mesh.position.set(0, 0, 0);
 
@@ -52,6 +51,7 @@ class Player extends Living {
         // the target of the player
         this.target = null;
         console.log(this);
+        this.attackClock = new THREE.Clock();
     }
 
     /**
@@ -82,7 +82,7 @@ class Player extends Living {
         this.mpMax += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
         this.strength += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
         this.defense += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
-        this.speed += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
+        //this.speed += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
         this.intelligence += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
         this.luck += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
     }
@@ -116,6 +116,10 @@ class Player extends Living {
      * @param {Enemy} target  
      */
     attack(target) {
+        var time = attackClock.getElapsedTime();
+
+        if (time < (this.baseAttackSpeed / weapon.attackSpeed))
+
         if (target.mesh.position.distanceTo(this.mesh.position) > this.weapon.attackRange * 2)
             return;
 
@@ -123,14 +127,6 @@ class Player extends Living {
         
         if(this.totalAttack - target.totalDefense > 0)
             target.hp = target.hp - (this.totalAttack - target.totalDefense);
-
-           
-        console.log('a: ' + this.totalAttack)
-        console.log(target.totalDefense)
-        console.log('thp = ' + (target.hp - (this.totalAttack - target.totalDefense)));
-        console.log(target.hp)
-        //console.log(this.totalAttack -30 + 2 * Math.sqrt(target.totalDefense * 25 + 220));
-        
     }
 
     /**
@@ -160,7 +156,6 @@ class Player extends Living {
         }
         
         this.attack(this.target);
-
     }
 
     /**
@@ -229,4 +224,4 @@ class Player extends Living {
         return null;
     }
 
-}
+}   

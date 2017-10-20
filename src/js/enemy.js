@@ -22,6 +22,7 @@ class Enemy extends Living {
         super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
 
         this.id = name + enemies.length.toString();
+        this.baseAttackSpeed = 2;
     }
     
     /**
@@ -29,27 +30,21 @@ class Enemy extends Living {
      * damage reduction is calculated with the formula: <br>
      * y = -30 + 2 * \sqrt{x*25 +220 } <br>
      * where y is this.totalAttack and x is target.totalDefense <br>
-     * @param {Enemy} target  
+     * @param {Living} target  
      */
     attack(target) {
-        if (target.totalDefense > this.totalAttack)
-            console.log("blocked");
-        else
-            target.hp = target.hp - (this.totalAttack - (-30 + 2 * Math.sqrt(target.totalDefense * 25 + 220)));
+        target.hp = target.hp - (this.totalAttack - (-30 + 2 * Math.sqrt(target.totalDefense * 25 + 220)));
     }
 
     die() {
         console.log(this.name + ' is dead');
 
-        let i;
-        for (i = 0; i < enemies.length; i++) {
+        for (let i = 0; i < enemies.length; i++) {
             if (enemies[i].id == this.id) {
-                console.log('found him!')
+                enemies.splice(i, 1);
                 break;
             }
         }
-        enemies.splice(i, 1);
-
 
         this.replaceWithCorpse();
     }
@@ -64,7 +59,6 @@ class Enemy extends Living {
 
     replaceWithCorpse() {
         console.log('this is a corpse');
-        this.mesh.material.color.setHex( 0xff0000 );
     }
 
 }
