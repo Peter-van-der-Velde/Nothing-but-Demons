@@ -116,9 +116,10 @@ class Player extends Living {
      * @param {Enemy} target  
      */
     attack(target) {
-        var time = attackClock.getElapsedTime();
+        var time = this.attackClock.getElapsedTime();
 
-        if (time < (this.baseAttackSpeed / weapon.attackSpeed))
+        if (time < (this.baseAttackSpeed / this.weapon.attackSpeed))
+            console.log('wam.')
 
         if (target.mesh.position.distanceTo(this.mesh.position) > this.weapon.attackRange * 2)
             return;
