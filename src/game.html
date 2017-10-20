@@ -10,6 +10,22 @@
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/debug.css">
+
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/color/jquery.color-2.1.2.js"></script>
+  <script type="text/javascript" src="js/ui.js"></script>
+  <script type="text/javascript">
+      $(document).ready(function(){
+          console.log("Document loaded!");
+          $( "#pausedMenu" ).load( "pauseMenu.html", function() {
+              console.log("#Paused Loaded");
+          });
+          $( "#menuID" ).load( "options.html", function() {
+              console.log("#Menu Loaded");
+          });
+      });
+  </script>
 </head>
 <body>
   <div class="health">
@@ -20,6 +36,13 @@
   <![endif]-->
   <div id="renderCanvasDiv">
   </div>
+
+  <!-- Paused menu -->
+  <div class="pausedMenu" id="pausedMenu" style="display:none;"></div>
+
+  <!-- Options menu -->
+  <div class="menu" id="menuID" style="display:none;"></div>
+
   <!-- <div class="debug-display"> -->
     <!-- <h2 id="fps-display"></h2> -->
   <!-- </div> -->
@@ -51,6 +74,7 @@
   <script src="js/environment/pillar.js"></script>
   <script src="js/environment/wall.js"></script>
   <script src="js/environment/dungeon.js"></script>
+
   <script src="js/main.js"></script>
 
 </footer>
