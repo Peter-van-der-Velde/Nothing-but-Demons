@@ -12,36 +12,16 @@
     <h1>Save/load</h1>
     <button value="Save" id="save" onclick="clickSave()">Save!</button>
     <button value="Load" id="load" onclick="clickLoad()" >Load! </button>
-    <script src="js/lib/three.min.js"></script>
-    <script src="js/input.js"></script>
-    <script src="js/item.js"></script>
-    <script src="js/weapon.js"></script>
-    <script src="js/living.js"></script>
-    <script src="js/player.js"></script>
-    <script src="js/saveload.js"></script>
     <script>
 
-        var saveLoad = new SaveLoad();
-        var ironShield = new Weapon(name = "iron shield", value = "1", power = "0", defense = "3", attackRange = 0, attackSpeed = 0);
-        var ironSword = new Weapon(name = "iron sword", value = 1, power = 4, defense = 0.5, attackReange = 2, attackSpeed = 1);
-        var player = new Player (name = "Player", hp = 35, mp = 20, strength = 10, defense = 4, speed = 4, intelligence = 35, level = 5, experiencePoints = undefined, items = undefined, weapons = [ironSword, ironShield, ironShield, ironShield], playerClass = "Black Mage");
+        var saveLoad = new SaveLoad()
 
         console.log("test:");
         console .log(player);
 
-        function clickSave() {
-        console.log("Saved:");
-        console.log(player);
-        saveLoad.save(player);
-        alert("Saved!");
-      }
 
-        function clickLoad() {
-          saveLoad.load(player);
-          console.log("Loaded:");
-          console.log(player);
-          alert("Loaded!");
-        }
+
+
 
 
     </script>

@@ -4,7 +4,7 @@
 			<li><a id="video" onclick="toggleMenuItems()" href="#">VIDEO</a></li>
 			<li><a id="sound" onclick="toggleMenuItems()" href="#">SOUND</a></li>
 			<li><a id="keybind" onclick="toggleMenuItems()" href="#">KEY BINDINGS</a></li>
-			<li><a id="save/load" onclick="toggleMenuItems()" href="#">SAVE/LOAD</A></li>
+			<li><a id="saveLoad" onclick="toggleMenuItems()" href="#">SAVE/LOAD</a></li>
 		</ul>
 	</div>
 	<div class="menuBoxRight menuBorderImage">
@@ -40,6 +40,10 @@
 			<li>Keybind option 1</li>
 			<li>Keybind option 2</li>
 			<li>Keybind option 3</li>
+		</ul>
+		<ul id="saveLoadItems">
+			<li><button value="Save" id="button" onclick="clickSave()">Save</button></li>
+			<li><button value="Load" id="button" onclick="clickLoad()">Load</button></li>
 		</ul>
 	</div>
 	<div class="menuBoxButtons">

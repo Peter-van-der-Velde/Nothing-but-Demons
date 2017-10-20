@@ -7,7 +7,7 @@
  * @param {number} power the attack power of this weapon
  * @param {number} defense the defensive power  of this weapon
  * @param {number} attackRange the range of this weapon
- * @param {number} attackSpeed the attack speed of this weapon
+ * @param {number} attackSpeed the attack speed of this weapon per 2 seconds
  */
 class Weapon extends Item {
 
