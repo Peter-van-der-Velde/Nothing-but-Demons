@@ -86,7 +86,6 @@ class Player extends Living {
         this.mpMax += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
         this.strength += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
         this.defense += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
-        //this.speed += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
         this.intelligence += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
         this.luck += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
     }
@@ -122,15 +121,21 @@ class Player extends Living {
     attack(target) {
         var time = this.attackClock.getElapsedTime();
 
-        if (time < (this.baseAttackSpeed / this.weapon.attackSpeed))
-            console.log('wam.')
-
-        if (target.mesh.position.distanceTo(this.mesh.position) > this.weapon.attackRange * 2)
+        if ((this.baseAttackSpeed / this.weapon.attackSpeed) > time)
             return;
 
-        this.calcDerivedStats();
+        console.log(time);
 
+            
+        if(Math.abs(this.mesh.position.x - this.target.mesh.position.x) > this.weapon.attackRange*2 || Math.abs(this.mesh.position.z - this.target.mesh.position.z) > this.weapon.attackRange *2) {
+            return;
+        }
+
+        // reset attack clock
+        this.attackClock.start();
+        this.calcDerivedStats();
         
+        console.log('hit: ' + target.id);
         if(this.totalAttack - target.totalDefense > 0)
             target.hp = target.hp - (this.totalAttack - target.totalDefense);
     }
@@ -144,24 +149,23 @@ class Player extends Living {
             this.die();
 
         this.input.update();
-
         this.move(dt);
-
-        // if (Math.abs(this.target.mesh.position.x - this.mesh.position.x) < 0.1 || Math.abs(this.target.mesh.position.x - this.mesh.position.z) < 0.1 )
-        this.target = null;
         
         if (this.destination != null) {
-
             for (let i = 0; i < enemies.length; i++) {
-                if (enemies[i].mesh.position.distanceTo(this.destination) < 2)
-                    this.target = enemies[i];
+                if (enemies[i].mesh.position.distanceTo(player.destination)  < 2)
+                this.target = enemies[i];
             }
         }
+        
+        if (this.target == null)
+            return;
 
-        if (this.target == null) {
+        if (this.target.hp <= 0) {
+            this.target = null;
             return;
         }
-        
+
         this.attack(this.target);
     }
 
@@ -186,13 +190,24 @@ class Player extends Living {
         if (this.destination != null) {
                         
             if (Math.abs(this.destination.x - this.mesh.position.x) < 0.1 || Math.abs(this.destination.z - this.mesh.position.z) < 0.1 ) {
+                console.log('umm 0.1')
                 this.destination = null;
                 return;
             }
 
             if (this.target != null) {
-                if(Math.abs(this.destination.x - this.target.mesh.position.x) < this.weapon.attackRange || Math.abs(this.destination.z - this.target.mesh.position.z) < this.weapon.attackRange)
-                this.destination = null;
+                if(Math.abs(this.mesh.position.x - this.target.mesh.position.x) < this.weapon.attackRange && Math.abs(this.mesh.position.z - this.target.mesh.position.z) < this.weapon.attackRange) {
+                    // console.log('hey')
+                    // console.log('d ')
+                    // console.log(this.destination)
+                    // console.log('t ')
+                    // console.log(this.target.mesh.position)
+                    // console.log('x ' + (this.destination.x - this.target.mesh.position.x));
+                    // console.log('z ' + (this.destination.z - this.target.mesh.position.z));
+                    console.log('umm pos')
+                    this.destination = null;
+                    return;
+                }
             }
 
 
@@ -205,8 +220,6 @@ class Player extends Living {
             
             return;
         }
-
-        // this.target = null;
     }
 
 
