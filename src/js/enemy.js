@@ -76,7 +76,7 @@ class Enemy extends Living {
     }
 
     dropItems() {
-        
+        this.items
     }
 
 }

@@ -1,4 +1,4 @@
-// list of all items in game
+// list of all items in the 3d gameworld
 var items  = [];
 
 var MATERIALS = {
