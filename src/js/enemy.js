@@ -75,4 +75,8 @@ class Enemy extends Living {
         console.log('this is a corpse');
     }
 
+    dropItems() {
+        
+    }
+
 }

@@ -59,35 +59,18 @@ class Player extends Living {
     }
 
     /**
-     * for calculating dice rolls
-     * example: roll(2d3);
-     * @param {string} rollText the roll information but in text format,'3d2' where 3 is the amount of rolls and 2 is the max number
-     */
-    roll(rollText) {
-        let rollInfo = rollText.split("d");
-        let amountOfRolls = rollInfo[0];
-        let maxRollPoints = rollInfo[1];
-
-        let total = 0;
-
-        for (var roll = 0; roll < amountOfRolls; roll++) {
-            total += (Math.random() * maxRollPoints) + 1;
-        }
-
-        return total;
-    }
-
-    /**
-     * levels up player
-     * based upon output ((6d4 - 3) / 3) - 2
+     * levels up player <br>
+     * based upon the output of: ((6d4 - 3) / 3) - 2
      */
     levelUp() {
-        this.hpMax += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
-        this.mpMax += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
-        this.strength += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
-        this.defense += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
-        this.intelligence += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
-        this.luck += Math.abs(Math.floor((this.roll("6d4") - 3) / 3) - 3);
+        let dice = new Dice("6d4");
+
+        this.hpMax += Math.abs(Math.floor((dice.roll() - 3) / 3) - 3);
+        this.mpMax += Math.abs(Math.floor((dice.roll() - 3) / 3) - 3);
+        this.strength += Math.abs(Math.floor((dice.roll() - 3) / 3) - 3);
+        this.defense += Math.abs(Math.floor((dice.roll() - 3) / 3) - 3);
+        this.intelligence += Math.abs(Math.floor((dice.roll() - 3) / 3) - 3);
+        this.luck += Math.abs(Math.floor((dice.roll() - 3) / 3) - 3);
     }
 
     /**
