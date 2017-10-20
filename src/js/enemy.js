@@ -23,6 +23,9 @@ class Enemy extends Living {
 
         this.id = name + enemies.length.toString();
         this.baseAttackSpeed = 2;
+
+        // needed for very basic collision
+        this.radius = 0;
     }
     
     /**
@@ -36,6 +39,9 @@ class Enemy extends Living {
         target.hp = target.hp - (this.totalAttack - (-30 + 2 * Math.sqrt(target.totalDefense * 25 + 220)));
     }
 
+    /**
+     * kills the enemy
+     */
     die() {
         console.log(this.name + ' is dead');
 
@@ -49,7 +55,12 @@ class Enemy extends Living {
         this.replaceWithCorpse();
     }
 
-    update() {
+
+    /**
+     * update loop of enemy
+     * @param {number} dt delta time
+     */
+    update(dt) {
         if (this.hp <= 0)
             this.die();
 
@@ -57,6 +68,9 @@ class Enemy extends Living {
             this.hp = this.hpMax;
     }
 
+    /**
+     * replaces the enemy with a corpse
+     */
     replaceWithCorpse() {
         console.log('this is a corpse');
     }

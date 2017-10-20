@@ -124,10 +124,7 @@ class Player extends Living {
         if ((this.baseAttackSpeed / this.weapon.attackSpeed) > time)
             return;
 
-        console.log(time);
-
-            
-        if(Math.abs(this.mesh.position.x - this.target.mesh.position.x) > this.weapon.attackRange*2 || Math.abs(this.mesh.position.z - this.target.mesh.position.z) > this.weapon.attackRange *2) {
+        if(Math.abs(this.mesh.position.x - this.target.mesh.position.x) > (this.weapon.attackRange + this.target.radius + 0.1) || Math.abs(this.mesh.position.z - this.target.mesh.position.z) > (this.weapon.attackRange + this.target.radius + 0.1)) {
             return;
         }
 
@@ -141,7 +138,7 @@ class Player extends Living {
     }
 
     /**
-     * update loop player
+     * update loop of the player
      * @param {number} dt delta time
      */
     update(dt) {
@@ -189,21 +186,14 @@ class Player extends Living {
         
         if (this.destination != null) {
                         
-            if (Math.abs(this.destination.x - this.mesh.position.x) < 0.1 || Math.abs(this.destination.z - this.mesh.position.z) < 0.1 ) {
+            if (Math.abs(this.destination.x - this.mesh.position.x) < 0.1 && Math.abs(this.destination.z - this.mesh.position.z) < 0.1 ) {
                 console.log('umm 0.1')
                 this.destination = null;
                 return;
             }
 
             if (this.target != null) {
-                if(Math.abs(this.mesh.position.x - this.target.mesh.position.x) < this.weapon.attackRange && Math.abs(this.mesh.position.z - this.target.mesh.position.z) < this.weapon.attackRange) {
-                    // console.log('hey')
-                    // console.log('d ')
-                    // console.log(this.destination)
-                    // console.log('t ')
-                    // console.log(this.target.mesh.position)
-                    // console.log('x ' + (this.destination.x - this.target.mesh.position.x));
-                    // console.log('z ' + (this.destination.z - this.target.mesh.position.z));
+                if(Math.abs(this.mesh.position.x - this.target.mesh.position.x) < (this.weapon.attackRange + this.target.radius) && Math.abs(this.mesh.position.z - this.target.mesh.position.z) < (this.weapon.attackRange + this.target.radius)) {
                     console.log('umm pos')
                     this.destination = null;
                     return;
