@@ -4,8 +4,6 @@ var e = document.getElementById("selectResolution");
 
 document.onreadystatechange = function () {
     if (document.readyState === "complete") {
-        document.getElementById('renderCanvas').addEventListener('keypress', keypressTest);
-
         var setResolutions = {
             '1920px,1080px' : '1920 x 1080',
             '1280px,720px' : '1280 x 720',
@@ -34,22 +32,16 @@ document.onreadystatechange = function () {
             temp.style.height = savedMenuHeight;
             console.log(savedSelectedIndex);
             e.value = savedSelectedIndex;
-            console.log("e.value" + e.value);
         }
         //checkCookie();
     }
 }
 
-function keypressTest(){
-    alert("I RAN!");
-    if (e.keyCode === 27) {
+function keypressTest(keyCode){
+    if (keyCode === 27) {
         console.log("esc is pressed");
         var menu = document.getElementById("menuID");
         var pausedMenu = document.getElementById("pausedMenu");
-        var wrapper = document.getElementById("wrapper");
-        var button1 = document.getElementById("button1");
-        var button2 = document.getElementById("button2");
-        var button3 = document.getElementById("button3");
         console.log(pausedMenu);
         if (menu.style.display == "block") {
             //Closes the options menu and opens the pausedmenu when ESC is pressed
@@ -59,11 +51,6 @@ function keypressTest(){
         else if (pausedMenu.style.display == "none") {
             //Open the options menu with the press of ESC
             console.log("block");
-            wrapper.style.opacity = "0.6";
-            wrapper.style.backgroundColor = "white";
-            button1.style.display = "none";
-            button2.style.display = "none";
-            button3.style.display = "none";
             pausedMenu.style.display = "block";
             var openMenu = new Audio('src/audio/openMenu.wav');
             openMenu.volume = 0.1;
@@ -72,11 +59,6 @@ function keypressTest(){
         else if (pausedMenu.style.display == "block") {
             //Closes the options menu with the press of ESC
             console.log("none");
-            wrapper.style.opacity = "1";
-            wrapper.style.backgroundColor = "transparent";
-            button1.style.display = "block";
-            button2.style.display = "block";
-            button3.style.display = "block";
             pausedMenu.style.display = "none";
         }
     }
