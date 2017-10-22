@@ -21,11 +21,11 @@ function init(){
 		testLevel.mainCamera.updateProjectionMatrix();
 
 	});
-	
+
+
 	this.player =  new Player (name = "Sparhawk", hp = 35, mp = 20, strength = 16, defense = 4, speed = 4, intelligence = 35, level = 5, experiencePoints = 12, items = undefined, weapons = [ironSword, ironShield, ironShield, ironShield], playerClass = "Black Mage", camera = testLevel.mainCamera, scene = testLevel.scene);
-	//this.enemy =  new Enemy (name = "Fred der Goblin", hp = 25, mp = 10, strength = 9, defense = 5, speed = 3, intelligence = 250, level = 3, experiencePoints = 9, items = undefined, weapons = [ironSword, ironShield, ironShield, ironShield]);
-	this.blockEnemey = new CubeEnemy();
-	this.blockEnemey2 = new CubeEnemy();
+	this.blockEnemey = new CubeEnemy(scene = testLevel.scene);
+	this.blockEnemey2 = new CubeEnemy(scene = testLevel.scene);
 	this.blockEnemey2.mesh.position.set(4, 1, -4);
 	
 	enemies.forEach(function(enemy) {
@@ -33,6 +33,8 @@ function init(){
 	}, this);
 	testLevel.add(player.mesh);
 
+	
+	
 	initAnim();
 }
 
@@ -53,11 +55,10 @@ function initAnim() {
 			action.play();
 		}
 		testLevel.scene.add( mesh );
-		mesh.position.y = 10;
+		mesh.position.set(-20, 0, -3);
 	} );
 }
 
-var anijm = true;
 function animate() {
 	requestAnimationFrame( animate );
 
@@ -68,13 +69,11 @@ function animate() {
 	if (mixer)
 		mixer.update( delta / 2.0 );
 
-	// Render the scene.
-	render.render(testLevel.scene, testLevel.mainCamera);
 	this.player.update(delta);
-	testLevel.update();
-	//testLevel.controls.update();
-
 	enemies.forEach(function(enemy) {
 		enemy.update(delta);
 	}, this);
+
+	// Render the scene.
+	render.render(testLevel.scene, testLevel.mainCamera);
 }

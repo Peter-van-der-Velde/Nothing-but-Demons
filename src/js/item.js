@@ -11,6 +11,6 @@ class Item {
         this.name = name;
         this.value = value;
         this.mesh = mesh;
-        this.id = name + items.length;
+        this.id;
     }
 }

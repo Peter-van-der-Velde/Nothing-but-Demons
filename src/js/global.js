@@ -1,5 +1,5 @@
 // list of all items in the 3d gameworld
-var items  = [];
+var itemsInGame  = [];
 
 var MATERIALS = {
   PHONG: 0,

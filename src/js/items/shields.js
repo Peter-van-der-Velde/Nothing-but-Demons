@@ -1,7 +1,7 @@
 // a javascript file with all the different shields.
 
 // a simple 'shield'
-var basicShieldGeom = new THREE.BoxGeometry( 0.2, 0.1, 0.2 );
+var basicShieldGeom = new THREE.BoxGeometry( 2, 20, 2 );
 var basicShieldMaterial = new THREE.MeshBasicMaterial({color: 0x800080});
 var basicShieldMesh = new THREE.Mesh( basicShieldGeom, basicShieldGeom );
 

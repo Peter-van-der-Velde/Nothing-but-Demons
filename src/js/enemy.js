@@ -18,7 +18,7 @@ var enemies = [];
  */
 class Enemy extends Living {
     
-    constructor (name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons) {
+    constructor (name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, scene) {
         super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
 
         this.id = name + enemies.length.toString();
@@ -26,6 +26,7 @@ class Enemy extends Living {
 
         // needed for very basic collision
         this.radius = 0;
+        this.scene = scene;
     }
     
     /**
@@ -52,6 +53,7 @@ class Enemy extends Living {
             }
         }
 
+        this.dropItems();
         this.replaceWithCorpse();
     }
 
@@ -76,7 +78,21 @@ class Enemy extends Living {
     }
 
     dropItems() {
-        this.items
+
+        this.items.forEach(function(item) {
+            var x = this.mesh.position.x + Math.floor(Math.random() * 5) / 10;
+            var y = 0.5;
+            var z = this.mesh.position.z + Math.floor(Math.random() * 5) / 10;
+            item.mesh.position.set(x, y, z);
+
+            item.id = item.name + itemsInGame.length;
+            item.mesh.name = item.id;
+            itemsInGame.push(item);
+            this.scene.add(item.mesh);
+            console.log(scene);
+        }, this);
+
+        console.log(itemsInGame);
     }
 
 }
