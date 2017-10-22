@@ -44,9 +44,8 @@ class Input {
 
     document.onkeydown = (e) => {
       e = e || window.event;
+	  keypressTest(e.keyCode);
       if (e.keyCode === 27) {
-        console.log("ESC IS PRESSED, YES!");
-        keypressTest(e.keyCode);
       }
       if (e.keyCode === 37) {
         this.left = true;
