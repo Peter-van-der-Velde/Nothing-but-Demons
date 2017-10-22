@@ -13,8 +13,6 @@ class SaveLoad{
     localStorage.setItem('items', JSON.stringify(player.items));
     localStorage.setItem('weapons', JSON.stringify(player.weapons));
     localStorage.setItem('playerClass', JSON.stringify(player.playerClass));
-
-
   }
 
   load() {
@@ -26,9 +24,9 @@ class SaveLoad{
     player.speed = JSON.parse(localStorage.getItem('speed'));
     player.intelligence = JSON.parse(localStorage.getItem('intelligence'));
     player.level = JSON.parse(localStorage.getItem('level'));
-    //player.experiencePoints = JSON.parse(localStorage.getItem('experiencePoints'));
-    //player.items = JSON.parse(localStorage.getItem('items'));
-    //player.weapons = JSON.parse(localStorage.getItem('weapons'));
+    player.experiencePoints = JSON.parse(localStorage.getItem('experiencePoints'));
+    player.items = JSON.parse(localStorage.getItem('items'));
+    player.weapons = JSON.parse(localStorage.getItem('weapons'));
     player.playerClass = JSON.parse(localStorage.getItem('playerClass'));
   }
 

@@ -10,7 +10,7 @@
    Base styles: opinionated defaults
    ========================================================================== */
 
-   
+
 html {
     color: #222;
     font-size: 1em;
@@ -103,14 +103,14 @@ textarea {
        url(../fonts/diablo_h.ttf);
   /* font-weight: bold; */
   color:#f7ddac;
-}   
-   
+}
+
 .hidden{
 	display:none;
 }
-   
+
 body{
-	background: url(../img/mainBackground.png) no-repeat center center fixed; 
+	background: url(../img/mainBackground1.png) no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -157,7 +157,7 @@ html, body {
 	width:40px;
 	z-index: 9999;
     position: absolute;
-    margin: 0px 10px 10px 0px;	
+    margin: 0px 10px 10px 0px;
 }
 
 #unmutedButton{
@@ -166,14 +166,38 @@ html, body {
 #mutedButton{
 	display:none;
 }
-   
+
 /*
 	Building the menu
 */
-
+#pausedMenu{
+    z-index:9999;
+    background: url(../img/menuBackground3.png) no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    width: 300px;
+    height: 500px;
+    border: 20px solid #000;
+    -webkit-border-image: url(../img/borders.png) 30 stretch; /* Safari 3.1-5 */
+    -o-border-image: url(../img/borders.png) 30 stretch; /* Opera 11-12.1 */
+    border-image: url(../img/borders.png) 30 stretch;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 15px 15px 10px 0px rgba(0,0,0,0.75);
+    border-radius:5px;
+    position:absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    padding:10px;
+}
 #menuID{
     z-index:9999;
-	background: url(../img/menuBackground2.jpg) no-repeat; 
+	background: url(../img/menuBackground2.jpg) no-repeat;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -182,10 +206,6 @@ html, body {
 	height: 500px;
 	background-color:blue;
 	border: 2px solid #000;
-	/* border: 14px solid transparent; */
-	/* -webkit-border-image: url(../img/topBorder.png) 30 stretch; /* Safari 3.1-5 */ */
-    /* -o-border-image: url(../img/topBorder.png) 30 stretch; /* Opera 11-12.1 */ */
-    /* border-image: url(../img/topBorder.png) 30 stretch; */
 	-webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 	-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 	box-shadow: 15px 15px 10px 0px rgba(0,0,0,0.75);
@@ -199,7 +219,7 @@ html, body {
 }
 .menu{
 
-} 
+}
 .menu a{
 	color:#f7ddac;
 	font-size:12px;
@@ -211,7 +231,7 @@ html, body {
 	display:block;
 	height: 25px;
     padding: 5px 0px 0px 0px;
-} 
+}
 
 .menuBoxLeft{
 	/* height:74%; */
@@ -220,7 +240,7 @@ html, body {
 	float:left;
 	border: 1px grey solid;
 	margin:4% 0% 0% 0%;
-	border-radius:10	px;
+	border-radius:10px;
 }
 select{
 	background-color: #660211;
@@ -272,6 +292,41 @@ select option{
 	margin: 10px 0px 0px 0px;
 }
 
+.inventory{
+    z-index: 5000;
+    width:200px;
+    height:200px;
+    background-color:hotpink;
+}
+
+.pausedButtons{
+
+}
+.pausedButtons ul{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    margin: 0;
+    padding: 0;
+}
+.pausedButtons ul li{
+    margin:0 auto;
+    width:62% !important;
+    float: none !important;
+    padding: 10px 0px;
+    height:40px;
+}
+.pausedButtons ul li:first-child{
+    margin:0 auto !important;
+}
+.pausedButtons ul li a{
+    color: #f7ddac;
+    font-family: diabloFont;
+    text-transform:uppercase;
+    display:block;
+    text-decoration:none;
+}
+
 .menuBoxButtons{
 	height:10%;
 	width:100%;
@@ -295,7 +350,7 @@ select option{
 	margin-right:20%;
 }
 
-.menuBorderImage { 
+.menuBorderImage {
 	background-image: url(../img/menuItemBackground.png);
 	background-repeat: no-repeat;
 	background-position: -7px;
@@ -308,7 +363,7 @@ select option{
     -o-border-image: url(../img/borders.jpg) 30 stretch; /* Opera 11-12.1 */
     border-image: url(../img/borders.png) 30 stretch;
 }
-   
+
 #slidecontainer {
     width: 100%; /* Width of the outside container */
 }
@@ -330,8 +385,18 @@ select option{
 
 
 
-#button{
+#button1{
 	background-color: #121212;
+    opacity: 0.8;
+    border-radius: 15px;
+}
+#button2{
+    background-color: #121212;
+    opacity: 0.8;
+    border-radius: 15px;
+}
+#button3{
+    background-color: #121212;
     opacity: 0.8;
     border-radius: 15px;
 }
@@ -344,7 +409,7 @@ select option{
 	border: 2px solid #2e2e2e;
 	text-transform: uppercase;
 	letter-spacing: .3rem;
-	padding: 20px 15px;
+	/*padding: 20px 15px;*/
 	text-align: center;
 	max-width: 270px;
 	min-width: 200px;
@@ -358,6 +423,11 @@ select option{
 	color: #969696;
 	font-family: 'Varela Round';
 	text-decoration: none;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 20px 15px;
+    margin: 0px 0px 0px -15px;
 }
 
 .button .mask {
@@ -498,15 +568,19 @@ input[type=range]:focus::-ms-fill-upper {
   background: #367ebd;
 }
 
+.health{
+  position:absolute;
+  z-index: 6000;
+}
 
 
 
 
-   
-   
+
 #videoItems{display:block;}
 #soundItems{display:none;}
 #keybindItems{display:none;}
+#saveLoadItems{display:none;}
 
 
 

@@ -9,7 +9,9 @@ class Render extends THREE.WebGLRenderer {
     super( {antialias: doAA} );
     this.setClearColor(0x000000, 1);
     this.setSize(renderWidth, renderHeight);
-    document.body.appendChild(this.domElement);
+    var renderCanv = document.body.appendChild(this.domElement);
+    renderCanv.id = "renderCanvas";
+    // renderCanv.tabindex = 1;
     this.aspect = window.innerWidth / window.innerHeight;
   }
 }

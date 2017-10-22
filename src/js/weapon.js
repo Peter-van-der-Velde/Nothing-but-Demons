@@ -7,12 +7,12 @@
  * @param {number} power the attack power of this weapon
  * @param {number} defense the defensive power  of this weapon
  * @param {number} attackRange the range of this weapon
- * @param {number} attackSpeed the attack speed of this weapon
+ * @param {number} attackSpeed the attack speed of this weapon per 2 seconds
  */
 class Weapon extends Item {
 
-    constructor(name, value, power, defense, attackRange, attackSpeed) {
-        super(name, value);
+    constructor(name, value, power, defense, attackRange, attackSpeed, mesh) {
+        super(name, value, mesh);
         
         this.power = power;
         this.defense = defense;

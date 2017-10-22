@@ -46,10 +46,8 @@ class Living {
      */
     calcDerivedStats() {
         this.totalAttack = (this.weapon) ? this.strength : this.strength + this.weapon.power;
-        this.totalDefense = (this.shield) ? this.defense :  this.defense + this.shield.defense
-
-        console.log('p' + this.totalAttack);
-        console.log('d' + this.totalDefense)
+        this.totalDefense = (this.shield) ? this.defense :  this.defense + this.shield.defense;
+        this.totalDefense = Math.floor(-30 + 2 * Math.sqrt(this.totalDefense * 25 + 220));
     }
         
 
