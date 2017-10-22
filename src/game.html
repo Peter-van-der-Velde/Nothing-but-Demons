@@ -17,16 +17,15 @@
   <script type="text/javascript">
       $(document).ready(function(){
           console.log("Document loaded!");
-          $( "#pausedMenu" ).load( "pauseMenu.html", function() {
-              console.log("#Paused Loaded");
-          });
           $( "#menuID" ).load( "options.html", function() {
-              console.log("#Menu Loaded");
+            console.log("#Menu Loaded");
           });
           $( "#pausedMenu" ).load( "pauseMenu.html", function() {
-              console.log("#Menu Loaded");
+            console.log("#Menu Loaded");
           });
-
+		  $( "#inventory" ).load( "inventory.html", function() {
+            console.log("#Inventory Loaded");
+          });
       });
   </script>
 </head>
@@ -42,6 +41,9 @@
 
   <!-- Paused menu -->
   <div class="pausedMenu" id="pausedMenu" style="display:none;"></div>
+
+  <!-- Paused menu -->
+  <div class="inventory" id="inventory" style="display:none;"></div>
 
   <!-- Options menu -->
   <div class="menu" id="menuID" style="display:none;"></div>

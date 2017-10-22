@@ -37,108 +37,97 @@ document.onreadystatechange = function () {
     }
 }
 
-function keypressTest(keyCode){
-    if (keyCode === 27) {
-        console.log("esc is pressed");
-        var menu = document.getElementById("menuID");
-        var pausedMenu = document.getElementById("pausedMenu");
-        console.log(pausedMenu);
-        if (menu.style.display == "block") {
-            //Closes the options menu and opens the pausedmenu when ESC is pressed
-            menu.style.display = "none";
-            pausedMenu.style.display = "block";
-        }
-        else if (pausedMenu.style.display == "none") {
-            //Open the options menu with the press of ESC
-            console.log("block");
-            pausedMenu.style.display = "block";
-            var openMenu = new Audio('src/audio/openMenu.wav');
-            openMenu.volume = 0.1;
-            openMenu.play();
-        }
-        else if (pausedMenu.style.display == "block") {
-            //Closes the options menu with the press of ESC
-            console.log("none");
-            pausedMenu.style.display = "none";
-        }
+function toggleMenu(){
+    var menu = document.getElementById("menuID");
+    var pausedMenu = document.getElementById("pausedMenu");
+    console.log(pausedMenu);
+    if(menu.style.display == "block"){
+        //Closes the options menu and opens the pausedmenu when ESC is pressed
+        menu.style.display = "none";
+        pausedMenu.style.display = "block";
     }
+    else if(pausedMenu.style.display == "none"){
+        //Open the options menu with the press of ESC
+        console.log("block");
+        pausedMenu.style.display = "block";
+        var openMenu = new Audio('src/audio/openMenu.wav');
+        openMenu.volume = 0.1;
+        openMenu.play();
+    }
+    else if(pausedMenu.style.display == "block"){
+        //Closes the options menu with the press of ESC
+        console.log("none");
+        pausedMenu.style.display = "none";
+    }
+}
+
+function toggleInventory(){
+	console.log("Inventory opened");
+	var inventory = document.getElementById("inventory");
+	toggle(inventory);
+}
+
+function toggle(element){
+	if(element.style.display == "block"){
+		element.style.display = "none";
+	}
+	else if(element.style.display == "none"){
+		element.style.display = "block";
+	}
+}
+
+function keypressTest(keyCode){
+	switch(keyCode){
+		case 27:
+			toggleMenu();
+			break;
+		case 73:
+			toggleInventory();
+			break;
+		default:
+			console.log("No trigger put on key " + keyCode + " (" + String.fromCharCode(keyCode) + ")");
+			break;
+	}
 }
 
 //toggleMenu
 document.onkeydown = (e) => {
     e = e || window.event;
-
-    if (e.keyCode === 27) {
-        console.log("esc is pressed");
-        var menu = document.getElementById("menuID");
-        var pausedMenu = document.getElementById("pausedMenu");
-        var wrapper = document.getElementById("wrapper");
-        var button1 = document.getElementById("button1");
-        var button2 = document.getElementById("button2");
-        var button3 = document.getElementById("button3");
-        console.log(pausedMenu);
-        if(menu.style.display == "block"){
-            //Closes the options menu and opens the pausedmenu when ESC is pressed
-            menu.style.display = "none";
-            pausedMenu.style.display = "block";
-        }
-        else if(pausedMenu.style.display == "none"){
-            //Open the options menu with the press of ESC
-            console.log("block");
-            wrapper.style.opacity = "0.6";
-            wrapper.style.backgroundColor = "white";
-            button1.style.display = "none";
-            button2.style.display = "none";
-            button3.style.display = "none";
-            pausedMenu.style.display = "block";
-            var openMenu = new Audio('src/audio/openMenu.wav');
-            openMenu.volume = 0.1;
-            openMenu.play();
-        }
-        else if(pausedMenu.style.display == "block"){
-            //Closes the options menu with the press of ESC
-            console.log("none");
-            wrapper.style.opacity = "1";
-            wrapper.style.backgroundColor = "transparent";
-            button1.style.display = "block";
-            button2.style.display = "block";
-            button3.style.display = "block";
-            pausedMenu.style.display = "none";
-        }
-    }
+	
+    
 }
 
-function toggleOptionsMenu(lorem) {
-    var menu = document.getElementById("menuID");
-    var pausedMenu = document.getElementById("pausedMenu");
-    var wrapper = document.getElementById("wrapper");
-    var button1 = document.getElementById("button1");
-    var button2 = document.getElementById("button2");
-    var button3 = document.getElementById("button3");
-    if (lorem == "resume"){
-        console.log("Resuming");
-        pausedMenu.style.display = "none";
-        menu.style.display = "none";
-        wrapper.style.opacity = "1";
-        wrapper.style.backgroundColor = "transparent";
-        button1.style.display = "block";
-        button2.style.display = "block";
-        button3.style.display = "block";
-    }
-    else if(pausedMenu.style.display == "block"){
-        pausedMenu.style.display = "none";
-        menu.style.display = "block";
-    }
-    else if(menu.style.display == "block"){
-        pausedMenu.style.display = "block";
-        menu.style.display = "none";
-    }
-    else{
-        pausedMenu.style.display = "none";
-        menu.style.display = "none";
-        console.log("Something went wrong with toggling menu items");
-    }
-}
+// function toggleOptionsMenu(lorem) {
+    // var menu = document.getElementById("menuID");
+    // var pausedMenu = document.getElementById("pausedMenu");
+    // var wrapper = document.getElementById("wrapper");
+    // var button1 = document.getElementById("button1");
+    // var button2 = document.getElementById("button2");
+    // var button3 = document.getElementById("button3");
+    // if (lorem == "resume"){
+        // console.log("Resuming");
+        // pausedMenu.style.display = "none";
+        // menu.style.display = "none";
+        // wrapper.style.opacity = "1";
+        // wrapper.style.backgroundColor = "transparent";
+        // button1.style.display = "block";
+        // button2.style.display = "block";
+        // button3.style.display = "block";
+    // }
+    // else if(pausedMenu.style.display == "block"){
+        // pausedMenu.style.display = "none";
+        // menu.style.display = "block";
+    // }
+    // else if(menu.style.display == "block"){
+        // pausedMenu.style.display = "block";
+        // menu.style.display = "none";
+    // }
+    // else{
+        // pausedMenu.style.display = "none";
+        // menu.style.display = "none";
+        // console.log("Something went wrong with toggling menu items");
+    // }
+// }
 
 //toggleMenuItems
 function toggleMenuItems() {
