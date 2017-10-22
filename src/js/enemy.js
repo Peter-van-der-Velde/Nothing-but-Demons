@@ -77,6 +77,9 @@ class Enemy extends Living {
         console.log('this is a corpse');
     }
 
+    /**
+     * drop the items of the enemy
+     */
     dropItems() {
 
         this.items.forEach(function(item) {
@@ -88,7 +91,7 @@ class Enemy extends Living {
             item.id = item.name + itemsInGame.length;
             item.mesh.name = item.id;
             itemsInGame.push(item);
-            this.scene.add(item.mesh);
+                scene.add(item.mesh);
             console.log(scene);
         }, this);
 
