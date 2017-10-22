@@ -1,4 +1,5 @@
 var WIDTH, HEIGHT, testLevel, aspect, controls, delta, fps, frameCount, timer, input;
+var mixer;
 
 init();
 animate();
@@ -41,6 +42,28 @@ function init(){
 	// 	testLevel.add(mesh);
 	// }
 
+	initAnim();
+}
+
+function initAnim() {
+	var loader = new THREE.JSONLoader();
+	loader.load( "models/chest_01/chest_02.json", function( geometry, materials ) {
+		var material = materials[ 0 ];
+		material.emissive.set( 0x101010 );
+		material.skinning = true;
+		material.morphTargets = true;
+		var mesh = new THREE.SkinnedMesh( geometry, material );
+		mesh.position.y = -30;
+		mesh.scale.multiplyScalar( 5 );
+		mixer = new THREE.AnimationMixer( mesh );
+		for ( var i = 0; i < mesh.geometry.animations.length; i ++ ) {
+			var action = mixer.clipAction( mesh.geometry.animations[ i ] );
+			if ( i === 1 ) action.timeScale = 0.25;
+			action.play();
+		}
+		testLevel.scene.add( mesh );
+		mesh.position.y = 10;
+	} );
 }
 
 function animate() {
@@ -49,6 +72,9 @@ function animate() {
 	// Calculate the delta and fps
 	delta = timer.getDelta();
 	fps = Math.trunc(1.0 / delta);
+
+	if (mixer)
+		mixer.update( delta / 2.0 );
 
 	if (frameCount < 20) {frameCount++;}
 	else {
@@ -66,5 +92,5 @@ function animate() {
 	//testLevel.controls.update();
 	this.player.update(delta);
 	testLevel.update();
-	testLevel.controls.update();
+	//testLevel.controls.update();
 }
