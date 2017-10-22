@@ -67,7 +67,7 @@ function animate() {
 	render.render(testLevel.scene, testLevel.mainCamera);
 	//testLevel.controls.update();
 	//console.log(this.player);
-	testLevel.update(this.player, this.blockEnemey);
+	testLevel.update(this.player, this.blockEnemey, delta);
 	this.player.update(delta);
 
 	enemies.forEach(function(enemy) {

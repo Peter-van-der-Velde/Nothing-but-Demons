@@ -40,10 +40,11 @@ class Level {
     this.chest = new Model("chest_01", true);
     this.chest.load(this.scene);
 
-    this.skill = new AoeSkill("foo", "bar", 5, 1, 1, 10, 3, 5);
+    this.skill = new Skill("foo", "bar", 4, 1, 2, 3);
   }
 
-  update(player, target) {
+  update(player, target, delta) {
+    this.skill.update(delta);
     this.skill.activate(player, target);
   }
 

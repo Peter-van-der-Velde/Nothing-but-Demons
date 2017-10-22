@@ -54,17 +54,19 @@ class Living {
     dealDamage(damage) {
       this.hp -= damage;
       if (this.hp <= 0) {
+        this.hp = 0;
         this.die();
       }
+      console.log("Enemy HP: " + this.hp);
     }
 
     die() {
         console.log(this.name + 'is dead');
-        replaceWithCorpse();
+        this.replaceWithCorpse();
     }
 
     replaceWithCorpse() {
-        console('this is a corpse');
+        console.log('this is a corpse');
     }
 
 

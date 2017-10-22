@@ -23,24 +23,15 @@ class Enemy extends Living {
     }
 
     attack(target) {
-        if (target.totalDefense > this.totalAttack)
-            console.log("blocked");
-        else
-           target.hp = target.hp - (this.totalAttack - target.totalDefense);
-    }
-
-    die() {
-        console.log(this.name + 'is dead');
-        replaceWithCorpse();
+        // if (target.totalDefense > this.totalAttack)
+        //     console.log("blocked");
+        // else
+        //    target.hp = target.hp - (this.totalAttack - target.totalDefense);
     }
 
     update() {
-        if (this.hp <= 0)
-            this.die();
-    }
-
-    replaceWithCorpse() {
-        console('this is a corpse');
+        // if (this.hp <= 0)
+        //     this.die();
     }
 
 }
