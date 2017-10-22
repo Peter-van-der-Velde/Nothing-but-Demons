@@ -10,7 +10,7 @@ class Level {
     this.levelName = levelName;
 
     this.mainCamera = new THREE.PerspectiveCamera( 75, render.aspect, 0.1, 1000 );
-    this.mainCamera.position.set(5, 5, 5);
+    this.mainCamera.position.set(20, 20, 20);
     this.mainCamera.lookAt(new THREE.Vector3(0, 0, 0));
 	//this.mainCamera.lookAt(player.position);
 
@@ -43,18 +43,7 @@ class Level {
   }
 
   update() {
-
-    let loader = new THREE.ObjectLoader();
-    // load a resource
-    loader.load(
-      // resource URL
-      'obj/cube.obj',
-      // Function when resource is loaded
-      function ( object ) {
-
-        this.scene.add( object );
-      }
-    );
+    
   }
 
   add (mesh) {
