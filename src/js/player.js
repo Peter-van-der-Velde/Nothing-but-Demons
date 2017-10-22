@@ -15,13 +15,13 @@
  * @param {PlayerClass} playerClass the warrior class this player is
  */
 class Player extends Living {
-    
+
     constructor (name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, playerClass,  camera, scene) {
 
         super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
-        
-        this.input = new Input(); 
-        
+
+        this.input = new Input();
+
         // Create player mesh
         var group = new THREE.Group();
         var bodyGeometry = new THREE.BoxGeometry( 0.5, 2, 0.5 );
@@ -33,16 +33,16 @@ class Player extends Living {
         this.hatMesh = new THREE.Mesh( hatGeometry, hatMaterial );
         this.hatMesh.position.set(0, 2.4 ,0);
 
-        group.add(this.hatMesh);        
+        group.add(this.hatMesh);
         group.add(this.bodyMesh);
-        
+
         this.mesh = group;
         this.mesh.position.set(0, 0, 0);
 
 
         this.playerClass = playerClass;
         this.calcDerivedStats();
-        
+
         // Movement stats
         this.scene = scene;
         this.destination = 0;
@@ -63,13 +63,13 @@ class Player extends Living {
         let rollInfo = rollText.split("d");
         let amountOfRolls = rollInfo[0];
         let maxRollPoints = rollInfo[1];
-        
+
         let total = 0;
 
         for (var roll = 0; roll < amountOfRolls; roll++) {
-            total += (Math.random() * maxRollPoints) + 1; 
+            total += (Math.random() * maxRollPoints) + 1;
         }
-        
+
         return total;
     }
 
@@ -89,7 +89,7 @@ class Player extends Living {
 
     /**
      * Calculates the needed amount for that level
-     * @param {number} level 
+     * @param {number} level
      */
     nextLevel(level) {
         let  exponent = 1.5
@@ -99,7 +99,7 @@ class Player extends Living {
 
     /**
      * Adds item to the inventory of the player
-     * @param {Item} item 
+     * @param {Item} item
      */
     addItem (item) {
         if (this.items.length <= 20)
@@ -110,14 +110,14 @@ class Player extends Living {
 
     /**
      * Player attacks target
-     * @param {Enemy} target  
+     * @param {Enemy} target
      */
     attack(target) {
         if (target.mesh.position.distanceTo(this.mesh.position) > this.weapon.attackRange * 2)
             return;
 
         this.calcDerivedStats();
-        
+
         if (target.totalDefense  > this.totalAttack)
             console.log("blocked");
         else
@@ -126,19 +126,19 @@ class Player extends Living {
 
     /**
      * update loop player
-     * @param {number} dt delta time  
+     * @param {number} dt delta time
      */
     update(dt) {
         if (hp <= 0)
             this.die();
-        
+
         this.input.update();
-        
+
         this.move(dt);
 
         // if (Math.abs(this.target.mesh.position.x - this.mesh.position.x) < 0.1 || Math.abs(this.target.mesh.position.x - this.mesh.position.z) < 0.1 )
             // this.target = null;
-        
+
         if (this.destination != 0) {
             for (let i = 0; i < enemies.length; i++) {
                 if (enemies[i].mesh.position.distanceTo(this.destination) < 2)
@@ -146,11 +146,11 @@ class Player extends Living {
             }
         }
 
-        console.log(this.target);
-        
+        //console.log(this.target);
+
         if (this.target === null)
             return;
-        
+
         this.attack(this.target);
 
     }
@@ -165,14 +165,14 @@ class Player extends Living {
 
     /**
      * moves the playes
-     * @param {number} dt delta time 
+     * @param {number} dt delta time
      */
     move(dt) {
         if(this.input.click) {
             this.destination = this.getRayPos(this.scene);
             this.mesh.lookAt(new THREE.Vector3(this.destination.x, this.mesh.position.y, this.destination.z));
         }
-        
+
         if (this.destination) {
             // console.log('m: ')
             // console.log(this.mesh.position);
@@ -192,7 +192,7 @@ class Player extends Living {
 
     /**
      * get's the position of the 2d click in the 3d world
-     * @param {THREE.Scene} scene 
+     * @param {THREE.Scene} scene
      */
     getRayPos(scene) {
         var mouse = new THREE.Vector2();
@@ -200,11 +200,11 @@ class Player extends Living {
         mouse.y = -(this.input.mouseLocation.y / window.innerHeight) * 2 + 1;
 
         var raycaster = new THREE.Raycaster();
-        
+
         var vector = new THREE.Vector3( mouse.x, mouse.y, 1).unproject( camera );
         raycaster.set( camera.position, vector.sub( camera.position ).normalize() );
         var intersects = raycaster.intersectObjects( scene.children );
-        
+
         if (intersects.length > 0) {
             return intersects[0].point;
         }

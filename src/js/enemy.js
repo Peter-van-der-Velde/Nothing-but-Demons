@@ -1,5 +1,5 @@
 // an array in wich all the enemies will  be pushed.
-var enemies = [];
+// var enemies = [];
 
 /**
  * the enemy class derived from the 'Living' class
@@ -17,11 +17,11 @@ var enemies = [];
  * @param {Weapon[]} weapons the weapons the enemy has.
  */
 class Enemy extends Living {
-    
+
     constructor (name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons) {
         super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
     }
-	
+
     attack(target) {
         if (target.totalDefense > this.totalAttack)
             console.log("blocked");

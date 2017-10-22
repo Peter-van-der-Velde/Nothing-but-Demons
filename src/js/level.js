@@ -39,21 +39,12 @@ class Level {
 
     this.chest = new Model("chest_01", true);
     this.chest.load(this.scene);
+
+    this.skill = new AoeSkill("foo", "bar", 5, 1, 1, 10, 3, 5);
   }
 
-  update() {
-
-    let loader = new THREE.ObjectLoader();
-    // load a resource
-    loader.load(
-      // resource URL
-      'obj/cube.obj',
-      // Function when resource is loaded
-      function ( object ) {
-
-        this.scene.add( object );
-      }
-    );
+  update(player, target) {
+    this.skill.activate(player, target);
   }
 
   add (mesh) {
