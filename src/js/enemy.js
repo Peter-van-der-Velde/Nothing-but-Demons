@@ -1,5 +1,5 @@
 // an array in wich all the enemies will  be pushed.
-// var enemies = [];
+var enemies = [];
 
 /**
  * the enemy class derived from the 'Living' class
@@ -44,13 +44,14 @@ class Enemy extends Living {
      */
     die() {
         console.log(this.name + ' is dead');
-
+        health.value = 100;
         for (let i = 0; i < enemies.length; i++) {
             if (enemies[i].id == this.id) {
                 enemies.splice(i, 1);
                 break;
             }
         }
+
 
         this.dropItems();
         this.replaceWithCorpse();
@@ -87,8 +88,8 @@ class Enemy extends Living {
             let z = this.mesh.position.z + Math.floor(Math.random() * 5) / 10;
             item.mesh.position.set(x, y, z);
 
-            // item.id = item.name + itemsInGame.length;
-            // item.mesh.name = item.name + itemsInGame.length;
+            item.id = item.name + itemsInGame.length;
+            item.mesh.name = item.name + itemsInGame.length;
             itemsInGame.push(item);
             window.scene.add(item.mesh);
 
