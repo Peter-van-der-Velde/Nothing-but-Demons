@@ -42,7 +42,7 @@ class Enemy extends Living {
     /**
      * kills the enemy
      */
-    die() {
+    die(scene) {
         console.log(this.name + ' is dead');
 
         for (let i = 0; i < enemies.length; i++) {
@@ -52,7 +52,8 @@ class Enemy extends Living {
             }
         }
 
-        this.replaceWithCorpse();
+        this.dropItems(scene);
+        this.replaceWithCorpse(scene);
     }
 
 
@@ -60,9 +61,9 @@ class Enemy extends Living {
      * update loop of enemy
      * @param {number} dt delta time
      */
-    update(dt) {
+    update(dt, scene) {
         if (this.hp <= 0)
-            this.die();
+            this.die(scene);
 
         if (this.hp > this.hpMax)
             this.hp = this.hpMax;
@@ -75,8 +76,25 @@ class Enemy extends Living {
         console.log('this is a corpse');
     }
 
-    dropItems() {
-        
+    /**
+     * drop the items of the enemy
+     */
+    dropItems(scene) {
+
+        this.items.forEach(function(item) {
+            var x = this.mesh.position.x + Math.floor(Math.random() * 5) / 10;
+            var y = 0.5;
+            var z = this.mesh.position.z + Math.floor(Math.random() * 5) / 10;
+            item.mesh.position.set(x, y, z);
+
+            item.id = item.name + itemsInGame.length;
+            item.mesh.name = item.id;
+            itemsInGame.push(item);
+            scene.add(item.mesh);
+            console.log(scene);
+        }, this);
+
+        console.log(itemsInGame);
     }
 
 }

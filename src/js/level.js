@@ -10,22 +10,20 @@ class Level {
     this.levelName = levelName;
 
     this.mainCamera = new THREE.PerspectiveCamera( 75, render.aspect, 0.1, 1000 );
-    this.mainCamera.position.set(5, 5, 5);
+    this.mainCamera.position.set(20, 20, 20);
     this.mainCamera.lookAt(new THREE.Vector3(0, 0, 0));
 	//this.mainCamera.lookAt(player.position);
 
     render.setClearColor(0xCCCCFF, 1);
-
-    // this.controls = new THREE.OrbitControls(this.mainCamera, render.domElement);
-    // this.controls.userPanSpeed = 0.1;
-
-
     let gridSize = 200;
     let gridDivisions = 200;
 
     //Texture loader
     this.loader = new THREE.TextureLoader();
     this.floorTexture = this.loader.load("img/floorTexture1.png");
+    this.floorTexture.wrapS = THREE.RepeatWrapping;
+    this.floorTexture.wrapT = THREE.RepeatWrapping;
+    this.floorTexture.repeat.set( 20, 20);
 
     //Create plane
     this.geometry = new THREE.PlaneGeometry( 200, 200, 1 );
@@ -43,18 +41,7 @@ class Level {
   }
 
   update() {
-
-    let loader = new THREE.ObjectLoader();
-    // load a resource
-    loader.load(
-      // resource URL
-      'obj/cube.obj',
-      // Function when resource is loaded
-      function ( object ) {
-
-        this.scene.add( object );
-      }
-    );
+    
   }
 
   add (mesh) {

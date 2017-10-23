@@ -227,4 +227,13 @@ class Dungeon extends Level {
       this.scene.add(rotatedDungeonWalls[k]);
     }
   }
+
+  /**
+   * Update all the things in the level
+   * @param {number} delta 
+   */
+  update(delta) {
+   
+  
+  }
 }
