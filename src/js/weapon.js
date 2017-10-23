@@ -13,7 +13,7 @@ class Weapon extends Item {
 
     constructor(name, value, power, defense, attackRange, attackSpeed, mesh) {
         super(name, value, mesh);
-        
+
         this.power = power;
         this.defense = defense;
         this.attackRange = attackRange;

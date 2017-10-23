@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -10,27 +11,28 @@
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/debug.css">
-  
+
   <script src="js/inventory.js"></script>
 
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script type="text/javascript" src="http://code.jquery.com/color/jquery.color-2.1.2.js"></script>
   <script type="text/javascript">
-      $(document).ready(function(){
-          console.log("Document loaded!");
-          $( "#menuID" ).load( "options.html", function() {
-            console.log("#Menu Loaded");
-          });
-          $( "#pausedMenu" ).load( "pauseMenu.html", function() {
-            console.log("#Menu Loaded");
-          });
-		  $( "#inventory" ).load( "inventory.html", function() {
-            console.log("#Inventory Loaded");
-          });
+    $(document).ready(function () {
+      console.log("Document loaded!");
+      $("#menuID").load("options.html", function () {
+        console.log("#Menu Loaded");
       });
+      $("#pausedMenu").load("pauseMenu.html", function () {
+        console.log("#Menu Loaded");
+      });
+      $("#inventory").load("inventory.html", function () {
+        console.log("#Inventory Loaded");
+      });
+    });
   </script>
 </head>
+
 <body>
   <div class="health">
     <progress id="health" value="100" max="100"></progress>
@@ -51,13 +53,13 @@
   <div class="menu" id="menuID" style="display:none;"></div>
 
   <!-- <div class="debug-display"> -->
-    <!-- <h2 id="fps-display"></h2> -->
+  <!-- <h2 id="fps-display"></h2> -->
   <!-- </div> -->
 </body>
 <footer>
   <script src="js/lib/three.js"></script>
   <script src="js/global.js"></script>
-  
+
   <script src="js/input.js"></script>
   <script src="js/ui.js"></script>
   <script src="js/lib/OrbitControls.js"></script>
@@ -77,7 +79,7 @@
   <script src="js/player.js"></script>
   <script src="js/model.js"></script>
   <script src="js/gameObject.js"></script>
-  
+
   <script src="js/level.js"></script>
   <script src="js/environment/pillar.js"></script>
   <script src="js/environment/wall.js"></script>
@@ -86,4 +88,5 @@
   <script src="js/main.js"></script>
 
 </footer>
+
 </html>

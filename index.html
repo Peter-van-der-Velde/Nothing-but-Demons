@@ -1,50 +1,63 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>C3</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="src/css/normalize.css">
-        <link rel="stylesheet" href="src/css/main.css">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>C3</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script type="text/javascript" src="http://code.jquery.com/color/jquery.color-2.1.2.js"></script>
+	<link rel="stylesheet" href="src/css/normalize.css">
+	<link rel="stylesheet" href="src/css/main.css">
 
-    </head>
-    <body>
-		<!-- Audio player -->
-		<audio controls autoplay id="backgroundPlayer">
-			<!-- <source src="src/audio/ambient.mp3" type="audio/mp3">-->
-		</audio>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/color/jquery.color-2.1.2.js"></script>
+
+</head>
+
+<body>
+	<!-- Audio player -->
+	<audio controls autoplay id="backgroundPlayer">
+		<!-- <source src="src/audio/ambient.mp3" type="audio/mp3">-->
+	</audio>
 
 
 
-		<!-- Actual page -->
-		<div class="wrapper" id="wrapper">
-			<div class="contentWrapper">
-				<h1>Nothing but Demons</h1>
-				<div class="button" id="button1">
-					<a href="src/game.html">Play<span class="shift">›</span></a>
-					<!--<div class="mask"></div>-->
-				</div>
-				<div class="button" id="button2">
-					<a href="doc/jsdoc/index.html">Documentation<span class="shift">›</span></a>
-					<!--<div class="mask"></div>-->
-				</div>
-				<div class="button" id="button3">
-					<a href="src/saveload.html">Test the battle<span class="shift">›</span></a>
-					<div class="mask"></div>
-				</div>
-				<a onclick='toggleMute()' ><input id="unmutedButton" type="image" src="src/img/unmuted.png" class="mutingButtons" /></a>
-				<a onclick='toggleMute()' ><input id="mutedButton" type="image" src="src/img/muted.png" class="mutingButtons" /></a>
+	<!-- Actual page -->
+	<div class="wrapper" id="wrapper">
+		<div class="contentWrapper">
+			<h1>Nothing but Demons</h1>
+			<div class="button" id="button1">
+				<a href="src/game.html">Play
+					<span class="shift">›</span>
+				</a>
+				<!--<div class="mask"></div>-->
 			</div>
+			<div class="button" id="button2">
+				<a href="doc/jsdoc/index.html">Documentation
+					<span class="shift">›</span>
+				</a>
+				<!--<div class="mask"></div>-->
+			</div>
+			<div class="button" id="button3">
+				<a href="src/saveload.html">Test the battle
+					<span class="shift">›</span>
+				</a>
+				<div class="mask"></div>
+			</div>
+			<a onclick='toggleMute()'>
+				<input id="unmutedButton" type="image" src="src/img/unmuted.png" class="mutingButtons" />
+			</a>
+			<a onclick='toggleMute()'>
+				<input id="mutedButton" type="image" src="src/img/muted.png" class="mutingButtons" />
+			</a>
 		</div>
-    </body>
-	<footer>
+	</div>
+</body>
+<footer>
 
-	</footer>
+</footer>
+
 </html>

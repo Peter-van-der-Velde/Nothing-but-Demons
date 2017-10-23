@@ -13,7 +13,7 @@
  */
 class Living {
 
-    constructor (name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons) {
+    constructor(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons) {
         this.name = name;
         this.hpMax = hp;
         this.hp = hp;
@@ -46,12 +46,12 @@ class Living {
      */
     calcDerivedStats() {
         this.totalAttack = (this.weapon) ? this.strength : this.strength + this.weapon.power;
-        this.totalDefense = (this.shield) ? this.defense :  this.defense + this.shield.defense;
+        this.totalDefense = (this.shield) ? this.defense : this.defense + this.shield.defense;
         this.totalDefense = Math.floor(-30 + 2 * Math.sqrt(this.totalDefense * 25 + 220));
     }
-        
 
-    move () {
+
+    move() {
 
     }
 }

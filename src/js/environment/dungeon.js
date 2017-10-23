@@ -1,13 +1,13 @@
 class Dungeon extends Level {
 
-  constructor(dungeon, render){
-    super(dungeon, render );
+  constructor(dungeon, render) {
+    super(dungeon, render);
 
     let textureLoader = new THREE.TextureLoader();
     let wallTexture = textureLoader.load("img/wallTexture.png");
 
-    let outerWallGeometry = new THREE.CubeGeometry(1, 10,200);
-    let wallMaterial = new THREE.MeshLambertMaterial({map: wallTexture});
+    let outerWallGeometry = new THREE.CubeGeometry(1, 10, 200);
+    let wallMaterial = new THREE.MeshLambertMaterial({ map: wallTexture });
 
     let outerWall1 = new THREE.Mesh(outerWallGeometry, wallMaterial);
     outerWall1.position.x = 99.5;
@@ -15,27 +15,27 @@ class Dungeon extends Level {
 
     let outerWall2 = new THREE.Mesh(outerWallGeometry, wallMaterial);
     outerWall2.position.x = -99.5;
-    outerWall2.position.y= 5;
+    outerWall2.position.y = 5;
 
     let outerWall3 = new THREE.Mesh(outerWallGeometry, wallMaterial);
     outerWall3.position.z = 99.5;
     outerWall3.position.y = 5;
-    outerWall3.rotateY( Math.PI / 2 );
+    outerWall3.rotateY(Math.PI / 2);
 
     let outerWall4 = new THREE.Mesh(outerWallGeometry, wallMaterial);
     outerWall4.position.z = -99.5;
     outerWall4.position.y = 5;
-    outerWall4.rotateY( Math.PI / 2 );
+    outerWall4.rotateY(Math.PI / 2);
 
     let dungeonWalls = [
       new Wall(50, 5, -40, 20),
-      new Wall(50 ,5, -20, 20),
+      new Wall(50, 5, -20, 20),
       new Wall(70, 5, -20, 20),
       new Wall(70, 5, -40, 20),
       new Wall(50, 5, -60, 20),
       new Wall(70, 5, -70, 20),
       new Wall(50, 5, -70, 20),
-      new Wall(70, 5, -60 , 20),
+      new Wall(70, 5, -60, 20),
       new Wall(-10, 5, -60, 20),
       new Wall(-10, 5, -70, 20),
       new Wall(-10, 5, -40, 20),
@@ -51,13 +51,13 @@ class Dungeon extends Level {
       new Wall(-80, 5, -50, 20),
       //spiegelen
       new Wall(-50, 5, 40, 20),
-      new Wall(-50 ,5, 20, 20),
+      new Wall(-50, 5, 20, 20),
       new Wall(-70, 5, 20, 20),
       new Wall(-70, 5, 40, 20),
       new Wall(-50, 5, 60, 20),
       new Wall(-70, 5, 70, 20),
       new Wall(-50, 5, 70, 20),
-      new Wall(-70, 5, 60 , 20),
+      new Wall(-70, 5, 60, 20),
       new Wall(10, 5, 60, 20),
       new Wall(10, 5, 70, 20),
       new Wall(10, 5, 40, 20),
@@ -126,11 +126,11 @@ class Dungeon extends Level {
 
 
 
-    let dungeonPillars =[
+    let dungeonPillars = [
       new Pillar(10, 5, -10),
       new Pillar(-10, 5, 10),
       new Pillar(10, 5, 10),
-      new Pillar(-10,5, -10),
+      new Pillar(-10, 5, -10),
       new Pillar(50, 5, -10),
       new Pillar(50, 5, 10),
       new Pillar(30, 5, 10),
@@ -170,7 +170,7 @@ class Dungeon extends Level {
       new Pillar(-10, 5, 10),
       new Pillar(10, 5, -10),
       new Pillar(-10, 5, -10),
-      new Pillar(10,5, 10),
+      new Pillar(10, 5, 10),
       new Pillar(-50, 5, 10),
       new Pillar(-50, 5, -10),
       new Pillar(-30, 5, -10),
@@ -212,18 +212,18 @@ class Dungeon extends Level {
 
     window.scene.add(outerWall1, outerWall2, outerWall3, outerWall4);
 
-    for (let j = 0; j < dungeonPillars.length; j++){
+    for (let j = 0; j < dungeonPillars.length; j++) {
 
       window.scene.add(dungeonPillars[j]);
     }
 
-    for(let i = 0; i < dungeonWalls.length; i++){
+    for (let i = 0; i < dungeonWalls.length; i++) {
 
       window.scene.add(dungeonWalls[i]);
     }
 
-    for(let k = 0; k < rotatedDungeonWalls.length; k++){
-      rotatedDungeonWalls[k].rotateY(Math.PI/ 2);
+    for (let k = 0; k < rotatedDungeonWalls.length; k++) {
+      rotatedDungeonWalls[k].rotateY(Math.PI / 2);
       window.scene.add(rotatedDungeonWalls[k]);
     }
   }
@@ -233,7 +233,7 @@ class Dungeon extends Level {
    * @param {number} delta 
    */
   update(delta) {
-   
-  
+
+
   }
 }

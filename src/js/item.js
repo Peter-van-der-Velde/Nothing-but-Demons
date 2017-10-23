@@ -7,7 +7,7 @@
  */
 class Item {
 
-    constructor (name, value, mesh) {
+    constructor(name, value, mesh) {
         this.name = name;
         this.value = value;
         this.mesh = mesh;
