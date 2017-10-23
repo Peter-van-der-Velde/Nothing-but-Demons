@@ -39,7 +39,14 @@ class Enemy extends Living {
     attack(target) {
         target.hp = target.hp - (this.totalAttack - (-30 + 2 * Math.sqrt(target.totalDefense * 25 + 220)));
     }
-
+    toggleHealth(target){
+      if(target === null){
+        //niks displayen
+      }
+      else if(target){
+        //healthbar displayen
+      }
+    }
     /**
      * kills the enemy
      */
