@@ -2,14 +2,14 @@
  * a basic class for all living things
  * @class
  * @param {string} name
- * @param {number} hp 
- * @param {number} mp 
+ * @param {number} hp
+ * @param {number} mp
  * @param {number} strength
  * @param {number} defense
- * @param {number} speed 
- * @param {number} intelligence 
- * @param {number} level 
- * @param {number} experiencePoints 
+ * @param {number} speed
+ * @param {number} intelligence
+ * @param {number} level
+ * @param {number} experiencePoints
  */
 class Living {
 
@@ -35,6 +35,8 @@ class Living {
         this.totalDefense
         this.luck = 0;
 
+        this.mesh;
+
         this.calcDerivedStats();
     }
 
@@ -49,7 +51,25 @@ class Living {
         this.totalDefense = (this.shield) ? this.defense :  this.defense + this.shield.defense;
         this.totalDefense = Math.floor(-30 + 2 * Math.sqrt(this.totalDefense * 25 + 220));
     }
-        
+
+    dealDamage(damage) {
+      this.hp -= damage;
+      if (this.hp <= 0) {
+        this.hp = 0;
+        this.die();
+      }
+      console.log("Enemy HP: " + this.hp);
+    }
+
+    die() {
+        console.log(this.name + 'is dead');
+        this.replaceWithCorpse();
+    }
+
+    replaceWithCorpse() {
+        console.log('this is a corpse');
+    }
+
 
     move () {
 

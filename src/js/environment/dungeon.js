@@ -210,21 +210,30 @@ class Dungeon extends Level {
     ];
 
 
-    this.scene.add(outerWall1, outerWall2, outerWall3, outerWall4);
+    window.scene.add(outerWall1, outerWall2, outerWall3, outerWall4);
 
     for (let j = 0; j < dungeonPillars.length; j++){
 
-      this.scene.add(dungeonPillars[j]);
+      window.scene.add(dungeonPillars[j]);
     }
 
     for(let i = 0; i < dungeonWalls.length; i++){
 
-      this.scene.add(dungeonWalls[i]);
+      window.scene.add(dungeonWalls[i]);
     }
 
     for(let k = 0; k < rotatedDungeonWalls.length; k++){
       rotatedDungeonWalls[k].rotateY(Math.PI/ 2);
-      this.scene.add(rotatedDungeonWalls[k]);
+      window.scene.add(rotatedDungeonWalls[k]);
     }
+  }
+
+  /**
+   * Update all the things in the level
+   * @param {number} delta 
+   */
+  update(delta) {
+   
+  
   }
 }

@@ -573,9 +573,12 @@ input[type=range]:focus::-ms-fill-upper {
   z-index: 6000;
 }
 
-
-
-
+progress {
+  -webkit-appeareance: none;
+  appearance: none;
+  width: 250px;
+  height: 200px;
+}
 
 #videoItems{display:block;}
 #soundItems{display:none;}

@@ -1,4 +1,5 @@
 var WIDTH, HEIGHT, testLevel, aspect, controls, delta, fps, frameCount, timer, input;
+var mixer;
 
 init();
 animate();
@@ -7,7 +8,7 @@ function init(){
 	timer = new THREE.Clock();
   frameCount = 20;
 
-	
+
   render = new Render(true, window.innerWidth, window.innerHeight);
   testLevel = new Dungeon("dungeon", render);
 
@@ -20,17 +21,45 @@ function init(){
 		testLevel.mainCamera.updateProjectionMatrix();
 
 	});
-	
-	this.player =  new Player (name = "Sparhawk", hp = 35, mp = 20, strength = 16, defense = 4, speed = 4, intelligence = 35, level = 5, experiencePoints = 12, items = undefined, weapons = [ironSword, ironShield, ironShield, ironShield], playerClass = "Black Mage", camera = testLevel.mainCamera, scene = testLevel.scene);
-	//this.enemy =  new Enemy (name = "Fred der Goblin", hp = 25, mp = 10, strength = 9, defense = 5, speed = 3, intelligence = 250, level = 3, experiencePoints = 9, items = undefined, weapons = [ironSword, ironShield, ironShield, ironShield]);
-	this.blockEnemey = new CubeEnemy();
-	this.blockEnemey2 = new CubeEnemy();
-	this.blockEnemey2.mesh.position.set(4, 1, -4);
-	
+
+
+	this.player =  new Player (name = "Sparhawk", hp = 35, mp = 20, strength = 16, defense = 4, speed = 4, intelligence = 35, level = 5, experiencePoints = 12, items = undefined, weapons = [ironSword, ironShield, ironShield, ironShield], playerClass = "Black Mage", camera = testLevel.mainCamera, scene = window.scene);
+	this.blockEnemy = new CubeEnemy(scene = window.scene);
+	this.blockEnemy2 = new CubeEnemy(scene = window.scene);
+	this.blockEnemy2.mesh.position.set(4, 1, -4);
+	this.blockEnemy3 = new CubeEnemy(scene = window.scene);
+	this.blockEnemy3.mesh.position.set(-4, 1, -4);
+
+
 	enemies.forEach(function(enemy) {
 		testLevel.add(enemy.mesh);
 	}, this);
 	testLevel.add(player.mesh);
+
+
+
+	initAnim();
+}
+
+function initAnim() {
+	var loader = new THREE.JSONLoader();
+	loader.load( "models/chest_01/chest_02.json", function( geometry, materials ) {
+		var material = materials[ 0 ];
+		material.emissive.set( 0x101010 );
+		material.skinning = true;
+		material.morphTargets = true;
+		var mesh = new THREE.SkinnedMesh( geometry, material );
+		mesh.position.y = -30;
+		mesh.scale.multiplyScalar( 5 );
+		mixer = new THREE.AnimationMixer( mesh );
+		for ( var i = 0; i < mesh.geometry.animations.length; i ++ ) {
+			var action = mixer.clipAction( mesh.geometry.animations[ i ] );
+			if ( i === 1 ) action.timeScale = 0.25;
+			action.play();
+		}
+		window.scene.add( mesh );
+		mesh.position.set(-20, 0, -3);
+	} );
 }
 
 function animate() {
@@ -40,21 +69,18 @@ function animate() {
 	delta = timer.getDelta();
 	fps = Math.trunc(1.0 / delta);
 
-	if (frameCount < 20) {frameCount++;}
-	else {
-		// document.getElementById("fps-display").textContent="FPS: " + fps;
-		// frameCount = 0;
+	if (mixer)
+		mixer.update( delta / 2.0 );
+
+	this.player.update(this.blockEnemy, delta);
+	enemies.forEach(function(enemy) {
+	 	enemy.update(delta, window.scene);
+	}, this);
+
+	for (var i = 0; i < enemies.length; i++) {
+		enemies[i].update(delta, window.scene);
 	}
 
-	setTimeout(function(){
-		//changeOpacity();
-	}, 1000);
-
 	// Render the scene.
-	render.render(testLevel.scene, testLevel.mainCamera);
-	this.player.update(delta);
-
-	enemies.forEach(function(enemy) {
-		enemy.update(delta);
-	}, this);
+	render.render(window.scene, testLevel.mainCamera);
 }
