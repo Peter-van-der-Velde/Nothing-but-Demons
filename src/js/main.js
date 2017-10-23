@@ -8,7 +8,7 @@ function init(){
 	timer = new THREE.Clock();
   frameCount = 20;
 
-	
+
   render = new Render(true, window.innerWidth, window.innerHeight);
   testLevel = new Dungeon("dungeon", render);
 
@@ -27,14 +27,14 @@ function init(){
 	this.blockEnemey = new CubeEnemy(scene = testLevel.scene);
 	this.blockEnemey2 = new CubeEnemy(scene = testLevel.scene);
 	this.blockEnemey2.mesh.position.set(4, 1, -4);
-	
+
 	enemies.forEach(function(enemy) {
 		testLevel.add(enemy.mesh);
 	}, this);
 	testLevel.add(player.mesh);
 
-	
-	
+
+
 	initAnim();
 }
 
