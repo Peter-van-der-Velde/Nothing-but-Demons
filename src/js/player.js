@@ -1,27 +1,27 @@
 /**
- * the player class derived from the 'Living' class
- * @class
- * @extends Living
- * @param {string} name name of the player
- * @param {number} hp amount of healing points of the player
- * @param {number} mp amount of mana points of the player
- * @param {number} strength the strength of the player
- * @param {number} speed the speed of the player
- * @param {number} intelligence the intelligence of the player
- * @param {number} level the level of the player
- * @param {number} experiencePoints the amount of experience points the player has
- * @param {Item[]} items the items the player has
- * @param {Weapon[]} weapons the weapons the player has.
- * @param {PlayerClass} playerClass the warrior class this player is
- */
+* the player class derived from the 'Living' class
+* @class
+* @extends Living
+* @param {string} name name of the player
+* @param {number} hp amount of healing points of the player
+* @param {number} mp amount of mana points of the player
+* @param {number} strength the strength of the player
+* @param {number} speed the speed of the player
+* @param {number} intelligence the intelligence of the player
+* @param {number} level the level of the player
+* @param {number} experiencePoints the amount of experience points the player has
+* @param {Item[]} items the items the player has
+* @param {Weapon[]} weapons the weapons the player has.
+* @param {PlayerClass} playerClass the warrior class this player is
+*/
 class Player extends Living {
 
     constructor (name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, playerClass,  camera, scene) {
 
         super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
-        
+
         this.baseAttackSpeed = 2;
-        this.input = new Input(); 
+        this.input = new Input();
 
         // Create player mesh
         var group = new THREE.Group();
@@ -33,7 +33,7 @@ class Player extends Living {
         var hatMaterial = new THREE.MeshBasicMaterial( {color: 0x008000} );
         this.hatMesh = new THREE.Mesh( hatGeometry, hatMaterial );
         this.hatMesh.position.set(0, 2.4 ,0);
-        group.add(this.hatMesh);        
+        group.add(this.hatMesh);
         group.add(this.bodyMesh);
         this.mesh = group;
         this.mesh.position.set(0, 0, 0);
@@ -99,7 +99,7 @@ class Player extends Living {
      * damage reduction is calculated with the formula: <br>
      * y = -30 + 2 * \sqrt{x*25 +220 } <br>
      * where y is this.totalAttack and x is target.totalDefense <br>
-     * @param {Enemy} target  
+     * @param {Enemy} target
      */
     attack(target) {
         var time = this.attackClock.getElapsedTime();
@@ -114,7 +114,7 @@ class Player extends Living {
         // reset attack clock
         this.attackClock.start();
         this.calcDerivedStats();
-        
+
         console.log('hit: ' + target.id);
         if(this.totalAttack - target.totalDefense > 0)
             target.hp = target.hp - (this.totalAttack - target.totalDefense);
@@ -124,20 +124,20 @@ class Player extends Living {
      * update loop of the player
      * @param {number} dt delta time
      */
-    update(dt) {
+    update(target, dt) {
         if (hp <= 0)
             this.die();
 
         this.input.update();
         this.move(dt);
-        
+
         if (this.destination != null) {
             for (let i = 0; i < enemies.length; i++) {
                 if (enemies[i].mesh.position.distanceTo(player.destination)  < 2)
                 this.target = enemies[i];
             }
         }
-        
+
         if (this.target == null)
             return;
 
@@ -147,14 +147,33 @@ class Player extends Living {
         }
 
         this.attack(this.target);
+
+        this.skill.update(dt);
+        if (this.input.one) {
+          this.skill.activate(this, target);
+        }
     }
 
-    /**
-     * when player dies use this function
-     */
-    die() {
-        alert("Game Over, you died.");
-        // reset to last shrine/bonfire/savespot
+    this.attack(this.target);
+
+  }
+
+  /**
+  * when player dies use this function
+  */
+  die() {
+    alert("Game Over, you died.");
+    // reset to last shrine/bonfire/savespot
+  }
+
+  /**
+  * moves the playes
+  * @param {number} dt delta time
+  */
+  move(dt) {
+    if(this.input.click) {
+      this.destination = this.getRayPos(this.scene);
+      this.mesh.lookAt(new THREE.Vector3(this.destination.x, this.mesh.position.y, this.destination.z));
     }
 
     /**
@@ -166,9 +185,9 @@ class Player extends Living {
             this.destination = this.getRayPos(this.scene);
             this.mesh.lookAt(new THREE.Vector3(this.destination.x, this.mesh.position.y, this.destination.z));
         }
-        
+
         if (this.destination != null) {
-                        
+
             if (Math.abs(this.destination.x - this.mesh.position.x) < 0.1 && Math.abs(this.destination.z - this.mesh.position.z) < 0.1 ) {
                 console.log('umm 0.1')
                 this.destination = null;
@@ -190,11 +209,27 @@ class Player extends Living {
             dt = dt * this.playerMovementSpeed;
             this.direction.set(this.destination.x - this.mesh.position.x, 0, this.destination.z - this.mesh.position.z).normalize();
             this.mesh.position.set(this.mesh.position.x + this.direction.x * dt, this.mesh.position.y, this.mesh.position.z + this.direction.z * dt);
-            
+
             return;
         }
     }
+  }
 
+
+  /**
+  * get's the position of the 2d click in the 3d world
+  * @param {THREE.Scene} scene
+  */
+  getRayPos(scene) {
+    var mouse = new THREE.Vector2();
+    mouse.x = (this.input.mouseLocation.x / window.innerWidth) * 2 - 1;
+    mouse.y = -(this.input.mouseLocation.y / window.innerHeight) * 2 + 1;
+
+    var raycaster = new THREE.Raycaster();
+
+    var vector = new THREE.Vector3( mouse.x, mouse.y, 1).unproject( camera );
+    raycaster.set( camera.position, vector.sub( camera.position ).normalize() );
+    var intersects = raycaster.intersectObjects( scene.children );
 
     /**
      * get's the position of the 2d click in the 3d world

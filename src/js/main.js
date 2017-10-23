@@ -72,7 +72,7 @@ function animate() {
 	if (mixer)
 		mixer.update( delta / 2.0 );
 
-	this.player.update(delta);
+	this.player.update(this.blockEnemy, delta);
 	enemies.forEach(function(enemy) {
 	 	enemy.update(delta, window.scene);
 	}, this);

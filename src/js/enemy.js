@@ -1,5 +1,5 @@
 // an array in wich all the enemies will  be pushed.
-var enemies = [];
+// var enemies = [];
 
 /**
  * the enemy class derived from the 'Living' class
@@ -17,7 +17,7 @@ var enemies = [];
  * @param {Weapon[]} weapons the weapons the enemy has.
  */
 class Enemy extends Living {
-    
+
     constructor (name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons) {
         super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
 
@@ -27,13 +27,13 @@ class Enemy extends Living {
         // needed for very basic collision
         this.radius = 0;
     }
-    
+
     /**
      * enemy attacks player <br>
      * damage reduction is calculated with the formula: <br>
      * y = -30 + 2 * \sqrt{x*25 +220 } <br>
      * where y is this.totalAttack and x is target.totalDefense <br>
-     * @param {Living} target  
+     * @param {Living} target
      */
     attack(target) {
         target.hp = target.hp - (this.totalAttack - (-30 + 2 * Math.sqrt(target.totalDefense * 25 + 220)));
@@ -93,10 +93,10 @@ class Enemy extends Living {
             window.scene.add(item.mesh);
             console.log(item);
         }
-        
+
         for (var item of itemsInGame)
             console.log(item);
-        
+
         console.log(window.scene);
         console.log(itemsInGame);
     }
