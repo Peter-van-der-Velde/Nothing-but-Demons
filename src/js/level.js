@@ -39,13 +39,10 @@ class Level {
 
     this.chest = new Model("chest_01", true);
     this.chest.load(this.scene);
-
-    this.skill = new Skill("foo", "bar", 4, 1, 2, 3);
   }
 
   update(player, target, delta) {
-    this.skill.update(delta);
-    this.skill.activate(player, target);
+    
   }
 
   add (mesh) {

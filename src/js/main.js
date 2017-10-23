@@ -68,7 +68,7 @@ function animate() {
 	//testLevel.controls.update();
 	//console.log(this.player);
 	testLevel.update(this.player, this.blockEnemey, delta);
-	this.player.update(delta);
+	this.player.update(this.blockEnemey, delta);
 
 	enemies.forEach(function(enemy) {
 		enemy.update(delta);

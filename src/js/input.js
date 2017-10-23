@@ -6,13 +6,19 @@ class Input {
     this.up = false;
     this.down = false;
     this.space = false;
-    
+
+    this.one = false;
+    this.two = false;
+    this.three = false;
+    this.four = false;
+    this.five = false;
+
     this.mouseDown = false;
     this.click = false;
     this.mouseLocation = new THREE.Vector2(0, 0);
     this.clickedOnce = false;
   }
-  
+
   update() {
     this.click = false;
 
@@ -60,6 +66,22 @@ class Input {
       if (e.keyCode === 32) {
         this.space = true;
       }
+
+      if (e.keyCode === 49) {
+        this.one = true;
+      }
+      if (e.keyCode === 50) {
+        this.two = true;
+      }
+      if (e.keyCode === 51) {
+        this.three = true;
+      }
+      if (e.keyCode === 51) {
+        this.four = true;
+      }
+      if (e.keyCode === 53) {
+        this.five = true;
+      }
     }
 
     document.onkeyup = (e) => {
@@ -80,7 +102,23 @@ class Input {
       if (e.keyCode === 32) {
         this.space = false;
       }
+
+      if (e.keyCode === 49) {
+        this.one = false;
+      }
+      if (e.keyCode === 50) {
+        this.two = false;
+      }
+      if (e.keyCode === 51) {
+        this.three = false;
+      }
+      if (e.keyCode === 51) {
+        this.four = false;
+      }
+      if (e.keyCode === 53) {
+        this.five = false;
+      }
     }
-    
+
   }
 }
