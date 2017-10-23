@@ -21,7 +21,7 @@ class Model {
 
     var loader = new THREE.JSONLoader();
     loader.load(jsonPath, handleLoad);
-
+    
     function handleLoad(geometry, materials) {
       var texloader = new THREE.TextureLoader();
 

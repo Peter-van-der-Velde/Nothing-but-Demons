@@ -1,11 +1,11 @@
 class CubeEnemy extends Enemy {
-
+  
   constructor() {
     super(name = "BasicEnemy", hp = 25, mp = 10, strength = 9, defense = 5, speed = 3, intelligence = 250, level = 3, experiencePoints = 9, items = [ironShield], weapons = [ironSword, ironShield, ironShield, ironShield]);
-
-    var bodyGeometry = new THREE.BoxGeometry(1, 1, 1);
-    var bodyMaterial = new THREE.MeshBasicMaterial({ color: 0x008000 });
-    this.mesh = new THREE.Mesh(bodyGeometry, bodyMaterial);
+    
+    var bodyGeometry = new THREE.BoxGeometry( 1, 1, 1 );
+    var bodyMaterial = new THREE.MeshBasicMaterial({color: 0x008000});
+    this.mesh = new THREE.Mesh( bodyGeometry, bodyMaterial );
     this.mesh.position.set(4, 1, 0);
     this.radius = 0.5;
 
@@ -15,7 +15,7 @@ class CubeEnemy extends Enemy {
   }
 
   replaceWithCorpse() {
-    this.mesh.material.color.setHex(0xff0000);
+    this.mesh.material.color.setHex( 0xff0000 );
     this.mesh.position.y = 0
   }
 }

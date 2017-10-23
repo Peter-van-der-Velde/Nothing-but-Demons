@@ -3,7 +3,7 @@
 //light.castShadow = true;
 
 const pointLight = new THREE.PointLight(0xFFFFFF);
-pointLight.position.set(0, 20, 8);
+pointLight.position.set (0, 20, 8);
 pointLight.castShadow = true;
 
-var LightA = new THREE.AmbientLight(0x000);
+var LightA = new THREE.AmbientLight( 0x000 );

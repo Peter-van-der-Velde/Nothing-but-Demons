@@ -1,10 +1,11 @@
 //"use strict"
 
-class cubeMovement extends THREE.Mesh {
-  constructor(x, z, plane) {
+class cubeMovement extends THREE.Mesh
+{
+  constructor (x, z, plane) {
 
     let geometry = new THREE.CubeGeometry(3, 3, 3);
-    let material = new THREE.MeshLambertMaterial({ color: 0xffffff });
+    let material = new THREE.MeshLambertMaterial({color: 0xffffff});
     super(geometry, material);
 
     this.movementSpeed = 1;
@@ -14,7 +15,7 @@ class cubeMovement extends THREE.Mesh {
     this.position.z = z;
 
   }
-  getRayPos(event) {
+  getRayPos(event){
 
     var raycaster = new THREE.Raycaster();
     var mouse = new THREE.Vector2();
@@ -31,31 +32,33 @@ class cubeMovement extends THREE.Mesh {
     return null;
   }
 
-  lookAtEvent(event) {
+  lookAtEvent(event){
 
     var pos = this.getRayPos(event);
-    if (pos) {
+    if(pos)
+    {
       this.lookAt(pos);
     }
   }
 
-  lookAt(pos) {
+  lookAt(pos){
 
-    if (this) {
+    if (this)
+    {
       this.lookAt(pos);
     }
   }
 
-  moveToEvent(event) {
+  moveToEvent(event){
 
     var pos = this.getRayPos(event);
-    if (pos) {
+    if(pos){
       this.lookAt(pos);
       this.moveTo(pos);
     }
   }
 
-  moveTo(pos) {
+  moveTo(pos){
 
     var currentPos = this.position;
     console.log(currentPos);
@@ -80,12 +83,12 @@ class cubeMovement extends THREE.Mesh {
     this.move_step_vector.z = currentPos.z > pos.z ? (-move_step_z) : move_step_z;
 
     this.move_idx = 0;
-
+ 
     this.move_destination = pos;
     this.move_idx = 0;
   }
 
-  move_step() {
+  move_step(){
     if (this.isMoving) {
 
       this.move_idx++;
@@ -110,7 +113,7 @@ class cubeMovement extends THREE.Mesh {
     }
   }
 
-  update() {
+  update(){
     this.move_step();
   }
 

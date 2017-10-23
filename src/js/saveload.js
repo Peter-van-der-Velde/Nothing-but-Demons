@@ -1,4 +1,4 @@
-class SaveLoad {
+class SaveLoad{
 
   save() {
     localStorage.setItem('name', JSON.stringify(player.name));
