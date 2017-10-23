@@ -3,48 +3,59 @@
 /**
  * a basic class for all living things
  * @class
- * @param {string} name
+ * @param {string} name 
  * @param {number} hp
  * @param {number} mp
- * @param {number} baseStrength
- * @param {number} baseDefense
- * @param {number} baseSpeed
- * @param {number} baseIntelligence
+ * @param {number} strength
+ * @param {number} defense
+ * @param {number} intelligence
+ * @param {number} speed
  * @param {number} level
- * @param {number} experiencePoints
+ * @param {number} exp
+ * @param {array} items
+ * @param {array} weapons
  */
 class Living {
 
-    constructor (name, hp, mp, baseStrength, baseDefense, baseSpeed, baseIntelligence, level, experiencePoints, items, weapons) {
+    constructor (name, hp, mp, strength, defense, intelligence, speed, level, exp, items, weapons) {
         this.name = name;
+        this.inventorySize = 20;
+        this.hpRegen = 0;
+        this.mpRegen = 2;
 
         this.hpMax = hp;
         this.hp = hp;
-        this.hpRegen = 1;
+
         this.mpMax = mp;
         this.mp = mp;
-        this.mpRegen = 2;
 
-        this.baseDefense = baseDefense;
-        this.defense = baseDefense;
+        this.defense = defense;
+        this.strength = strength;
+        this.speed = speed;
+        this.intelligence = intelligence;
 
-        this.baseStrength = baseStrength;
-        this.strength = baseStrength;
+        this.effects = [];
 
-        this.baseSpeed = baseSpeed;
-        this.speed = baseSpeed;
-
-        this.baseIntelligence = baseIntelligence;
-        this.intelligence = baseIntelligence;
+        this.skills = [];
+        this.skills.length = SKILL_SLOTS;
+        for (let e of this.skills) {
+            e = null;
+        }
 
         this.equipment = [];
+        this.equipment.length = EQUIPMENT_SLOTS;
+        for (let e of this.equipment) {
+            e = null;
+        }
 
+        this.equipment[EQUIPMENT_TYPE.WEAPON] = weapons[0];
+        this.equipment[EQUIPMENT_TYPE.OFFHAND] = weapons[2];
+        console.log(this.equipment);
+
+        // OLD STUFF
         this.level = level;
-        this.experiencePoints = experiencePoints;
+        this.experiencePoints = exp;
         this.items = items;
-        this.weapons = weapons;
-        this.weapon = weapons[0];
-        this.shield = weapons[2];
 
         this.totalAttack;
         this.totalDefense
@@ -66,8 +77,8 @@ class Living {
      * magic attacks will be calculated with some algorithm
      */
     calcDerivedStats() {
-        this.totalAttack = (this.weapon) ? this.strength : this.strength + this.weapon.power;
-        this.totalDefense = (this.shield) ? this.defense :  this.defense + this.shield.defense;
+        this.totalAttack = (!this.equipment[EQUIPMENT_TYPE.WEAPON]) ? this.strength : this.strength + this.equipment[EQUIPMENT_TYPE.WEAPON].power;
+        this.totalDefense = (!this.equipment[EQUIPMENT_TYPE.OFFHAND]) ? this.defense :  this.defense + this.equipment[EQUIPMENT_TYPE.OFFHAND].defense;
         this.totalDefense = Math.floor(-30 + 2 * Math.sqrt(this.totalDefense * 25 + 220));
     }
 

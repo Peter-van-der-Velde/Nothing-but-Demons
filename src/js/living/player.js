@@ -107,10 +107,10 @@ class Player extends Living {
   attack(target) {
     var time = this.attackClock.getElapsedTime();
 
-    if ((this.baseAttackSpeed / this.weapon.attackSpeed) > time)
+    if ((this.baseAttackSpeed / this.equipment[EQUIPMENT_TYPE.WEAPON].attackSpeed) > time)
     return;
 
-    if(Math.abs(this.mesh.position.x - this.target.mesh.position.x) > (this.weapon.attackRange + this.target.radius + 0.1) || Math.abs(this.mesh.position.z - this.target.mesh.position.z) > (this.weapon.attackRange + this.target.radius + 0.1)) {
+    if(Math.abs(this.mesh.position.x - this.target.mesh.position.x) > (this.equipment[EQUIPMENT_TYPE.WEAPON].attackRange + this.target.radius + 0.1) || Math.abs(this.mesh.position.z - this.target.mesh.position.z) > (this.equipment[EQUIPMENT_TYPE.WEAPON].attackRange + this.target.radius + 0.1)) {
       return;
     }
 
@@ -187,7 +187,7 @@ class Player extends Living {
       }
 
       if (this.target != null) {
-        if(Math.abs(this.mesh.position.x - this.target.mesh.position.x) < (this.weapon.attackRange + this.target.radius) && Math.abs(this.mesh.position.z - this.target.mesh.position.z) < (this.weapon.attackRange + this.target.radius)) {
+        if(Math.abs(this.mesh.position.x - this.target.mesh.position.x) < (this.equipment[EQUIPMENT_TYPE.WEAPON].attackRange + this.target.radius) && Math.abs(this.mesh.position.z - this.target.mesh.position.z) < (this.equipment[EQUIPMENT_TYPE.WEAPON].attackRange + this.target.radius)) {
           console.log('umm pos')
           this.destination = null;
           return;
