@@ -80,7 +80,7 @@ function keypressTest(keyCode){
 			updateInventory();
 			break;
 		default:
-			console.log("No trigger put on key " + keyCode + " (" + String.fromCharCode(keyCode) + ")");
+			//console.log("No trigger put on key " + keyCode + " (" + String.fromCharCode(keyCode) + ")");
 			break;
 	}
 }
@@ -88,8 +88,8 @@ function keypressTest(keyCode){
 //toggleMenu
 document.onkeydown = (e) => {
     e = e || window.event;
-	
-    
+
+
 }
 
 // function toggleOptionsMenu(lorem) {

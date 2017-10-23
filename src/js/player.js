@@ -1,3 +1,5 @@
+"use strict"
+
 /**
 * the player class derived from the 'Living' class
 * @class
@@ -151,6 +153,7 @@ class Player extends Living {
 
     this.skill.update(dt);
     if (this.input.one) {
+      console.log("test");
       this.skill.activate(this, target);
     }
 

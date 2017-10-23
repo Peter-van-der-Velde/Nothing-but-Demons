@@ -6,7 +6,7 @@ class Skill {
     this.castTime = castTime;
     this.cooldown = cooldown;
     this.range = range;
-    
+
 
     this.cooldownLeft = 0;
   }

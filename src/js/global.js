@@ -9,3 +9,15 @@ var MATERIALS = {
   LAMBERT: 1,
   UNLIT: 2
 };
+
+window.EQUIPMENT_TYPE = {
+  HELMET: 0,
+  BODY: 1,
+  LEGS: 2,
+  HANDS: 3,
+  FEET: 4,
+  BACK: 5,
+  SHOULDERS: 6,
+  L_HAND: 7,
+  R_HAND: 8
+};
