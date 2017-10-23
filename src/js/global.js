@@ -1,4 +1,4 @@
-// list of all items in the 3d gameworld
+﻿// list of all items in the 3d gameworld
 var itemsInGame  = [];
 var enemies = [];
 
@@ -9,3 +9,5 @@ var MATERIALS = {
   LAMBERT: 1,
   UNLIT: 2
 };
+
+console.log(MATERIALS);

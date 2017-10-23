@@ -19,7 +19,6 @@ var enemies = [];
 class Enemy extends Living {
 
     constructor(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons) {
-
         super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
 
         this.id = name + enemies.length.toString();
@@ -96,10 +95,11 @@ class Enemy extends Living {
             let z = this.mesh.position.z + Math.floor(Math.random() * 5) / 10;
             item.mesh.position.set(x, y, z);
 
-            // item.id = item.name + itemsInGame.length;
-            // item.mesh.name =  item.name + itemsInGame.length;
+            item.id = item.name + itemsInGame.length;
+            item.mesh.name = item.name + itemsInGame.length;
             itemsInGame.push(item);
             window.scene.add(item.mesh);
+
             console.log(item);
         }
 
