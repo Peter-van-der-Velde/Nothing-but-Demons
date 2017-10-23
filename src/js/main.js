@@ -70,9 +70,13 @@ function animate() {
 		mixer.update( delta / 2.0 );
 
 	this.player.update(delta);
-	enemies.forEach(function(enemy) {
-		enemy.update(delta);
-	}, this);
+	// enemies.forEach(function(enemy) {
+	// 	enemy.update(delta, testlevel.scene);
+	// }, this);
+
+	for (var i = 0; i < enemies.length; i++) {
+		enemies[i].update(delta, testLevel.scene);
+	}
 
 	// Render the scene.
 	render.render(testLevel.scene, testLevel.mainCamera);
