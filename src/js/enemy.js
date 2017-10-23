@@ -42,7 +42,7 @@ class Enemy extends Living {
     /**
      * kills the enemy
      */
-    die(scene) {
+    die() {
         console.log(this.name + ' is dead');
 
         for (let i = 0; i < enemies.length; i++) {
@@ -52,8 +52,8 @@ class Enemy extends Living {
             }
         }
 
-        this.dropItems(scene);
-        this.replaceWithCorpse(scene);
+        this.dropItems();
+        this.replaceWithCorpse();
     }
 
 
@@ -61,9 +61,9 @@ class Enemy extends Living {
      * update loop of enemy
      * @param {number} dt delta time
      */
-    update(dt, scene) {
+    update(dt) {
         if (this.hp <= 0)
-            this.die(scene);
+            this.die();
 
         if (this.hp > this.hpMax)
             this.hp = this.hpMax;
@@ -79,21 +79,25 @@ class Enemy extends Living {
     /**
      * drop the items of the enemy
      */
-    dropItems(scene) {
+    dropItems() {
 
-        this.items.forEach(function(item) {
-            var x = this.mesh.position.x + Math.floor(Math.random() * 5) / 10;
-            var y = 0.5;
-            var z = this.mesh.position.z + Math.floor(Math.random() * 5) / 10;
+        for (let item of this.items) {
+            let x = this.mesh.position.x + Math.floor(Math.random() * 5) / 10;
+            let y = 0.5;
+            let z = this.mesh.position.z + Math.floor(Math.random() * 5) / 10;
             item.mesh.position.set(x, y, z);
 
             item.id = item.name + itemsInGame.length;
-            item.mesh.name = item.id;
+            item.mesh.name =  item.name + itemsInGame.length;
             itemsInGame.push(item);
-            scene.add(item.mesh);
-            console.log(scene);
-        }, this);
-
+            window.scene.add(item.mesh);
+            console.log(item);
+        }
+        
+        for (var item of itemsInGame)
+            console.log(item);
+        
+        console.log(window.scene);
         console.log(itemsInGame);
     }
 

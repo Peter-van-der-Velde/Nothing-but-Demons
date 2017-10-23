@@ -6,7 +6,6 @@
 class Level {
   // TODO: Allow this class to load a saved level from a file.
   constructor(levelName, render) {
-    this.scene = new THREE.Scene();
     this.levelName = levelName;
 
     this.mainCamera = new THREE.PerspectiveCamera( 75, render.aspect, 0.1, 1000 );
@@ -30,14 +29,14 @@ class Level {
     this.material = new THREE.MeshBasicMaterial( {map: this.floorTexture} );
     this.plane = new THREE.Mesh( this.geometry, this.material );
     this.plane.rotation.x = -1.5708;
-    this.scene.add( this.plane );
+    window.scene.add( this.plane );
 
     var lamp = new THREE.DirectionalLight(0xffffff, 1, 50, 0);
     var aLight = new THREE.AmbientLight(0x404040);
-    this.scene.add(lamp, aLight);
+    window.scene.add(lamp, aLight);
 
     this.chest = new Model("chest_01", true);
-    this.chest.load(this.scene);
+    this.chest.load(window.scene);
   }
 
   update() {
@@ -45,7 +44,7 @@ class Level {
   }
 
   add (mesh) {
-    this.scene.add(mesh);
+    window.scene.add(mesh);
   }
 
 }
