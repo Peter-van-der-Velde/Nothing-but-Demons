@@ -9,7 +9,7 @@ class Level {
     this.levelName = levelName;
 
     this.mainCamera = new THREE.PerspectiveCamera( 75, render.aspect, 0.1, 1000 );
-    this.mainCamera.position.set(8, 16, 8);
+    this.mainCamera.position.set(20, 20, 20);
     this.mainCamera.lookAt(new THREE.Vector3(0, 0, 0));
 	//this.mainCamera.lookAt(player.position);
 
