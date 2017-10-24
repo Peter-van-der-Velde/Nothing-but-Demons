@@ -28,6 +28,8 @@ class Enemy extends Living {
         this.id = name + enemies.length.toString();
         this.baseAttackSpeed = 2;
 
+        this.type = OBJECT_TYPE.ENEMY;
+
         // needed for very basic collision
         this.radius = 0;
     }

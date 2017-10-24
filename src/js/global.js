@@ -24,3 +24,12 @@ var EQUIPMENT_TYPE = {
 
 var EQUIPMENT_SLOTS = 9;
 var SKILL_SLOTS = 5;
+
+var OBJECT_TYPE = {
+  LIVING: 0,
+  ENEMY: 1,
+  PLAYER: 2,
+  ITEM: 3,
+  WEAPON: 4,
+  HEALING_ITEM: 5
+};

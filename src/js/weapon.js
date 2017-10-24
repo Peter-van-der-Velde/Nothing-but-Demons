@@ -18,6 +18,7 @@ class Weapon extends Item {
         this.defense = defense;
         this.attackRange = attackRange;
         this.attackSpeed = attackSpeed;
+        this.type = OBJECT_TYPE.WEAPON;
 
         this.attackSkill = new DamageSkill(
           "Attack",           // Name

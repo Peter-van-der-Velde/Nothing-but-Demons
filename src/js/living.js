@@ -14,6 +14,7 @@
 class Living {
 
     constructor (name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons) {
+        
         this.name = name;
         this.hpMax = hp;
         this.hp = hp;
@@ -36,6 +37,7 @@ class Living {
         this.luck = 0;
 
         this.mesh;
+        this.type = OBJECT_TYPE.LIVING;
 
         this.calcDerivedStats();
     }
