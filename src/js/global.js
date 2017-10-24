@@ -1,5 +1,7 @@
-﻿// list of all items in the 3d gameworld
+﻿
+// list of all items in the 3d gameworld
 var itemsInGame  = [];
+
 var enemies = [];
 
 scene = new THREE.Scene();

@@ -1,3 +1,6 @@
+"use strict"
+
+
 /**
 * the player class derived from the 'Living' class
 * @class
@@ -90,17 +93,10 @@ class Player extends Living {
       * @param {Item} item
       */
       addItem (item) {
-        console.log(this.target);
-        console.log(item);
-
         if (this.items.length <= 20)
           this.items.push(item);
         else
           console.log("No more space available.");
-
-        console.log(this.items);
-        console.log(this.itemsInGame);
-        
       }
     
       /**
@@ -159,6 +155,9 @@ class Player extends Living {
           return;
     
         if (this.target.type == OBJECT_TYPE.ITEM || this.target.type == OBJECT_TYPE.WEAPON) {
+          if(Math.abs(this.mesh.position.x - this.target.mesh.position.x) > 0.01 && Math.abs(this.mesh.position.z - this.target.mesh.position.z) > 0.01)
+            return;
+
           this.pickUpItem(this.target);
           this.target = null
           return;
@@ -191,21 +190,15 @@ class Player extends Living {
         if (this.target == null)
           return;
 
-        this.target = null;
-        console.log(this.target);
-        console.log('hey oo');
-        console.log(itemsInGame[i].length);
         // remove item from and removes it from itemsInGame arrray
-        // for (let i = 0; i < itemsInGame.length; i++) {
-          // console.log('itemsInGame[i].id' + itemsInGame.id + '\n' + item.id)
-          // if (itemsInGame[i].id == item.id) {
-            // console.error('found it');
-            // itemsInGame.splice(i, 1);
-              // break;
-          // }
-        // }
-        this.target = null;
-        console.log(itemsInGame);
+        for (let i = 0; i < itemsInGame.length; i++) {
+          console.log('itemsInGame[i].id: ' + itemsInGame[i].id + '\nitem.id: ' + item.id)
+          if (itemsInGame[i].id == item.id) {
+            console.log('found: ' + item.id);
+            itemsInGame.splice(i, 1);
+              break;
+          }
+        }
         this.addItem(item);
       }
     
