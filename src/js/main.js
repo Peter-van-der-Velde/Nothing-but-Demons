@@ -19,6 +19,7 @@ function init(){
 		render.setSize(WIDTH, HEIGHT);
 		testLevel.mainCamera.aspect = WIDTH / HEIGHT;
 		testLevel.mainCamera.updateProjectionMatrix();
+		testLevel.mainCamera.lookAt(this.player);
 
 	});
 
