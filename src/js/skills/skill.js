@@ -6,7 +6,8 @@ class Skill {
     this.castTime = castTime;
     this.cooldown = cooldown;
     this.range = range;
-    
+    this.target;
+
 
     this.cooldownLeft = 0;
   }
@@ -23,14 +24,18 @@ class Skill {
 
   // Activate skill after passing checks.
   activate(player, target) {
+    if (!target) {
+      // console.log("No target!");
+      return;
+    }
     if (player.mesh.position.distanceTo(target.mesh.position) > this.range) {
-      console.log("Target is out of range!");
+      // console.log("Target is out of range!");
       return;
     } else if (player.mp < this.manaCost) {
-      console.log("Not enough mana!");
+      // console.log("Not enough mana!");
       return;
     } else if (this.cooldownLeft != 0) {
-      console.log("Skill is on cooldown!");
+      // console.log("Skill is on cooldown!");
       return;
     }
 
@@ -41,6 +46,5 @@ class Skill {
   // Perform skill action.
   doSkill(player, target) {
     this.cooldownLeft = this.cooldown;
-    target.dealDamage(5);
   }
 }

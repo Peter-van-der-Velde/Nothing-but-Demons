@@ -82,7 +82,7 @@ function keypressTest(keyCode){
 
 			break;
 		default:
-			console.log("No trigger put on key " + keyCode + " (" + String.fromCharCode(keyCode) + ")");
+			//console.log("No trigger put on key " + keyCode + " (" + String.fromCharCode(keyCode) + ")");
 			break;
 	}
 }
