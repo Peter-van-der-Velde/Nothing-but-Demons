@@ -568,9 +568,14 @@ input[type=range]:focus::-ms-fill-upper {
   background: #367ebd;
 }
 
-.health{
-  position:absolute;
+.healthBar{
+  position: absolute;
   z-index: 6000;
+}
+
+#health{
+  position: absolute;
+  z-index: 9999;
 }
 
 progress {

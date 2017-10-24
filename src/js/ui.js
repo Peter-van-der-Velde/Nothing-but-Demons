@@ -93,8 +93,8 @@ function keypressTest(keyCode){
 //toggleMenu
 document.onkeydown = (e) => {
     e = e || window.event;
-	
-    
+
+
 }
 
 // function toggleOptionsMenu(lorem) {

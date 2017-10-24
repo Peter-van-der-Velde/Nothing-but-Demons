@@ -21,6 +21,8 @@ class Enemy extends Living {
     constructor(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons) {
         super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
 
+        let health = document.getElementById("health");
+        health.max = this.hp;
         this.id = name + enemies.length.toString();
         this.baseAttackSpeed = 2;
 
@@ -38,14 +40,7 @@ class Enemy extends Living {
     attack(target) {
         target.hp = target.hp - (this.totalAttack - (-30 + 2 * Math.sqrt(target.totalDefense * 25 + 220)));
     }
-    toggleHealth(target){
-      if(target === null){
-        //niks displayen
-      }
-      else if(target){
-        //healthbar displayen
-      }
-    }
+
     /**
      * kills the enemy
      */
