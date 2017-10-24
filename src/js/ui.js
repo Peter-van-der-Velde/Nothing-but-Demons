@@ -33,6 +33,7 @@ document.onreadystatechange = function () {
             console.log(savedSelectedIndex);
             e.value = savedSelectedIndex;
         }
+        drawInventory();
         //checkCookie();
     }
 }
@@ -78,6 +79,7 @@ function keypressTest(keyCode){
 		case 73:
 			toggleInventory();
 			updateInventory();
+
 			break;
 		default:
 			console.log("No trigger put on key " + keyCode + " (" + String.fromCharCode(keyCode) + ")");
