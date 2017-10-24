@@ -1,3 +1,5 @@
+"use strict"
+
 // an array in wich all the enemies will  be pushed.
 var enemies = [];
 

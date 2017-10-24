@@ -45,6 +45,8 @@ function initAnim() {
 	var loader = new THREE.JSONLoader();
 	loader.load( "models/chest_01/chest_02.json", function( geometry, materials ) {
 		var material = materials[ 0 ];
+		let texLoader = new THREE.TextureLoader();
+		material.map = texLoader.load("models/chest_01/textures/chest_01_diff.png");
 		material.emissive.set( 0x101010 );
 		material.skinning = true;
 		material.morphTargets = true;
@@ -72,7 +74,7 @@ function animate() {
 	if (mixer)
 		mixer.update( delta / 2.0 );
 
-	this.player.update(this.blockEnemy, delta);
+	this.player.update(delta);
 	enemies.forEach(function(enemy) {
 	 	enemy.update(delta, window.scene);
 	}, this);
