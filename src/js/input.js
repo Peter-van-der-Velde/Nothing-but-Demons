@@ -55,9 +55,15 @@ class Input {
       }
       if (e.keyCode === 37) {
         this.left = true;
+        var rotation_matrix = new THREE.Matrix4().makeRotationZ(-rotateAngle);
+        cube.matrix.multiplySelf(rotation_matrix);
+        cube.rotation.setEulerFromRotationMatrix(cube.matrix);
       }
       if (e.keyCode === 39) {
         this.right = true;
+        var rotation_matrix = new THREE.Matrix4().makeRotationZ(rotateAngle);
+        cube.matrix.multiplySelf(rotation_matrix);
+        cube.rotation.setEulerFromRotationMatrix(cube.matrix);
       }
       if (e.keyCode === 38) {
         this.up = true;

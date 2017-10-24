@@ -1,5 +1,6 @@
 var WIDTH, HEIGHT, testLevel, aspect, controls, delta, fps, frameCount, timer, input;
 var mixer;
+var rotateAngle = 0.05;
 
 init();
 animate();
@@ -19,7 +20,6 @@ function init(){
 		render.setSize(WIDTH, HEIGHT);
 		testLevel.mainCamera.aspect = WIDTH / HEIGHT;
 		testLevel.mainCamera.updateProjectionMatrix();
-
 	});
 
 
@@ -35,11 +35,13 @@ function init(){
 		testLevel.add(enemy.mesh);
 	}, this);
 	testLevel.add(player.mesh);
+	player.mesh.add(testLevel.mainCamera);
 
-
+	//this.player.add(testLevel.mainCamera);
 
 	initAnim();
 }
+
 
 function initAnim() {
 	var loader = new THREE.JSONLoader();
@@ -82,7 +84,7 @@ function animate() {
 	for (var i = 0; i < enemies.length; i++) {
 		enemies[i].update(delta, window.scene);
 	}
-
 	// Render the scene.
 	render.render(window.scene, testLevel.mainCamera);
+	testLevel.mainCamera.lookAt(player.mesh.position);
 }
