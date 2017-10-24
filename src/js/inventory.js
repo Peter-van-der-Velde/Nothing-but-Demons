@@ -4,7 +4,6 @@ var inventoryElement = document.getElementById("inventory");
 var inventoryRow = document.getElementById("inventoryRow");
 
 function drawInventory(){
-	alert("Hello");
     console.log("Inventory Drawn");
     inventoryElement = document.getElementById("inventory");
     for (i=6; i > 0; i--){

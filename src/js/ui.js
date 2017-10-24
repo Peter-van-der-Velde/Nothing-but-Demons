@@ -33,9 +33,9 @@ document.onreadystatechange = function () {
             console.log(savedSelectedIndex);
             e.value = savedSelectedIndex;
         }
-        drawInventory();
         //checkCookie();
     }
+    drawInventory();
 }
 
 function toggleMenu(){
