@@ -107,10 +107,8 @@ class Player extends Living {
         var healthBar = document.getElementById("healtBar");
         var time = this.attackClock.getElapsedTime();
 
-        if(target){
-          healtBar.style.display = "block";
-        }
-
+        health.style.display = "block";
+        
         if ((this.baseAttackSpeed / this.weapon.attackSpeed) > time)
         return;
 
