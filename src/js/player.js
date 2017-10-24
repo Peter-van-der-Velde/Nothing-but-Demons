@@ -79,9 +79,9 @@ class Player extends Living {
       * @param {number} level
       */
       nextLevel(level) {
-        let  exponent = 1.5
-        let baseXP = 1000
-        return math.floor(baseXP * (level ^ exponent))
+        let  exponent = 1.5;
+        let baseXP = 1000;
+        return math.floor(baseXP * (level ^ exponent));
       }
     
       /**
@@ -90,9 +90,9 @@ class Player extends Living {
       */
       addItem (item) {
         if (this.items.length <= 20)
-        this.items.push(item);
+          this.items.push(item);
         else
-        console.log("No more space available.")
+          console.log("No more space available.");
       }
     
       /**
@@ -106,7 +106,7 @@ class Player extends Living {
         var time = this.attackClock.getElapsedTime();
     
         if ((this.baseAttackSpeed / this.weapon.attackSpeed) > time)
-        return;
+          return;
     
         if(Math.abs(this.mesh.position.x - this.target.mesh.position.x) > (this.weapon.attackRange + this.target.radius + 0.1) || Math.abs(this.mesh.position.z - this.target.mesh.position.z) > (this.weapon.attackRange + this.target.radius + 0.1)) {
           return;
@@ -133,14 +133,21 @@ class Player extends Living {
         this.move(dt);
     
         if (this.destination != null) {
+          // for (let i = 0; i < enemies.length; i++) {
+          //   if (enemies[i].mesh.position.distanceTo(player.destination)  < 2)
+          //     this.target = enemies[i];
+          // }
+
           for (let i = 0; i < enemies.length; i++) {
-            if (enemies[i].mesh.position.distanceTo(player.destination)  < 2)
-            this.target = enemies[i];
+            if (Math.abs(this.mesh.position.x - this.destination.x) < 1 && Math.abs(this.mesh.position.z - this.destination.z) < 1)
+              // console.log('it works')
+            // if (enemies[i].mesh.position.distanceTo(player.destination)  < 2)
+              this.target = enemies[i];
           }
         }
     
         if (this.target == null)
-        return;
+          return;
     
         if (this.target.hp <= 0) {
           this.target = null;
@@ -193,7 +200,7 @@ class Player extends Living {
     
     
           if (this.destination == null)
-          return;
+            return;
     
           dt = dt * this.playerMovementSpeed;
           this.direction.set(this.destination.x - this.mesh.position.x, 0, this.destination.z - this.mesh.position.z).normalize();
