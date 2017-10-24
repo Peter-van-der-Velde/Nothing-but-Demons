@@ -3,6 +3,13 @@ var inventoryWidth = 10;
 var inventoryElement = document.getElementById("inventory");
 var inventoryRow = document.getElementById("inventoryRow");
 
+//Toggle the visibility of the inventory
+function toggleInventory(){
+    console.log("Inventory opened");
+    var inventory = document.getElementById("inventory");
+    toggle(inventory);
+}
+
 function drawInventory(){
     console.log("Inventory Drawn");
     inventoryElement = document.getElementById("inventory");
@@ -33,12 +40,7 @@ function drawInventory(){
     }
 }
 
-//Toggle the visibility of the inventory
-function toggleInventory(){
-	console.log("Inventory opened");
-	var inventory = document.getElementById("inventory");
-	toggle(inventory);
-}
+
 
 //Making an inventory and filling each entry in the inventory with a NULL value
 function updateInventory(){

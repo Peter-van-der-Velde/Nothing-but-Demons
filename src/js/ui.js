@@ -1,7 +1,7 @@
+var inventoryHasBeenDrawn = false;
 
 var resolution = "";
 var e = document.getElementById("selectResolution");
-
 document.onreadystatechange = function () {
     if (document.readyState === "complete") {
         var setResolutions = {
@@ -35,8 +35,9 @@ document.onreadystatechange = function () {
         }
         //checkCookie();
     }
-    drawInventory();
 }
+
+
 
 function toggleMenu(){
     var menu = document.getElementById("menuID");
@@ -78,53 +79,16 @@ function keypressTest(keyCode){
 			break;
 		case 73:
 			toggleInventory();
-			updateInventory();
-
+			if (!inventoryHasBeenDrawn){
+                drawInventory();
+                inventoryHasBeenDrawn = true;
+            }
 			break;
 		default:
-			//console.log("No trigger put on key " + keyCode + " (" + String.fromCharCode(keyCode) + ")");
+			console.log("No trigger put on key " + keyCode + " (" + String.fromCharCode(keyCode) + ")");
 			break;
 	}
 }
-
-//toggleMenu
-document.onkeydown = (e) => {
-    e = e || window.event;
-
-
-}
-
-// function toggleOptionsMenu(lorem) {
-    // var menu = document.getElementById("menuID");
-    // var pausedMenu = document.getElementById("pausedMenu");
-    // var wrapper = document.getElementById("wrapper");
-    // var button1 = document.getElementById("button1");
-    // var button2 = document.getElementById("button2");
-    // var button3 = document.getElementById("button3");
-    // if (lorem == "resume"){
-        // console.log("Resuming");
-        // pausedMenu.style.display = "none";
-        // menu.style.display = "none";
-        // wrapper.style.opacity = "1";
-        // wrapper.style.backgroundColor = "transparent";
-        // button1.style.display = "block";
-        // button2.style.display = "block";
-        // button3.style.display = "block";
-    // }
-    // else if(pausedMenu.style.display == "block"){
-        // pausedMenu.style.display = "none";
-        // menu.style.display = "block";
-    // }
-    // else if(menu.style.display == "block"){
-        // pausedMenu.style.display = "block";
-        // menu.style.display = "none";
-    // }
-    // else{
-        // pausedMenu.style.display = "none";
-        // menu.style.display = "none";
-        // console.log("Something went wrong with toggling menu items");
-    // }
-// }
 
 //toggleMenuItems
 function toggleMenuItems() {
