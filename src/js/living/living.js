@@ -3,7 +3,7 @@
 /**
  * a basic class for all living things
  * @class
- * @param {string} name 
+ * @param {string} name
  * @param {number} hp
  * @param {number} mp
  * @param {number} strength
@@ -77,8 +77,8 @@ class Living {
      * magic attacks will be calculated with some algorithm
      */
     calcDerivedStats() {
-        this.totalAttack = (!this.equipment[EQUIPMENT_TYPE.WEAPON]) ? this.strength : this.strength + this.equipment[EQUIPMENT_TYPE.WEAPON].power;
-        this.totalDefense = (!this.equipment[EQUIPMENT_TYPE.OFFHAND]) ? this.defense :  this.defense + this.equipment[EQUIPMENT_TYPE.OFFHAND].defense;
+        this.totalAttack = (this.equipment[EQUIPMENT_TYPE.WEAPON]) ? this.strength : this.strength + this.equipment[EQUIPMENT_TYPE.WEAPON].power;
+        this.totalDefense = (this.equipment[EQUIPMENT_TYPE.OFFHAND]) ? this.defense :  this.defense + this.equipment[EQUIPMENT_TYPE.OFFHAND].defense;
         this.totalDefense = Math.floor(-30 + 2 * Math.sqrt(this.totalDefense * 25 + 220));
     }
 

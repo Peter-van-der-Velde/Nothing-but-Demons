@@ -55,7 +55,7 @@ class Player extends Living {
     console.log(this);
 
     this.attackClock = new THREE.Clock();
-    this.skill = new Skill("foo", "bar", 4, 1, 1, 5);
+    this.skill = new DamageSkill("foo", "bar", 0, 1, 1, 5, 2);
 
     let health = document.getElementById("health");
     health.value = 20;
@@ -105,22 +105,7 @@ class Player extends Living {
   * @param {Enemy} target
   */
   attack(target) {
-    var time = this.attackClock.getElapsedTime();
-
-    if ((this.baseAttackSpeed / this.equipment[EQUIPMENT_TYPE.WEAPON].attackSpeed) > time)
-    return;
-
-    if(Math.abs(this.mesh.position.x - this.target.mesh.position.x) > (this.equipment[EQUIPMENT_TYPE.WEAPON].attackRange + this.target.radius + 0.1) || Math.abs(this.mesh.position.z - this.target.mesh.position.z) > (this.equipment[EQUIPMENT_TYPE.WEAPON].attackRange + this.target.radius + 0.1)) {
-      return;
-    }
-
-    // reset attack clock
-    this.attackClock.start();
-    this.calcDerivedStats();
-
-    console.log('hit: ' + target.id);
-    if(this.totalAttack - target.totalDefense > 0)
-    target.hp = target.hp - (this.totalAttack - target.totalDefense);
+    this.equipment[EQUIPMENT_TYPE.WEAPON].attackSkill.activate(this, this.target);
   }
 
   /**
@@ -141,6 +126,8 @@ class Player extends Living {
       }
     }
 
+    this.skill.target = this.target;
+
     if (this.target == null)
     return;
 
@@ -150,11 +137,11 @@ class Player extends Living {
     }
 
     this.attack(this.target);
+    this.equipment[EQUIPMENT_TYPE.WEAPON].attackSkill.update(dt);
 
     this.skill.update(dt);
     if (this.input.one) {
-      console.log("test");
-      this.skill.activate(this, target);
+      this.skill.activate(this, this.target);
     }
 
     this.attack(this.target);
@@ -180,20 +167,12 @@ class Player extends Living {
 
     if (this.destination != null) {
 
+      // Don't set destination if it's too close to the current position.
       if (Math.abs(this.destination.x - this.mesh.position.x) < 0.1 && Math.abs(this.destination.z - this.mesh.position.z) < 0.1 ) {
         console.log('umm 0.1')
         this.destination = null;
         return;
       }
-
-      if (this.target != null) {
-        if(Math.abs(this.mesh.position.x - this.target.mesh.position.x) < (this.equipment[EQUIPMENT_TYPE.WEAPON].attackRange + this.target.radius) && Math.abs(this.mesh.position.z - this.target.mesh.position.z) < (this.equipment[EQUIPMENT_TYPE.WEAPON].attackRange + this.target.radius)) {
-          console.log('umm pos')
-          this.destination = null;
-          return;
-        }
-      }
-
 
       if (this.destination == null)
       return;
