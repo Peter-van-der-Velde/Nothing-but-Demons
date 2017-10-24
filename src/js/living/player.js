@@ -105,7 +105,18 @@ class Player extends Living {
   * @param {Enemy} target
   */
   attack(target) {
+    var health = document.getElementById("health");
+    var healthBar = document.getElementById("healtBar");
+    var time = this.attackClock.getElapsedTime();
+
+    health.style.display = "block";
+
     this.equipment[EQUIPMENT_TYPE.WEAPON].attackSkill.activate(this, this.target);
+
+    health.value = target.hp;
+    if (target.hp === 0) {
+      health.style.display = "none";
+    }
   }
 
   /**

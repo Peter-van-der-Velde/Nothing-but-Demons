@@ -49,7 +49,6 @@ class Enemy extends Living {
     die() {
         console.log(this.name + ' is dead');
         health.value = 100;
-        health.style.display = "none";
         for (let i = 0; i < enemies.length; i++) {
             if (enemies[i].id == this.id) {
                 enemies.splice(i, 1);
