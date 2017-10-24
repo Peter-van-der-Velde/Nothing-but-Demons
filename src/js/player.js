@@ -76,9 +76,9 @@ class Player extends Living {
       * @param {number} level
       */
       nextLevel(level) {
-        let  exponent = 1.5
-        let baseXP = 1000
-        return math.floor(baseXP * (level ^ exponent))
+        let  exponent = 1.5;
+        let baseXP = 1000;
+        return math.floor(baseXP * (level ^ exponent));
       }
 
       /**
@@ -87,9 +87,9 @@ class Player extends Living {
       */
       addItem (item) {
         if (this.items.length <= 20)
-        this.items.push(item);
+          this.items.push(item);
         else
-        console.log("No more space available.")
+          console.log("No more space available.");
       }
 
       /**
@@ -144,9 +144,16 @@ class Player extends Living {
         this.move(dt);
 
         if (this.destination != null) {
+          // for (let i = 0; i < enemies.length; i++) {
+          //   if (enemies[i].mesh.position.distanceTo(player.destination)  < 2)
+          //     this.target = enemies[i];
+          // }
+
           for (let i = 0; i < enemies.length; i++) {
-            if (enemies[i].mesh.position.distanceTo(player.destination)  < 2)
-            this.target = enemies[i];
+            if (Math.abs(this.mesh.position.x - this.destination.x) < 1 && Math.abs(this.mesh.position.z - this.destination.z) < 1)
+              // console.log('it works')
+            // if (enemies[i].mesh.position.distanceTo(player.destination)  < 2)
+              this.target = enemies[i];
           }
         }
 

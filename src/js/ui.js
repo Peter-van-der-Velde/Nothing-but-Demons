@@ -33,6 +33,7 @@ document.onreadystatechange = function () {
             console.log(savedSelectedIndex);
             e.value = savedSelectedIndex;
         }
+        drawInventory();
         //checkCookie();
     }
 }
@@ -61,12 +62,6 @@ function toggleMenu(){
     }
 }
 
-function toggleInventory(){
-	console.log("Inventory opened");
-	var inventory = document.getElementById("inventory");
-	toggle(inventory);
-}
-
 function toggle(element){
 	if(element.style.display == "block"){
 		element.style.display = "none";
@@ -83,6 +78,8 @@ function keypressTest(keyCode){
 			break;
 		case 73:
 			toggleInventory();
+			updateInventory();
+
 			break;
 		default:
 			console.log("No trigger put on key " + keyCode + " (" + String.fromCharCode(keyCode) + ")");
