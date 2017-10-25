@@ -1,6 +1,5 @@
 var WIDTH, HEIGHT, testLevel, aspect, controls, delta, fps, frameCount, timer, input;
 var mixer;
-var rotateAngle = 0.05;
 
 init();
 animate();

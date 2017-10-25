@@ -54,16 +54,18 @@ class Input {
       if (e.keyCode === 27) {
       }
       if (e.keyCode === 37) {
+        var rotateAngle = 0.05;
         this.left = true;
         var rotation_matrix = new THREE.Matrix4().makeRotationZ(-rotateAngle);
-        testLevel.player.mesh.matrix.multiplySelf(rotation_matrix);
-        testLevel.player.mesh.rotation.setEulerFromRotationMatrix(testLevel.player.mesh.matrix);
+        window.player.mesh.matrix.multiplySelf(rotation_matrix);
+          window.player.mesh.rotation.setEulerFromRotationMatrix(  window.player.mesh.matrix);
       }
       if (e.keyCode === 39) {
+        var rotateAngle = 0.05;
         this.right = true;
         var rotation_matrix = new THREE.Matrix4().makeRotationZ(rotateAngle);
-        testLevel.player.mesh.matrix.multiplySelf(rotation_matrix);
-        testLevel.player.mesh.rotation.setEulerFromRotationMatrix(testLevel.player.mesh.matrix);
+          window.player.mesh.matrix.multiplySelf(rotation_matrix);
+          window.player.mesh.rotation.setEulerFromRotationMatrix(  window.player.mesh.matrix);
       }
       if (e.keyCode === 38) {
         this.up = true;
