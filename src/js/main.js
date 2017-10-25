@@ -35,9 +35,7 @@ function init(){
 		testLevel.add(enemy.mesh);
 	}, this);
 	testLevel.add(player.mesh);
-	player.mesh.add(testLevel.mainCamera);
-
-	//this.player.add(testLevel.mainCamera);
+	//player.mesh.add(testLevel.mainCamera);
 
 	initAnim();
 }
@@ -66,6 +64,9 @@ function initAnim() {
 	} );
 }
 
+
+
+
 function animate() {
 	requestAnimationFrame( animate );
 
@@ -87,4 +88,5 @@ function animate() {
 	// Render the scene.
 	render.render(window.scene, testLevel.mainCamera);
 	testLevel.mainCamera.lookAt(player.mesh.position);
+	testLevel.mainCamera.position.z = player.mesh.position.z;
 }
