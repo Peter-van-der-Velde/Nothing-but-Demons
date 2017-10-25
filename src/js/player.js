@@ -19,7 +19,7 @@
 */
 class Player extends Living {
 
-      constructor (name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, playerClass,  camera, scene) {
+        constructor (name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, playerClass,  camera, scene) {
 
         super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
 
