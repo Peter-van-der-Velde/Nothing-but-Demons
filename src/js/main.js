@@ -1,6 +1,5 @@
 var WIDTH, HEIGHT, testLevel, aspect, controls, delta, fps, frameCount, timer, input;
 var mixer;
-var rotateAngle = 0.05;
 
 init();
 animate();
@@ -11,7 +10,7 @@ function init(){
 
 	render = new Render(true, window.innerWidth, window.innerHeight);
   testLevel = new Dungeon("dungeon", render);
-	
+
 	// Create an event listener that resizes the renderer with the browser window.
 	window.addEventListener('resize', function() {
 		WIDTH = window.innerWidth,
@@ -20,8 +19,8 @@ function init(){
 		testLevel.mainCamera.aspect = WIDTH / HEIGHT;
 		testLevel.mainCamera.updateProjectionMatrix();
 	});
-	
-	
+
+
 	window.player  =  new Player (name = "Sparhawk", hp = 35, mp = 20, strength = 16, defense = 4, speed = 4, intelligence = 35, level = 5, experiencePoints = 12, items = [], weapons = [new ironSword(), new ironShield(), new ironShield(), new ironShield()], playerClass = "Black Mage", camera = testLevel.mainCamera, scene = window.scene);
 	window.player.mesh.position.set(-6, player.mesh.position.y, 6);
 	this.blockEnemy = new CubeEnemy(scene = window.scene);
@@ -35,9 +34,7 @@ function init(){
 		testLevel.add(enemy.mesh);
 	}, this);
 	testLevel.add(player.mesh);
-	// player.mesh.add(testLevel.mainCamera);
-
-	//this.player.add(testLevel.mainCamera);
+	//player.mesh.add(testLevel.mainCamera);
 
 	initAnim();
 }
@@ -66,6 +63,9 @@ function initAnim() {
 	} );
 }
 
+
+
+
 function animate() {
 	requestAnimationFrame( animate );
 
@@ -86,5 +86,6 @@ function animate() {
 	}
 	// Render the scene.
 	render.render(window.scene, testLevel.mainCamera);
-	// testLevel.mainCamera.lookAt(player.mesh.position);
+	testLevel.mainCamera.lookAt(player.mesh.position);
+	testLevel.mainCamera.position.z = player.mesh.position.z;
 }
