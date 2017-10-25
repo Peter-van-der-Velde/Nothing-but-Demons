@@ -26,7 +26,8 @@ class Weapon extends Item {
           0,                  // Cast time
           this.attackSpeed,                  // Cooldown
           this.attackRange,   // Range
-          this.power          // Attack power
+          this.power,         // Attack power
+          null
         );
     }
 

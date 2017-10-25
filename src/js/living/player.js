@@ -55,7 +55,7 @@ class Player extends Living {
     console.log(this);
 
     this.attackClock = new THREE.Clock();
-    this.skill = new DamageSkill("foo", "bar", 0, 10, 1, 5, 12);
+    this.skill = new DamageSkill("foo", "bar", 0, 10, 1, 5, 12, null);
 
     let health = document.getElementById("health");
     health.value = 20;
