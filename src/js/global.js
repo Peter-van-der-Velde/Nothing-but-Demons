@@ -1,4 +1,7 @@
 ﻿
+// the player
+var player;
+  
 // list of all items in the 3d gameworld
 var itemsInGame = [];
 

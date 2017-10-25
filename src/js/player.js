@@ -1,5 +1,6 @@
 "use strict"
 
+
 /**
 * the player class derived from the 'Living' class
 * @class
@@ -17,14 +18,14 @@
 * @param {PlayerClass} playerClass the warrior class this player is
 */
 class Player extends Living {
-    
+
       constructor (name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, playerClass,  camera, scene) {
-    
+
         super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
-    
+
         this.baseAttackSpeed = 2;
         this.input = new Input();
-    
+
         // Create player mesh
         var group = new THREE.Group();
         var bodyGeometry = new THREE.BoxGeometry( 0.5, 2, 0.5 );
@@ -39,36 +40,36 @@ class Player extends Living {
         group.add(this.bodyMesh);
         this.mesh = group;
         this.mesh.position.set(0, 0, 0);
-    
-    
+
+
         this.type = OBJECT_TYPE.PLAYER;
         this.playerClass = playerClass;
         this.calcDerivedStats();
-    
+
         // Movement stats
         this.scene = scene;
         this.destination = null;
         this.direction = new THREE.Vector3(0, 0, 0);
         this.playerMovementSpeed = 10;
-    
+
         // the target of the player
         this.target = null;
         console.log(this);
-    
+
         this.attackClock = new THREE.Clock();
         this.skill = new Skill("foo", "bar", 4, 1, 1, 5);
-    
+
         let health = document.getElementById("health");
         health.value = 20;
       }
-    
+
       /**
       * levels up player <br>
       * based upon the output of: ((6d4 - 3) / 3) - 2
       */
       levelUp() {
         let dice = new Dice("6d4");
-    
+
         this.hpMax += Math.abs(Math.floor((dice.roll() - 3) / 3) - 3);
         this.mpMax += Math.abs(Math.floor((dice.roll() - 3) / 3) - 3);
         this.strength += Math.abs(Math.floor((dice.roll() - 3) / 3) - 3);
@@ -76,7 +77,7 @@ class Player extends Living {
         this.intelligence += Math.abs(Math.floor((dice.roll() - 3) / 3) - 3);
         this.luck += Math.abs(Math.floor((dice.roll() - 3) / 3) - 3);
       }
-    
+
       /**
       * Calculates the needed amount for that level
       * @param {number} level
@@ -86,7 +87,7 @@ class Player extends Living {
         let baseXP = 1000;
         return math.floor(baseXP * (level ^ exponent));
       }
-    
+
       /**
       * Adds item to the inventory of the player
       * @param {Item} item
@@ -97,7 +98,7 @@ class Player extends Living {
         else
           console.log("No more space available.");
       }
-    
+
       /**
       * Player attacks target <br>
       * damage reduction is calculated with the formula: <br>
@@ -107,22 +108,23 @@ class Player extends Living {
       */
       attack(target) {
         var time = this.attackClock.getElapsedTime();
-    
+
         if ((this.baseAttackSpeed / this.weapon.attackSpeed) > time)
           return;
-        
-        if (calcDistanceXZ(this.mesh.position, this.destination) > (this.weapon.attackRange + this.target.radius + 0.1))
+
+        if(Math.abs(this.mesh.position.x - this.target.mesh.position.x) > (this.weapon.attackRange + this.target.radius + 0.1) || Math.abs(this.mesh.position.z - this.target.mesh.position.z) > (this.weapon.attackRange + this.target.radius + 0.1)) {
           return;
-    
+        }
+
         // reset attack clock
         this.attackClock.start();
         this.calcDerivedStats();
-    
+
         console.log('hit: ' + target.id);
         if(this.totalAttack - target.totalDefense > 0)
           target.hp = target.hp - (this.totalAttack - target.totalDefense);
       }
-    
+
       /**
       * update loop of the player
       * @param {number} dt delta time
@@ -130,60 +132,57 @@ class Player extends Living {
       update(dt) {
         if (hp <= 0)
           this.die();
-    
+
         this.input.update();
         this.move(dt);
-    
+
         // change the following line if you want to disable auto attack
         //this.target = null;
-        console.log('target: ');
-        console.log(this.target);
-        
+
         if (this.destination != null) {
-          //Checks wether or not you want to pick up an item or attack an enemy, the preference is to attack enemies.
           for (let i = 0; i < itemsInGame.length; i++) {
-            if (calcDistanceXZ(itemsInGame[i].mesh.position, this.destination) < 1)
+            if (Math.abs(itemsInGame[i].mesh.position.x - this.destination.x) < 1 && Math.abs(itemsInGame[i].mesh.position.z - this.destination.z) < 1)
               this.target = itemsInGame[i];
           }
 
           for (let i = 0; i < enemies.length; i++) {
-            if (calcDistanceXZ(enemies[i].mesh.position, this.destination) < 1)
+            if (Math.abs(enemies[i].mesh.position.x - this.destination.x) < 1 && Math.abs(enemies[i].mesh.position.z - this.destination.z) < 1)
               this.target = enemies[i];
           }
         }
-    
+
         if (this.target == null)
           return;
-    
+
         if (this.target.type == OBJECT_TYPE.ITEM || this.target.type == OBJECT_TYPE.WEAPON) {
-          if (calcDistanceXZ(this.mesh.position, this.target.mesh.position) > 0.11)
+          if(Math.abs(this.mesh.position.x - this.target.mesh.position.x) > 0.01 && Math.abs(this.mesh.position.z - this.target.mesh.position.z) > 0.01)
             return;
 
           this.pickUpItem(this.target);
           this.target = null
           return;
         }
-          
+
 
         if (this.target.hp <= 0) {
           this.target = null;
           return;
         }
-    
+
         this.attack(this.target);
-    
+
         this.skill.update(dt);
         if (this.input.one) {
           this.skill.activate(this, target);
         }
-    
+
         this.attack(this.target);
       }
 
       /**
        * Picks up item. <br>
        * Also removes item from the itemsInGame array.
-       * @param {Item} item 
+       * @param {Item} item
        */
       pickUpItem(item) {
         window.scene.remove(item.mesh);
@@ -191,8 +190,9 @@ class Player extends Living {
         if (this.target == null)
           return;
 
-        // removes item from itemsInGame arrray
+        // remove item from and removes it from itemsInGame arrray
         for (let i = 0; i < itemsInGame.length; i++) {
+          console.log('itemsInGame[i].id: ' + itemsInGame[i].id + '\nitem.id: ' + item.id)
           if (itemsInGame[i].id == item.id) {
             console.log('found: ' + item.id);
             itemsInGame.splice(i, 1);
@@ -201,7 +201,7 @@ class Player extends Living {
         }
         this.addItem(item);
       }
-    
+
       /**
       * when player dies use this function
       */
@@ -209,7 +209,7 @@ class Player extends Living {
         alert("Game Over, you died.");
         // reset to last shrine/bonfire/savespot
       }
-    
+
       /**
       * moves the playes
       * @param {number} dt delta time
@@ -217,38 +217,38 @@ class Player extends Living {
       move(dt) {
         if(this.input.click) {
           this.destination = this.getRayPos(this.scene);
-          this.mesh.lookAt(new THREE.Vector3(this.destination.x, this.mesh.position.y, this.destination.z));
+          //this.mesh.lookAt(new THREE.Vector3(this.destination.x, this.mesh.position.y, this.destination.z));
         }
-    
+
         if (this.destination != null) {
-          
-          if (calcDistanceXZ(this.destination, this.mesh.position) < 0.1) {
+
+          if (Math.abs(this.destination.x - this.mesh.position.x) < 0.1 && Math.abs(this.destination.z - this.mesh.position.z) < 0.1 ) {
             console.log('umm 0.1')
             this.destination = null;
             return;
           }
-    
+
           if (this.target != null) {
-            if (calcDistanceXZ(this.mesh.position, this.target.mesh.position) < (this.weapon.attackRange + this.target.radius)) {
+            if(Math.abs(this.mesh.position.x - this.target.mesh.position.x) < (this.weapon.attackRange + this.target.radius) && Math.abs(this.mesh.position.z - this.target.mesh.position.z) < (this.weapon.attackRange + this.target.radius)) {
               console.log('umm pos')
               this.destination = null;
               return;
             }
           }
-    
-    
+
+
           if (this.destination == null)
             return;
     
           dt = dt * this.playerMovementSpeed;
           this.direction.set(this.destination.x - this.mesh.position.x, 0, this.destination.z - this.mesh.position.z).normalize();
           this.mesh.position.set(this.mesh.position.x + this.direction.x * dt, this.mesh.position.y, this.mesh.position.z + this.direction.z * dt);
-    
+
           return;
         }
       }
-    
-    
+
+
       /**
       * get's the position of the 2d click in the 3d world
       * @param {THREE.Scene} scene
@@ -257,13 +257,13 @@ class Player extends Living {
         var mouse = new THREE.Vector2();
         mouse.x = (this.input.mouseLocation.x / window.innerWidth) * 2 - 1;
         mouse.y = -(this.input.mouseLocation.y / window.innerHeight) * 2 + 1;
-    
+
         var raycaster = new THREE.Raycaster();
-    
+
         var vector = new THREE.Vector3( mouse.x, mouse.y, 1).unproject( camera );
         raycaster.set( camera.position, vector.sub( camera.position ).normalize() );
         var intersects = raycaster.intersectObjects( scene.children );
-    
+
         if (intersects.length > 0) {
           return intersects[0].point;
         }
