@@ -62,6 +62,7 @@ class Living {
         this.luck = 0;
 
         this.mesh;
+        this.type = OBJECT_TYPE.LIVING;
 
         this.calcDerivedStats();
     }
@@ -72,8 +73,8 @@ class Living {
 
 
     /**
-     * calculates the derived stats
-     * derived stats are for example: totalAttack;
+     * calculates the derived stats <br>
+     * derived stats are for example: totalAttack; <br>
      * magic attacks will be calculated with some algorithm
      */
     calcDerivedStats() {

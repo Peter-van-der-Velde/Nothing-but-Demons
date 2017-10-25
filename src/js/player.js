@@ -1,6 +1,5 @@
 "use strict"
 
-
 /**
 * the player class derived from the 'Living' class
 * @class
@@ -111,10 +110,9 @@ class Player extends Living {
     
         if ((this.baseAttackSpeed / this.weapon.attackSpeed) > time)
           return;
-    
-        if(Math.abs(this.mesh.position.x - this.target.mesh.position.x) > (this.weapon.attackRange + this.target.radius + 0.1) || Math.abs(this.mesh.position.z - this.target.mesh.position.z) > (this.weapon.attackRange + this.target.radius + 0.1)) {
+        
+        if (calcDistanceXZ(this.mesh.position, this.destination) > (this.weapon.attackRange + this.target.radius + 0.1))
           return;
-        }
     
         // reset attack clock
         this.attackClock.start();
@@ -138,15 +136,18 @@ class Player extends Living {
     
         // change the following line if you want to disable auto attack
         //this.target = null;
-
+        console.log('target: ');
+        console.log(this.target);
+        
         if (this.destination != null) {
+          //Checks wether or not you want to pick up an item or attack an enemy, the preference is to attack enemies.
           for (let i = 0; i < itemsInGame.length; i++) {
-            if (Math.abs(itemsInGame[i].mesh.position.x - this.destination.x) < 1 && Math.abs(itemsInGame[i].mesh.position.z - this.destination.z) < 1)
+            if (calcDistanceXZ(itemsInGame[i].mesh.position, this.destination) < 1)
               this.target = itemsInGame[i];
           }
 
           for (let i = 0; i < enemies.length; i++) {
-            if (Math.abs(enemies[i].mesh.position.x - this.destination.x) < 1 && Math.abs(enemies[i].mesh.position.z - this.destination.z) < 1)
+            if (calcDistanceXZ(enemies[i].mesh.position, this.destination) < 1)
               this.target = enemies[i];
           }
         }
@@ -155,7 +156,7 @@ class Player extends Living {
           return;
     
         if (this.target.type == OBJECT_TYPE.ITEM || this.target.type == OBJECT_TYPE.WEAPON) {
-          if(Math.abs(this.mesh.position.x - this.target.mesh.position.x) > 0.01 && Math.abs(this.mesh.position.z - this.target.mesh.position.z) > 0.01)
+          if (calcDistanceXZ(this.mesh.position, this.target.mesh.position) > 0.11)
             return;
 
           this.pickUpItem(this.target);
@@ -190,9 +191,8 @@ class Player extends Living {
         if (this.target == null)
           return;
 
-        // remove item from and removes it from itemsInGame arrray
+        // removes item from itemsInGame arrray
         for (let i = 0; i < itemsInGame.length; i++) {
-          console.log('itemsInGame[i].id: ' + itemsInGame[i].id + '\nitem.id: ' + item.id)
           if (itemsInGame[i].id == item.id) {
             console.log('found: ' + item.id);
             itemsInGame.splice(i, 1);
@@ -221,15 +221,15 @@ class Player extends Living {
         }
     
         if (this.destination != null) {
-    
-          if (Math.abs(this.destination.x - this.mesh.position.x) < 0.1 && Math.abs(this.destination.z - this.mesh.position.z) < 0.1 ) {
+          
+          if (calcDistanceXZ(this.destination, this.mesh.position) < 0.1) {
             console.log('umm 0.1')
             this.destination = null;
             return;
           }
     
           if (this.target != null) {
-            if(Math.abs(this.mesh.position.x - this.target.mesh.position.x) < (this.weapon.attackRange + this.target.radius) && Math.abs(this.mesh.position.z - this.target.mesh.position.z) < (this.weapon.attackRange + this.target.radius)) {
+            if (calcDistanceXZ(this.mesh.position, this.target.mesh.position) < (this.weapon.attackRange + this.target.radius)) {
               console.log('umm pos')
               this.destination = null;
               return;

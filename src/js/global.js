@@ -1,6 +1,6 @@
 ﻿
 // list of all items in the 3d gameworld
-var itemsInGame  = [];
+var itemsInGame = [];
 
 var enemies = [];
 
@@ -35,3 +35,22 @@ var OBJECT_TYPE = {
   WEAPON: 4,
   HEALING_ITEM: 5
 };
+
+/**
+ * Calculates the distance between 2 x and z (x,z) points. <br>
+ * Based on the Pythagoras formula c^2 = a^2 + b^2
+ * @param {THREE.Vector3} vector0 
+ * @param {THREE.Vector3} vector1 
+ */
+function calcDistanceXZ(vector0, vector1) {
+  let a = vector0.x - vector1.x;
+  let b = vector0.z - vector1.z;
+
+  let a2 = Math.pow(a, 2);
+  let b2 = Math.pow(b, 2);
+  
+  let c2 = a2 + b2;
+  let c = Math.sqrt(c2);
+  
+  return c;
+}
