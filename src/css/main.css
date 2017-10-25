@@ -170,6 +170,16 @@ html, body {
 /*
 	Building the menu
 */
+.hudDisplay{
+	bottom:0;
+	position:absolute;
+	width:100%;
+}
+.hudDisplay img{
+	width:80%;
+	margin:0% 10%;
+}
+
 #inventory{
 	z-index: 9999;
 	width:300px;

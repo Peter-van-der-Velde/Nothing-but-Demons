@@ -17,11 +17,14 @@
   <script type="text/javascript">
       $(document).ready(function(){
           console.log("Document loaded!");
-          $( "#menuID" ).load( "options.html", function() {
+          $( "#hudDisplay" ).load( "hud.html", function() {
+            console.log("#Hud Loaded");
+          });
+		  $( "#menuID" ).load( "options.html", function() {
             console.log("#Menu Loaded");
           });
           $( "#pausedMenu" ).load( "pauseMenu.html", function() {
-            console.log("#Menu Loaded");
+            console.log("#paused menu Loaded");
           });
 		  $( "#inventory" ).load( "inventory.html", function() {
             console.log("#Inventory Loaded");
@@ -39,6 +42,9 @@
   <div id="renderCanvasDiv">
   </div>
 
+  <!-- HUD display -->
+  <div class="hudDisplay" id="hudDisplay" style="display:block"></div>
+  
   <!-- Paused menu -->
   <div class="pausedMenu" id="pausedMenu" style="display:none;"></div>
 
