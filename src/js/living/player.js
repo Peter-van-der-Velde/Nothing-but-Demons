@@ -40,7 +40,6 @@ class Player extends Living {
     this.mesh = group;
     this.mesh.position.set(0, 0, 0);
 
-
     this.playerClass = playerClass;
     this.calcDerivedStats();
 
@@ -54,11 +53,11 @@ class Player extends Living {
     this.target = null;
     console.log(this);
 
-    this.attackClock = new THREE.Clock();
-    this.skill = new DamageSkill("foo", "bar", 0, 10, 1, 5, 12, null);
-
     let health = document.getElementById("health");
     health.value = 20;
+
+    this.skills[0] = new AoeSkill("foo", "bar", 5, 0, 10, 3, 4, 6, null);
+
   }
 
   /**
@@ -107,7 +106,6 @@ class Player extends Living {
   attack(target) {
     var health = document.getElementById("health");
     var healthBar = document.getElementById("healtBar");
-    var time = this.attackClock.getElapsedTime();
 
     health.style.display = "block";
 
@@ -144,19 +142,18 @@ class Player extends Living {
       // }
     }
 
+    this.skills[0].update(dt);
+    
+    if (this.input.one) {
+      this.skills[0].activate(this, this);
+    }
+
     if (this.target == null)
     return;
 
     if (this.target.hp <= 0) {
       this.target = null;
       return;
-    }
-
-    this.attack(this.target);
-
-    this.skill.update(dt);
-    if (this.input.one) {
-      this.skill.activate(this, this.target);
     }
 
     this.attack(this.target);
