@@ -27,17 +27,16 @@ class Skill {
     if (!target) {
       // console.log("No target!");
       return;
-    }
-    if (player.mesh.position.distanceTo(target.mesh.position) > this.range) {
-      // console.log("Target is out of range!");
+    } else if (this.cooldownLeft != 0) {
+      // console.log("Skill is on cooldown!");
       return;
     } else if (player.mp < this.manaCost) {
       // console.log("Not enough mana!");
       return;
-    } else if (this.cooldownLeft != 0) {
-      // console.log("Skill is on cooldown!");
+    } else if (player.mesh.position.distanceTo(target.mesh.position) > this.range) {
+      // console.log("Target is out of range!");
       return;
-    }
+    }  
 
     player.mp -= this.manaCost;
     this.doSkill(player, target);
