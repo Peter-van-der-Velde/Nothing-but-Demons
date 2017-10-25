@@ -1,11 +1,12 @@
 class Skill {
-  constructor(name, description, manaCost, castTime, cooldown, range, mesh) {
+  constructor(name, description, manaCost, castTime, cooldown, range, icon, mesh) {
     this.name = name;
     this.description = description;
     this.manaCost = manaCost;
     this.castTime = castTime;
     this.cooldown = cooldown;
     this.range = range;
+    this.icon = icon;
     this.mesh = mesh;
     this.target;
 

@@ -1,6 +1,6 @@
 class DamageSkill extends Skill {
-  constructor(name, description, manaCost, castTime, cooldown, range, damage, mesh) {
-    super(name, description, manaCost, castTime, cooldown, range, mesh);
+  constructor(name, description, manaCost, castTime, cooldown, range, damage, icon, mesh) {
+    super(name, description, manaCost, castTime, cooldown, range, icon, mesh);
     this.damage = damage;
   }
 
@@ -10,5 +10,6 @@ class DamageSkill extends Skill {
 
   doSkill(player, target) {
     super.doSkill(player, target);
+    target.dealDamage(this.damage);
   }
 }
