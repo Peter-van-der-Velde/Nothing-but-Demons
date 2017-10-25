@@ -18,7 +18,7 @@
 */
 class Player extends Living {
 
-  constructor (name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, playerClass,  camera, scene) {
+  constructor(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, playerClass, camera, scene) {
 
     super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
 
@@ -27,20 +27,21 @@ class Player extends Living {
 
     // Create player mesh
     var group = new THREE.Group();
-    var bodyGeometry = new THREE.BoxGeometry( 0.5, 2, 0.5 );
+    var bodyGeometry = new THREE.BoxGeometry(0.5, 2, 0.5);
     var bodyMaterial = new THREE.MeshNormalMaterial();
-    this.bodyMesh = new THREE.Mesh( bodyGeometry, bodyMaterial );
-    this.bodyMesh.position.set(0,1,0);
-    var hatGeometry = new THREE.CylinderGeometry( 0, 0.4, 0.8, 12 );
-    var hatMaterial = new THREE.MeshBasicMaterial( {color: 0x008000} );
-    this.hatMesh = new THREE.Mesh( hatGeometry, hatMaterial );
-    this.hatMesh.position.set(0, 2.4 ,0);
+    this.bodyMesh = new THREE.Mesh(bodyGeometry, bodyMaterial);
+    this.bodyMesh.position.set(0, 1, 0);
+    var hatGeometry = new THREE.CylinderGeometry(0, 0.4, 0.8, 12);
+    var hatMaterial = new THREE.MeshBasicMaterial({ color: 0x008000 });
+    this.hatMesh = new THREE.Mesh(hatGeometry, hatMaterial);
+    this.hatMesh.position.set(0, 2.4, 0);
     group.add(this.hatMesh);
     group.add(this.bodyMesh);
     this.mesh = group;
     this.mesh.position.set(0, 0, 0);
 
 
+    this.type = OBJECT_TYPE.PLAYER;
     this.playerClass = playerClass;
     this.calcDerivedStats();
 
@@ -77,11 +78,11 @@ class Player extends Living {
   }
 
   /**
-  * Calculates the needed amount for that level
+  * Calculates the needed amount of experience points for that level
   * @param {number} level
   */
   nextLevel(level) {
-    let  exponent = 1.5
+    let exponent = 1.5
     let baseXP = 1000
     return math.floor(baseXP * (level ^ exponent))
   }
@@ -90,11 +91,11 @@ class Player extends Living {
   * Adds item to the inventory of the player
   * @param {Item} item
   */
-  addItem (item) {
+  addItem(item) {
     if (this.items.length <= 20)
-    this.items.push(item);
+      this.items.push(item);
     else
-    console.log("No more space available.")
+      console.log("No more space available.")
   }
 
   /**
@@ -114,7 +115,7 @@ class Player extends Living {
     this.equipment[EQUIPMENT_TYPE.WEAPON].attackSkill.activate(this, this.target);
 
     health.value = target.hp;
-    if (target.hp === 0) {
+    if (target.hp <= 0) {
       health.style.display = "none";
     }
   }
@@ -125,27 +126,35 @@ class Player extends Living {
   */
   update(dt) {
     if (hp <= 0)
-    this.die();
+      this.die();
 
     this.input.update();
     this.move(dt);
 
     if (this.destination != null) {
-      for (let i = 0; i < enemies.length; i++) {
-        if (enemies[i].mesh.position.distanceTo(player.destination)  < 2)
-          this.target = enemies[i];
+      //Checks wether or not you want to pick up an item or attack an enemy, the preference is to attack enemies.
+      for (let i = 0; i < itemsInGame.length; i++) {
+        if (calcDistanceXZ(itemsInGame[i].mesh.position, this.destination) < 2)
+          this.target = itemsInGame[i];
       }
 
-      // for (let i = 0; i < enemies.length; i++) {
-      //   if (Math.abs(this.mesh.position.x - this.destination.x) < 1 && Math.abs(this.mesh.position.z - this.destination.z) < 1)
-      //   // console.log('it works')
-      //   // if (enemies[i].mesh.position.distanceTo(player.destination)  < 2)
-      //   this.target = enemies[i];
-      // }
+      for (let i = 0; i < enemies.length; i++) {
+        if (calcDistanceXZ(enemies[i].mesh.position, this.destination) < 2)
+          this.target = enemies[i];
+      }
     }
 
     if (this.target == null)
-    return;
+      return;
+
+    if (this.target.type == OBJECT_TYPE.ITEM || this.target.type == OBJECT_TYPE.WEAPON) {
+      if (calcDistanceXZ(this.mesh.position, this.target.mesh.position) > 0.5)
+        return;
+
+      this.pickUpItem(this.target);
+      
+      return;
+    }
 
     if (this.target.hp <= 0) {
       this.target = null;
@@ -164,6 +173,37 @@ class Player extends Living {
   }
 
   /**
+  * Picks up item. <br>
+  * Also removes item from the itemsInGame array.
+  * @param {Item} item 
+  */
+  pickUpItem(item) {
+    if (this.items.length >= 20) {
+      console.log("No more space available.")
+      return;
+    }
+
+    window.scene.remove(item.mesh);
+    this.items.push(item);
+
+    // if (this.target == null)
+      // return;
+
+    // removes item from itemsInGame arrray
+    for (let i = 0; i < itemsInGame.length; i++) {
+      if (itemsInGame[i].id == item.id) {
+        console.log('found: ' + item.id);
+        itemsInGame.splice(i, 1);
+        break;
+      }
+    }
+    console.log(this.items);
+    console.log(itemsInGame);
+    
+    this.target = null;
+  }
+
+  /**
   * when player dies use this function
   */
   die() {
@@ -176,14 +216,14 @@ class Player extends Living {
   * @param {number} dt delta time
   */
   move(dt) {
-    if(this.input.click) {
+    if (this.input.click) {
       this.destination = this.getRayPos(this.scene);
       this.mesh.lookAt(new THREE.Vector3(this.destination.x, this.mesh.position.y, this.destination.z));
     }
 
     if (this.destination != null) {
 
-      if (Math.abs(this.destination.x - this.mesh.position.x) < 0.1 && Math.abs(this.destination.z - this.mesh.position.z) < 0.1 ) {
+      if (calcDistanceXZ(this.destination, this.mesh.position) < 0.1) {
         console.log('umm 0.1')
         this.destination = null;
         return;
@@ -191,7 +231,7 @@ class Player extends Living {
 
 
       if (this.destination == null)
-      return;
+        return;
 
       dt = dt * this.playerMovementSpeed;
       this.direction.set(this.destination.x - this.mesh.position.x, 0, this.destination.z - this.mesh.position.z).normalize();
@@ -213,9 +253,9 @@ class Player extends Living {
 
     var raycaster = new THREE.Raycaster();
 
-    var vector = new THREE.Vector3( mouse.x, mouse.y, 1).unproject( camera );
-    raycaster.set( camera.position, vector.sub( camera.position ).normalize() );
-    var intersects = raycaster.intersectObjects( scene.children );
+    var vector = new THREE.Vector3(mouse.x, mouse.y, 1).unproject(camera);
+    raycaster.set(camera.position, vector.sub(camera.position).normalize());
+    var intersects = raycaster.intersectObjects(scene.children);
 
     if (intersects.length > 0) {
       return intersects[0].point;
