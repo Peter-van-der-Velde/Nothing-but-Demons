@@ -9,10 +9,9 @@ function init(){
 	timer = new THREE.Clock();
   frameCount = 20;
 
-
-  render = new Render(true, window.innerWidth, window.innerHeight);
+	render = new Render(true, window.innerWidth, window.innerHeight);
   testLevel = new Dungeon("dungeon", render);
-
+	
 	// Create an event listener that resizes the renderer with the browser window.
 	window.addEventListener('resize', function() {
 		WIDTH = window.innerWidth,
@@ -21,9 +20,9 @@ function init(){
 		testLevel.mainCamera.aspect = WIDTH / HEIGHT;
 		testLevel.mainCamera.updateProjectionMatrix();
 	});
-
-
-	this.player =  new Player (name = "Sparhawk", hp = 35, mp = 20, strength = 16, defense = 4, speed = 4, intelligence = 35, level = 5, experiencePoints = 12, items = [], weapons = [new ironSword(), new ironShield(), new ironShield(), new ironShield()], playerClass = "Black Mage", camera = testLevel.mainCamera, scene = window.scene);
+	
+	
+	window.player  =  new Player (name = "Sparhawk", hp = 35, mp = 20, strength = 16, defense = 4, speed = 4, intelligence = 35, level = 5, experiencePoints = 12, items = [], weapons = [new ironSword(), new ironShield(), new ironShield(), new ironShield()], playerClass = "Black Mage", camera = testLevel.mainCamera, scene = window.scene);
 	this.blockEnemy = new CubeEnemy(scene = window.scene);
 	this.blockEnemy2 = new CubeEnemy(scene = window.scene);
 	this.blockEnemy2.mesh.position.set(4, 1, -4);
@@ -76,7 +75,7 @@ function animate() {
 	if (mixer)
 		mixer.update( delta / 2.0 );
 
-	this.player.update(delta);
+	window.player.update(delta);
 	enemies.forEach(function(enemy) {
 	 	enemy.update(delta, window.scene);
 	}, this);
