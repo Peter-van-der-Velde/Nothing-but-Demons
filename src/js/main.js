@@ -28,12 +28,10 @@ function init(){
 	this.blockEnemy3 = new CubeEnemy(scene = window.scene);
 	this.blockEnemy3.mesh.position.set(-4, 1, -4);
 
-
 	enemies.forEach(function(enemy) {
 		testLevel.add(enemy.mesh);
 	}, this);
 	testLevel.add(player.mesh);
-	//player.mesh.add(testLevel.mainCamera);
 
 	initAnim();
 }
@@ -62,9 +60,6 @@ function initAnim() {
 	} );
 }
 
-
-
-
 function animate() {
 	requestAnimationFrame( animate );
 
@@ -85,6 +80,6 @@ function animate() {
 	}
 	// Render the scene.
 	render.render(window.scene, testLevel.mainCamera);
-	testLevel.mainCamera.lookAt(player.mesh.position);
 	testLevel.mainCamera.position.z = player.mesh.position.z;
+  testLevel.mainCamera.lookAt(player.mesh.position);
 }

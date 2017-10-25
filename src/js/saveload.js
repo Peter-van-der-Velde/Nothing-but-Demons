@@ -30,13 +30,14 @@ class SaveLoad{
     player.playerClass = JSON.parse(localStorage.getItem('playerClass'));
   }
 
+  var saveLoad = new SaveLoad();
+  
+  clickSave(){
 
+  }
 
+  clickLoad(){
 
-
-
-
-
-
+  }
 
 }
