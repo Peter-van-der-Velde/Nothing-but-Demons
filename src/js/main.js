@@ -23,7 +23,7 @@ function init(){
 	});
 
 
-	this.player =  new Player (name = "Sparhawk", hp = 35, mp = 20, strength = 16, defense = 4, speed = 4, intelligence = 35, level = 5, experiencePoints = 12, items = [], weapons = [ironSword, ironShield, ironShield, ironShield], playerClass = "Black Mage", camera = testLevel.mainCamera, scene = window.scene);
+	this.player =  new Player (name = "Sparhawk", hp = 35, mp = 20, strength = 16, defense = 4, speed = 4, intelligence = 35, level = 5, experiencePoints = 12, items = [], weapons = [new ironSword(), new ironShield(), new ironShield(), new ironShield()], playerClass = "Black Mage", camera = testLevel.mainCamera, scene = window.scene);
 	this.blockEnemy = new CubeEnemy(scene = window.scene);
 	this.blockEnemy2 = new CubeEnemy(scene = window.scene);
 	this.blockEnemy2.mesh.position.set(4, 1, -4);

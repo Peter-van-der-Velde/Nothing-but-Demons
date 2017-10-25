@@ -1,7 +1,6 @@
 // a javascript file with all the different shields.
 
 
-
 /**
  * simple iron shield
  */
