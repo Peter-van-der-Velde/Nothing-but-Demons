@@ -48,6 +48,13 @@ class Living {
             e = null;
         }
 
+        this.skills = [];
+        this.skills.length = SKILL_SLOTS;
+        for (let e of this.skills) {
+            e = null;
+        }
+
+
         this.equipment[EQUIPMENT_TYPE.WEAPON] = weapons[0];
         this.equipment[EQUIPMENT_TYPE.OFFHAND] = weapons[2];
         console.log(this.equipment);

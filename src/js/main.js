@@ -67,6 +67,8 @@ function animate() {
 	// Calculate the delta and fps
 	delta = timer.getDelta();
 	fps = Math.trunc(1.0 / delta);
+	
+	testLevel.update(delta);
 
 	if (mixer)
 		mixer.update( delta / 2.0 );

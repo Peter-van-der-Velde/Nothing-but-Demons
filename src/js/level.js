@@ -37,8 +37,8 @@ class Level {
     this.chest.load(window.scene);
   }
 
-  update() {
-
+  update(dt) {
+    this.chest.animate(dt)
   }
 
   add (mesh) {

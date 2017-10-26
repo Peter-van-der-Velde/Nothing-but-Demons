@@ -230,10 +230,9 @@ class Dungeon extends Level {
 
   /**
    * Update all the things in the level
-   * @param {number} delta 
+   * @param {number} delta
    */
-  update(delta) {
-   
-  
+  update(dt) {
+    super.update(dt);
   }
 }

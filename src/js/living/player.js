@@ -55,8 +55,10 @@ class Player extends Living {
     this.target = null;
     console.log(this);
 
-    this.attackClock = new THREE.Clock();
-    this.skill = new DamageSkill("foo", "bar", 0, 10, 1, 5, 12);
+    let health = document.getElementById("health");
+    health.value = 20;
+
+    this.skills[0] = new AoeSkill("foo", "bar", 5, 0, 10, 3, 4, 6, 'img/skills/spinner.png', null);
 
   }
 
@@ -105,7 +107,7 @@ class Player extends Living {
   */
   attack(target) {
     var health = document.getElementById("health");
-    var time = this.attackClock.getElapsedTime();
+    var healthBar = document.getElementById("healtBar");
 
     health.style.display = "block";
 
@@ -142,6 +144,12 @@ class Player extends Living {
       }
     }
 
+    this.skills[0].update(dt);
+
+    if (this.input.one) {
+      this.skills[0].activate(this, this);
+    }
+
     if (this.target == null)
       return;
 
@@ -157,13 +165,6 @@ class Player extends Living {
     if (this.target.hp <= 0) {
       this.target = null;
       return;
-    }
-
-    this.attack(this.target);
-
-    this.skill.update(dt);
-    if (this.input.one) {
-      this.skill.activate(this, this.target);
     }
 
     this.attack(this.target);
