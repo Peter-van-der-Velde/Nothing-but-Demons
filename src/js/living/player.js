@@ -58,8 +58,6 @@ class Player extends Living {
     this.attackClock = new THREE.Clock();
     this.skill = new DamageSkill("foo", "bar", 0, 10, 1, 5, 12);
 
-    let health = document.getElementById("health");
-    health.value = 20;
   }
 
   /**
@@ -107,7 +105,6 @@ class Player extends Living {
   */
   attack(target) {
     var health = document.getElementById("health");
-    var healthBar = document.getElementById("healtBar");
     var time = this.attackClock.getElapsedTime();
 
     health.style.display = "block";
@@ -125,6 +122,7 @@ class Player extends Living {
   * @param {number} dt delta time
   */
   update(dt) {
+    super.update(dt);
     if (hp <= 0)
       this.die();
 
@@ -152,7 +150,7 @@ class Player extends Living {
         return;
 
       this.pickUpItem(this.target);
-      
+
       return;
     }
 
@@ -175,7 +173,7 @@ class Player extends Living {
   /**
   * Picks up item. <br>
   * Also removes item from the itemsInGame array.
-  * @param {Item} item 
+  * @param {Item} item
   */
   pickUpItem(item) {
     if (this.items.length >= 20) {
@@ -200,7 +198,7 @@ class Player extends Living {
     updateInventory(item);
     console.log(this.items);
     console.log(itemsInGame);
-    
+
     this.target = null;
   }
 
@@ -208,7 +206,10 @@ class Player extends Living {
   * when player dies use this function
   */
   die() {
+    let playerHealthBar = document.getElementById("playerHealthBar");
     alert("Game Over, you died.");
+    playerHealthBar.value = this.hp;
+    setTimeout(function(){ window.location.href = "../src/gameOver.html"; }, 3000);
     // reset to last shrine/bonfire/savespot
   }
 
