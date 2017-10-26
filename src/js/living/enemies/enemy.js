@@ -42,7 +42,10 @@ class Enemy extends Living {
      * @param {Living} target
      */
     attack(target) {
+        var playerHealth = document.getElementById("playerHealthBar");
+        playerHealth.value = target.hp;
         target.hp = target.hp - (this.totalAttack - (-30 + 2 * Math.sqrt(target.totalDefense * 25 + 220)));
+
     }
 
     /**

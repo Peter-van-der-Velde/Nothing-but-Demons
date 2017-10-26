@@ -38,7 +38,8 @@ class Skill {
       // console.log("Skill is on cooldown!");
       return;
     }
-
+    var mana = document.getElementById("playerManaBar");
+    mana.value = player.mp;
     player.mp -= this.manaCost;
     this.doSkill(player, target);
   }
