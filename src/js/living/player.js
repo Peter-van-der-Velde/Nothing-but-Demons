@@ -56,7 +56,7 @@ class Player extends Living {
     let health = document.getElementById("health");
     health.value = 20;
 
-    this.skills[0] = new AoeSkill("foo", "bar", 5, 0, 10, 3, 4, 6, null);
+    this.skills[0] = new AoeSkill("foo", "bar", 5, 0, 10, 3, 4, 6, 'img/skills/spinner.png', null);
 
   }
 
@@ -143,7 +143,7 @@ class Player extends Living {
     }
 
     this.skills[0].update(dt);
-    
+
     if (this.input.one) {
       this.skills[0].activate(this, this);
     }

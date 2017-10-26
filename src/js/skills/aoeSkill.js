@@ -13,6 +13,8 @@ class AoeSkill extends DamageSkill {
     material.transparent = true;
     this.mesh = new THREE.Mesh( geometry, material );
     this.mesh.rotation.x = -1.5708;
+
+    this.icon = loader.load(icon);
   }
 
   update(delta) {
@@ -40,7 +42,7 @@ class AoeSkill extends DamageSkill {
     }
 
     this.mesh.rotation.z -= delta * 5;
-    
+
     if (this.target) {
       this.mesh.position.set(this.target.mesh.position.x, this.target.mesh.position.y + 0.1, this.target.mesh.position.z);
     }
