@@ -197,6 +197,7 @@ class Player extends Living {
         break;
       }
     }
+    updateInventory(item);
     console.log(this.items);
     console.log(itemsInGame);
     

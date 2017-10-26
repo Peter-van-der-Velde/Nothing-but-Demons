@@ -36,7 +36,7 @@ document.onreadystatechange = function () {
         //checkCookie();
     }
 }
-
+drawInventory();
 
 
 function toggleMenu(){

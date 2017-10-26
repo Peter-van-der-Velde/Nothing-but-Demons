@@ -231,8 +231,8 @@ html, body {
 
 #inventory{
 	z-index: 9999;
-	width:300px;
-	height:300px;
+	width:400px;
+	height:400px;
     border: 20px solid #000;
     -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
@@ -376,8 +376,7 @@ select option{
     background-color:hotpink;
 }
 .inventory ul{
-    height:20px;
-    margin:0px;
+    margin:0px 7%;
     padding:0px;
     float:left;
 }
@@ -388,8 +387,8 @@ select option{
 
 }
 .inventorySlot{
-    width: 20px;
-    height:20px;
+    width: 32px;
+    height: 32px;
     background-color:red;
     float:left;
     list-style:none;
