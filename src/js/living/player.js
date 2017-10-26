@@ -122,6 +122,7 @@ class Player extends Living {
   * @param {number} dt delta time
   */
   update(dt) {
+    super.update(dt);
     if (hp <= 0)
       this.die();
 
@@ -207,6 +208,7 @@ class Player extends Living {
     let playerHealthBar = document.getElementById("playerHealthBar");
     alert("Game Over, you died.");
     playerHealthBar.value = this.hp;
+    setTimeout(function(){ window.location.href = "../src/gameOver.html"; }, 3000);
     // reset to last shrine/bonfire/savespot
   }
 
