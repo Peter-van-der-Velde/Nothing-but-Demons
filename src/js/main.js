@@ -6,10 +6,10 @@ animate();
 
 function init(){
 	timer = new THREE.Clock();
-  frameCount = 20;
+    frameCount = 20;
 
 	render = new Render(true, window.innerWidth, window.innerHeight);
-  testLevel = new Dungeon("dungeon", render);
+    testLevel = new Dungeon("dungeon", render);
 
 	// Create an event listener that resizes the renderer with the browser window.
 	window.addEventListener('resize', function() {
@@ -79,8 +79,9 @@ function animate() {
 	for (var i = 0; i < enemies.length; i++) {
 		enemies[i].update(delta, window.scene);
 	}
+
 	// Render the scene.
 	render.render(window.scene, testLevel.mainCamera);
 	testLevel.mainCamera.position.z = player.mesh.position.z;
-  testLevel.mainCamera.lookAt(player.mesh.position);
+    testLevel.mainCamera.lookAt(player.mesh.position);
 }
