@@ -1,5 +1,5 @@
-# c3
-c3 is an action role-playing hack and slash video game playable in the browser.
+# Nothing but Demons
+Nothing but Demons is an action role-playing hack and slash video game playable in the browser.
 
 ### How To Use
 To use this program you will need to have a http server installed.
