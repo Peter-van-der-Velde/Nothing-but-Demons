@@ -17,8 +17,10 @@
  */
 class Living {
 
-    constructor (name, hp, mp, strength, defense, intelligence, speed, level, exp, items, weapons) {
+    constructor (name, hp, mp, strength, defense, intelligence, speed, level, exp, items, weapons, model) {
         this.name = name;
+        this.model = model;
+
         this.inventorySize = 20;
         this.hpRegen = 0;
         this.mpRegen = 2;

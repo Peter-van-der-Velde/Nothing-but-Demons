@@ -9,6 +9,8 @@ class Model {
 
     this.path = "models/" + name + "/";
     this.texturePath = this.path + "textures/";
+
+    this.timer = 0;
   }
 
   load(scene) {
@@ -23,7 +25,7 @@ class Model {
     var texturePath = this.texturePath;
 
     var loader = new THREE.JSONLoader();
-    loader.load('models/chest_01/chest_02.json', handleLoad);
+    loader.load('models/player.json', handleLoad);
 
     function handleLoad(geometry, materials) {
       var texloader = new THREE.TextureLoader();
@@ -34,33 +36,59 @@ class Model {
       }
       if (glow) { // TODO: make the emissive map work like it should...
         materials[0].emissiveMap = texloader.load(texturePath + name + "_glow.png");
-        materials[0].emissive = 0xffffff;
+        materials[0].emissive.set(0xffffff);
       }
-
-      materials[0].emissive.set( 0x101010 );
-  		materials[0].skinning = true;
-  		materials[0].morphTargets = true;
+      
+      materials[0].skinning = true;
+      materials[0].morphTargets = true;
 
       self.mesh = new THREE.SkinnedMesh(geometry, materials[0]);
       self.mesh.name = name;
       scene.add(self.mesh);
 
-      self.mixer = new THREE.AnimationMixer( self.mesh );
-      for ( var i = 0; i < self.mesh.geometry.animations.length; i ++ ) {
-  			var action = self.mixer.clipAction( self.mesh.geometry.animations[ i ] );
-  			if ( i === 1 ) action.timeScale = 0.25;
-  			action.play();
-  		}
-      console.log(self);
+      if (self.mesh.geometry.animations) {
+        self.mixer = new THREE.AnimationMixer( self.mesh );
+        self.clipActions = new Array();
+
+        for (let e of self.mesh.geometry.animations) {
+          self.clipActions[e.name] = self.mixer.clipAction(e);
+
+          // Set animation looping
+          switch (e.name) {
+            case ANIMATION_TYPE.DIE:
+              self.clipActions[e.name].setLoop(THREE.loopOnce, 0);
+              break;
+            case ANIMATION_TYPE.OPEN:
+              self.clipActions[e.name].setLoop(THREE.loopOnce, 0);
+              break;
+            default:
+              break;
+          }
+        }
+      }
     }
   }
 
-  animate(dt) {
+  animationSwitch(animationType) {
+    if (!this.clipActions) {
+      console.log("ERROR: no animations loaded for this model!");
+      return;
+    }
+
+    for (var key in this.clipActions) {
+      this.clipActions[key].stop();
+    }
+
+    this.clipActions[animationType].play();
+  }
+
+  update(dt) {
+    if (this.mixer) {
+      this.mixer.update(dt);
+      this.clipActions[ANIMATION_TYPE.ATTACK].play();
+    }
     if (this.mesh) {
       this.mesh.position.x += dt;
-    }
-    if (this.mixer) {
-      this.mixer.update( dt / 2.0 );
     }
   }
 }

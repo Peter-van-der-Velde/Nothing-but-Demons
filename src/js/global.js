@@ -1,7 +1,7 @@
 ﻿
 // the player
 var player;
-  
+
 // list of all items in the 3d gameworld
 var itemsInGame = [];
 
@@ -13,6 +13,16 @@ var MATERIALS = {
   PHONG: 0,
   LAMBERT: 1,
   UNLIT: 2
+};
+
+var ANIMATION_TYPE = {
+  IDLE: "idle",
+  WALK: "walk",
+  RUN: "run",
+  ATTACK: "attack",
+  BLOCK: "block",
+  DIE: "die",
+  OPEN: "open"
 };
 
 var EQUIPMENT_TYPE = {
@@ -42,8 +52,8 @@ var OBJECT_TYPE = {
 /**
  * Calculates the distance between 2 x and z (x,z) points. <br>
  * Based on the Pythagoras formula c^2 = a^2 + b^2
- * @param {THREE.Vector3} vector0 
- * @param {THREE.Vector3} vector1 
+ * @param {THREE.Vector3} vector0
+ * @param {THREE.Vector3} vector1
  */
 function calcDistanceXZ(vector0, vector1) {
   let a = vector0.x - vector1.x;
@@ -51,9 +61,9 @@ function calcDistanceXZ(vector0, vector1) {
 
   let a2 = Math.pow(a, 2);
   let b2 = Math.pow(b, 2);
-  
+
   let c2 = a2 + b2;
   let c = Math.sqrt(c2);
-  
+
   return c;
 }

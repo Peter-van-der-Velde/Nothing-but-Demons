@@ -38,7 +38,7 @@ class Level {
   }
 
   update(dt) {
-    this.chest.animate(dt)
+    this.chest.update(dt)
   }
 
   add (mesh) {
