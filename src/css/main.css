@@ -424,6 +424,8 @@ select option{
     margin:0px 7%;
     padding:0px;
     float:left;
+    overflow: hidden;
+    height: 34px;
 }
 .inventory ul li{
 
@@ -438,6 +440,18 @@ select option{
     float:left;
     list-style:none;
     margin:1px;
+}
+.inventorySlot:first-child{
+    z-index:9999;
+}
+.inventorySlot img{
+    width:32px;
+    height:32px;
+}
+.item{
+    z-index: 9999;
+    float: left;
+    position: absolute;
 }
 
 .pausedButtons{
