@@ -49,7 +49,7 @@ class Player extends Living {
     this.scene = scene;
     this.destination = null;
     this.direction = new THREE.Vector3(0, 0, 0);
-    this.playerMovementSpeed = 10;
+    this.movementSpeed = 5;
 
     // the target of the player
     this.target = null;
@@ -227,24 +227,23 @@ class Player extends Living {
       this.mesh.lookAt(new THREE.Vector3(this.destination.x, this.mesh.position.y, this.destination.z));
     }
 
-    if (this.destination != null) {
+    if (this.destination == null)
+      return;
 
-      if (calcDistanceXZ(this.destination, this.mesh.position) < 0.1) {
-        console.log('umm 0.1')
-        this.destination = null;
-        return;
-      }
-
-
-      if (this.destination == null)
-        return;
-
-      dt = dt * this.playerMovementSpeed;
-      this.direction.set(this.destination.x - this.mesh.position.x, 0, this.destination.z - this.mesh.position.z).normalize();
-      this.mesh.position.set(this.mesh.position.x + this.direction.x * dt, this.mesh.position.y, this.mesh.position.z + this.direction.z * dt);
-
+    if (calcDistanceXZ(this.destination, this.mesh.position) < 0.1) {
+      console.log('umm 0.1')
+      this.destination = null;
       return;
     }
+   
+    if (this.destination == null)
+      return;
+   
+    dt = dt * this.movementSpeed;
+    this.direction.set(this.destination.x - this.mesh.position.x, 0, this.destination.z - this.mesh.position.z).normalize();
+    this.mesh.position.set(this.mesh.position.x + this.direction.x * dt, this.mesh.position.y, this.mesh.position.z + this.direction.z * dt);
+  
+    return;
   }
 
 

@@ -10,6 +10,7 @@ class CubeEnemy extends Enemy {
     this.mesh = new THREE.Mesh( bodyGeometry, bodyMaterial );
     this.mesh.position.set(4, 1, 0);
     this.radius = 0.5;
+    this.movementSpeed = 3;
 
     // add enemies to the enemy array
     enemies.push(this);

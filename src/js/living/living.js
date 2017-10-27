@@ -63,7 +63,7 @@ class Living {
         this.level = level;
         this.experiencePoints = exp;
         this.items = items;
-
+        this.movementSpeed;
         this.totalAttack;
         this.totalDefense
         this.luck = 0;
