@@ -95,10 +95,10 @@ class Enemy extends Living {
         if (this.hp > this.hpMax)
             this.hp = this.hpMax;
 
-        // return;
-
-        // if (this.path.length == 0)
-        // this.findShortestPath(this.mesh.position, new HTMLHRElement.Vector3(20, 0, 20));
+        if (this.path.length == 0) {
+            var index = Math.floor(Math.random() * ROUTE_POINTS.length);
+            this.findShortestPath(this.mesh.position, ROUTE_POINTS[index]);
+        }
 
         this.move(dt);
     }
@@ -161,7 +161,7 @@ class Enemy extends Living {
 
         let ray = new THREE.Raycaster(currentNode, new THREE.Vector3(0, 0, 0).normalize(), 0, 1);
         let intersects;
-        
+
 
         while (this.q.length != 0) {
             var currentNode = this.q.shift();
@@ -198,14 +198,16 @@ class Enemy extends Living {
         }
 
         if (foundDestination) {
+            let nodePath = nodes[nodes.length - 1].returnAllNodes;
+            this.path = [];
 
-            // while () {
-
-            // }
+            for (var i = nodePath.length - 1; i >= 0; i--) {
+                this.path.push(nodePath[i].position);
+            }
             return;
         }
 
-        path = [];
+        this.path = [];
     }
 
 }
