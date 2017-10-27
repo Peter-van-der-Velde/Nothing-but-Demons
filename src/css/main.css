@@ -342,8 +342,16 @@ select option{
     color: #f7ddac;
 }
 
-
-#itemPickUp {
+.waveComplete {
+    -webkit-animation: seconds 5.0s forwards;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-delay: 3s;
+    animation: seconds 5.0s forwards;
+    animation-iteration-count: 1;
+    animation-delay: 2s;
+    position: relative;
+}
+.itemPickUp {
     -webkit-animation: seconds 5.0s forwards;
     -webkit-animation-iteration-count: 1;
     -webkit-animation-delay: 5s;
@@ -371,7 +379,21 @@ select option{
     }
 }
 
-
+.waveDisplay{
+    position: absolute;
+    bottom: 60%;
+    left: 42%;
+}
+.waveDisplay .waveComplete{
+    margin: 0px 0px 0px -150px;
+}
+.waveDisplay .itemPickUp{
+}
+.waveDisplay h2{
+    font-family: diabloFont;
+    color: #f7ddac;
+    font-size:4em;
+}
 
 .menuBoxLeft ul{
 	padding:0px;

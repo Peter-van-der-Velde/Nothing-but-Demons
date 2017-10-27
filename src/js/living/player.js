@@ -167,6 +167,8 @@ class Player extends Living {
       return;
     }
 
+
+
     this.attack(this.target);
     this.equipment[EQUIPMENT_TYPE.WEAPON].attackSkill.update(dt);
   }
@@ -198,6 +200,13 @@ class Player extends Living {
     }
     updateInventory(item);
     broadcastPickUp(item.name);
+    console.log("PETEEEEEEER LIMONAAADEEE!");
+    console.log(enemies.length);
+    if (enemies.length.toString() == "0"){
+        setTimeout(function(){
+            waveDisplay();
+        }, 2000);
+    }
     console.log(this.items);
     console.log(itemsInGame);
 

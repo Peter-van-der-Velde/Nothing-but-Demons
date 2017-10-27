@@ -1,5 +1,5 @@
 var inventoryHasBeenDrawn = false;
-
+var waveNumber = 2;
 var resolution = "";
 var e = document.getElementById("selectResolution");
 document.onreadystatechange = function () {
@@ -37,10 +37,30 @@ document.onreadystatechange = function () {
     }
 }
 
+
+function waveDisplay(){
+    var waveContainer = document.getElementById("waveDisplay");
+    var completeMessage = "<h2 class='waveComplete'>Wave complete!</h2>";
+    var data = "<h2 class='itemPickUp'>Wave : " + waveNumber + "</h2>";
+    waveContainer.insertAdjacentHTML('afterbegin', completeMessage);
+    setTimeout(function(){
+        waveContainer.innerHTML = "";
+        waveContainer.insertAdjacentHTML('afterbegin', data);
+        waveNumber = waveNumber +1;
+        setTimeout(function(){
+            waveContainer.innerHTML = "";
+        }, 10000);
+    }, 3000);
+}
+
 function broadcastPickUp(item){
     var chatWindow = document.getElementById("chatWindow");
-    chatWindow.insertAdjacentHTML('beforeend', "<p id='itemPickUp'>Picked up an : " + item + "</p>" );
+    chatWindow.insertAdjacentHTML('beforeend', "<p class='itemPickUp'>Picked up an : " + item + "</p>" );
+    setTimeout(function(){
+        chatWindow.innerHTML = "";
+    }, 10000);
 }
+
 
 
 function toggleMenu(){
