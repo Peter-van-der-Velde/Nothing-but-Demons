@@ -29,6 +29,7 @@
 		  $( "#inventory" ).load( "inventory.html", function() {
             console.log("#Inventory Loaded");
           });
+          drawInventory();
       });
   </script>
 </head>
@@ -44,7 +45,10 @@
 
   <!-- HUD display -->
   <div class="hudDisplay" id="hudDisplay" style="display:block"></div>
-  
+
+  <!--Chat window-->
+  <div class="chatWindow" id="chatWindow" style="display:block"></div>
+
   <!-- Paused menu -->
   <div class="pausedMenu" id="pausedMenu" style="display:none;"></div>
 

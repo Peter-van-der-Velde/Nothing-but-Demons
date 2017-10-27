@@ -36,7 +36,11 @@ document.onreadystatechange = function () {
         //checkCookie();
     }
 }
-drawInventory();
+
+function broadcastPickUp(item){
+    var chatWindow = document.getElementById("chatWindow");
+    chatWindow.insertAdjacentHTML('beforeend', "<p id='itemPickUp'>Picked up an : " + item + "</p>" );
+}
 
 
 function toggleMenu(){
