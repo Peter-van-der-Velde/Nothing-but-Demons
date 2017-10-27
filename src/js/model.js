@@ -59,11 +59,16 @@ class Model {
             case ANIMATION_TYPE.ATTACK:
               self.clipActions[e.name].setLoop(THREE.loopOnce, 0);
               break;
+            case ANIMATION_TYPE.BLOCK:
+              self.clipActions[e.name].setLoop(THREE.loopOnce, 0);
+              break;
             case ANIMATION_TYPE.DIE:
               self.clipActions[e.name].setLoop(THREE.loopOnce, 0);
+              self.clipActions[e.name].clampWhenFinished = true;
               break;
             case ANIMATION_TYPE.OPEN:
               self.clipActions[e.name].setLoop(THREE.loopOnce, 0);
+              self.clipActions[e.name].clampWhenFinished = true;
               break;
             default:
               break;
