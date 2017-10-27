@@ -33,12 +33,12 @@ class Level {
     var aLight = new THREE.AmbientLight(0x404040);
     window.scene.add(lamp, aLight);
 
-    this.chest = new Model("chest_01", true);
-    this.chest.load(window.scene);
+    // this.chest = new Model("chest_01", true);
+    // this.chest.load(window.scene);
   }
 
   update(dt) {
-    this.chest.update(dt)
+    // this.chest.update(dt)
   }
 
   add (mesh) {

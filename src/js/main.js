@@ -21,8 +21,25 @@ function init(){
 	});
 
 
-	window.player  =  new Player (name = "Sparhawk", hp = 35, mp = 20, strength = 16, defense = 4, speed = 4, intelligence = 35, level = 5, experiencePoints = 12, items = [], weapons = [new ironSword(), new ironShield(), new ironShield(), new ironShield()], playerClass = "Black Mage", camera = testLevel.mainCamera, scene = window.scene);
-	window.player.mesh.position.set(-6, player.mesh.position.y, 6);
+	window.player  =  new Player (
+		name = "Sparhawk", 
+		hp = 35, 
+		mp = 20, 
+		strength = 16, 
+		defense = 4, 
+		speed = 4, 
+		intelligence = 35, 
+		level = 5, 
+		experiencePoints = 12, 
+		items = [], 
+		weapons = [new ironSword(), new ironShield(), new ironShield(), new ironShield()], 
+		playerClass = "Black Mage", 
+		camera = testLevel.mainCamera, 
+		scene = window.scene,
+		model = new Model("player", false, false)
+	);
+	window.player.model.load(window.scene);
+	// window.player.model.mesh.position.set(-6, player.mesh.position.y, 6);
 	this.blockEnemy = new CubeEnemy(scene = window.scene);
 	this.blockEnemy2 = new CubeEnemy(scene = window.scene);
 	this.blockEnemy2.mesh.position.set(4, 1, -4);
@@ -82,8 +99,10 @@ function animate() {
 		enemies[i].update(delta, window.scene);
 	}
 
+	// console.log(window.player.model);
+
 	// Render the scene.
 	render.render(window.scene, testLevel.mainCamera);
-	testLevel.mainCamera.position.z = player.mesh.position.z;
-    testLevel.mainCamera.lookAt(player.mesh.position);
+	testLevel.mainCamera.position.z = player.model.mesh.position.z;
+    testLevel.mainCamera.lookAt(player.model.mesh.position);
 }

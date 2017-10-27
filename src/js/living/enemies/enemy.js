@@ -20,8 +20,8 @@ var enemies = [];
  */
 class Enemy extends Living {
 
-    constructor(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons) {
-        super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
+    constructor(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, model) {
+        super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, model);
 
         let health = document.getElementById("health");
         health.max = this.hp;

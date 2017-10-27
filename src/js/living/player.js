@@ -18,27 +18,27 @@
 */
 class Player extends Living {
 
-  constructor(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, playerClass, camera, scene) {
+  constructor(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, playerClass, camera, scene, model) {
 
-    super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
+    super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, model);
 
     this.baseAttackSpeed = 2;
     this.input = new Input();
 
     // Create player mesh
-    var group = new THREE.Group();
-    var bodyGeometry = new THREE.BoxGeometry(0.5, 2, 0.5);
-    var bodyMaterial = new THREE.MeshNormalMaterial();
-    this.bodyMesh = new THREE.Mesh(bodyGeometry, bodyMaterial);
-    this.bodyMesh.position.set(0, 1, 0);
-    var hatGeometry = new THREE.CylinderGeometry(0, 0.4, 0.8, 12);
-    var hatMaterial = new THREE.MeshBasicMaterial({ color: 0x008000 });
-    this.hatMesh = new THREE.Mesh(hatGeometry, hatMaterial);
-    this.hatMesh.position.set(0, 2.4, 0);
-    group.add(this.hatMesh);
-    group.add(this.bodyMesh);
-    this.mesh = group;
-    this.mesh.position.set(0, 0, 0);
+    // var group = new THREE.Group();
+    // var bodyGeometry = new THREE.BoxGeometry(0.5, 2, 0.5);
+    // var bodyMaterial = new THREE.MeshNormalMaterial();
+    // this.bodyMesh = new THREE.Mesh(bodyGeometry, bodyMaterial);
+    // this.bodyMesh.position.set(0, 1, 0);
+    // var hatGeometry = new THREE.CylinderGeometry(0, 0.4, 0.8, 12);
+    // var hatMaterial = new THREE.MeshBasicMaterial({ color: 0x008000 });
+    // this.hatMesh = new THREE.Mesh(hatGeometry, hatMaterial);
+    // this.hatMesh.position.set(0, 2.4, 0);
+    // group.add(this.hatMesh);
+    // group.add(this.bodyMesh);
+    // this.mesh = group;
+    // this.mesh.position.set(0, 0, 0);
 
 
     this.type = OBJECT_TYPE.PLAYER;
@@ -219,14 +219,15 @@ class Player extends Living {
   * @param {number} dt delta time
   */
   move(dt) {
-    if (this.input.click) {
+    if (this.input.click && this.model) {
       this.destination = this.getRayPos(this.scene);
-      this.mesh.lookAt(new THREE.Vector3(this.destination.x, this.mesh.position.y, this.destination.z));
+      this.model.mesh.lookAt(new THREE.Vector3(this.destination.x, this.model.mesh.position.y, this.destination.z));
+      // this.model.lookAtHelper(new THREE.Vector3(this.destination.x, this.mesh.position.y, this.destination.z));
     }
 
     if (this.destination != null) {
 
-      if (calcDistanceXZ(this.destination, this.mesh.position) < 0.1) {
+      if (calcDistanceXZ(this.destination, this.model.mesh.position) < 0.2) {
         console.log('umm 0.1')
         this.destination = null;
         return;
@@ -237,8 +238,8 @@ class Player extends Living {
         return;
 
       dt = dt * this.playerMovementSpeed;
-      this.direction.set(this.destination.x - this.mesh.position.x, 0, this.destination.z - this.mesh.position.z).normalize();
-      this.mesh.position.set(this.mesh.position.x + this.direction.x * dt, this.mesh.position.y, this.mesh.position.z + this.direction.z * dt);
+      this.direction.set(this.destination.x - this.model.mesh.position.x, 0, this.destination.z - this.model.mesh.position.z).normalize();
+      this.model.mesh.position.set(this.model.mesh.position.x + this.direction.x * dt, this.model.mesh.position.y, this.model.mesh.position.z + this.direction.z * dt);
 
       return;
     }

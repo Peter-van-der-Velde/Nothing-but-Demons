@@ -11,6 +11,8 @@ class Model {
     this.texturePath = this.path + "textures/";
 
     this.timer = 0;
+
+    //this.load(window.scene);
   }
 
   load(scene) {
@@ -43,10 +45,9 @@ class Model {
       materials[0].morphTargets = true;
 
       self.mesh = new THREE.SkinnedMesh(geometry, materials[0]);
-      self.mesh.name = name;
-      scene.add(self.mesh);
 
       if (self.mesh.geometry.animations) {
+        self.mesh = new THREE.SkinnedMesh(geometry, materials[0]);
         self.mixer = new THREE.AnimationMixer( self.mesh );
         self.clipActions = new Array();
 
@@ -66,7 +67,15 @@ class Model {
           }
         }
       }
+
+      self.mesh.name = name;
+      scene.add(self.mesh);
     }
+  }
+
+  lookAtHelper(v) {
+    if (this.mesh)
+      this.mesh.lookAt(v);
   }
 
   animationSwitch(animationType) {
@@ -79,7 +88,9 @@ class Model {
       this.clipActions[key].stop();
     }
 
-    this.clipActions[animationType].play();
+    if (this.clipActions[animationType]) {
+      this.clipActions[animationType].play();
+    }
   }
 
   update(dt) {
