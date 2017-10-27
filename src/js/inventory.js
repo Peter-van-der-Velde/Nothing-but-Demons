@@ -48,7 +48,7 @@ function updateInventory(item){
     console.log(item);
     console.log(inventory);
     while(pickedUpItem){
-        for (i = 0; i < inventory.length; i++) {
+        for (i = inventory.length -1; i > 0; i--) {
             var idName = "inventoryRow" + i;
             inventoryRow = document.getElementById(idName);
             for (x = 0; x < inventoryWidth; x++) {
