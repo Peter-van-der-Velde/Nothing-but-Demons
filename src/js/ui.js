@@ -1,5 +1,5 @@
 var inventoryHasBeenDrawn = false;
-var waveNumber = 1;
+var waveNumber = 2;
 var resolution = "";
 var e = document.getElementById("selectResolution");
 document.onreadystatechange = function () {
@@ -40,12 +40,17 @@ document.onreadystatechange = function () {
 
 function waveDisplay(){
     var waveContainer = document.getElementById("waveDisplay");
+    var completeMessage = "<h2 class='waveComplete'>Wave complete!</h2>";
     var data = "<h2 class='itemPickUp'>Wave : " + waveNumber + "</h2>";
-    waveContainer.insertAdjacentHTML('afterbegin', data);
-    waveNumber = waveNumber +1;
+    waveContainer.insertAdjacentHTML('afterbegin', completeMessage);
     setTimeout(function(){
         waveContainer.innerHTML = "";
-    }, 10000);
+        waveContainer.insertAdjacentHTML('afterbegin', data);
+        waveNumber = waveNumber +1;
+        setTimeout(function(){
+            waveContainer.innerHTML = "";
+        }, 10000);
+    }, 3000);
 }
 
 function broadcastPickUp(item){
