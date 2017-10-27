@@ -7,9 +7,10 @@ class CubeEnemy extends Enemy {
 
     var bodyGeometry = new THREE.BoxGeometry( 1, 1, 1 );
     var bodyMaterial = new THREE.MeshBasicMaterial({color: 0x008000});
-    this.mesh = new THREE.Mesh( bodyGeometry, bodyMaterial );
-    this.mesh.position.set(4, 1, 0);
+    // this.mesh = new THREE.Mesh( bodyGeometry, bodyMaterial );
+    // this.mesh.position.set(4, 1, 0);
     this.radius = 0.5;
+    this.model = new Model("player", false);
 
     // add enemies to the enemy array
     enemies.push(this);
@@ -17,7 +18,7 @@ class CubeEnemy extends Enemy {
   }
 
   replaceWithCorpse() {
-    this.mesh.material.color.setHex( 0xff0000 );
-    this.mesh.position.y = 0
+    this.model.mesh.material.color.setHex( 0xff0000 );
+    this.model.mesh.position.y = 0
   }
 }

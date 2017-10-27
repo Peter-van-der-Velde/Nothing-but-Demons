@@ -12,7 +12,7 @@ class Model {
 
     this.timer = 0;
 
-    //this.load(window.scene);
+    this.load(window.scene);
   }
 
   load(scene) {
@@ -96,10 +96,7 @@ class Model {
   update(dt) {
     if (this.mixer) {
       this.mixer.update(dt);
-      this.clipActions[ANIMATION_TYPE.ATTACK].play();
-    }
-    if (this.mesh) {
-      this.mesh.position.x += dt;
+      this.clipActions[ANIMATION_TYPE.WALK].play();
     }
   }
 }

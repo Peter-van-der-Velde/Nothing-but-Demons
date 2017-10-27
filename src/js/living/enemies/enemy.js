@@ -104,9 +104,9 @@ class Enemy extends Living {
     dropItems() {
 
         for (let item of this.items) {
-            let x = this.mesh.position.x + Math.floor(Math.random() * 5) / 10;
+            let x = this.model.mesh.position.x + Math.floor(Math.random() * 5) / 10;
             let y = 0.5;
-            let z = this.mesh.position.z + Math.floor(Math.random() * 5) / 10;
+            let z = this.model.mesh.position.z + Math.floor(Math.random() * 5) / 10;
             item.mesh.position.set(x, y, z);
 
             item.id = item.name + itemsInGame.length;

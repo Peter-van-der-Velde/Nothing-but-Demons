@@ -125,6 +125,13 @@ class Player extends Living {
   */
   update(dt) {
     super.update(dt);
+
+    if (this.moving) {
+      this.model.clipActions[ANIMATION_TYPE.WALK].play();
+    } else {
+      this.model.clipActions[ANIMATION_TYPE.WALK].stop();      
+    }
+
     if (hp <= 0)
       this.die();
 
@@ -139,7 +146,7 @@ class Player extends Living {
       }
 
       for (let i = 0; i < enemies.length; i++) {
-        if (calcDistanceXZ(enemies[i].mesh.position, this.destination) < 2)
+        if (calcDistanceXZ(enemies[i].model.mesh.position, this.destination) < 2)
           this.target = enemies[i];
       }
     }
@@ -222,14 +229,15 @@ class Player extends Living {
     if (this.input.click && this.model) {
       this.destination = this.getRayPos(this.scene);
       this.model.mesh.lookAt(new THREE.Vector3(this.destination.x, this.model.mesh.position.y, this.destination.z));
-      // this.model.lookAtHelper(new THREE.Vector3(this.destination.x, this.mesh.position.y, this.destination.z));
+      this.moving = true;
     }
 
     if (this.destination != null) {
 
-      if (calcDistanceXZ(this.destination, this.model.mesh.position) < 0.2) {
+      if (calcDistanceXZ(this.destination, this.model.mesh.position) < 0.1) {
         console.log('umm 0.1')
         this.destination = null;
+        this.moving = false;
         return;
       }
 

@@ -38,13 +38,10 @@ function init(){
 		scene = window.scene,
 		model = new Model("player", false, false)
 	);
-	window.player.model.load(window.scene);
 	// window.player.model.mesh.position.set(-6, player.mesh.position.y, 6);
 	this.blockEnemy = new CubeEnemy(scene = window.scene);
 	this.blockEnemy2 = new CubeEnemy(scene = window.scene);
-	this.blockEnemy2.mesh.position.set(4, 1, -4);
 	this.blockEnemy3 = new CubeEnemy(scene = window.scene);
-	this.blockEnemy3.mesh.position.set(-4, 1, -4);
 
 	enemies.forEach(function(enemy) {
 		testLevel.add(enemy.mesh);
@@ -99,10 +96,14 @@ function animate() {
 		enemies[i].update(delta, window.scene);
 	}
 
-	// console.log(window.player.model);
+	window.player.model.update(delta);
+
+	this.blockEnemy2.model.mesh.position.set(4, 1, -4);
+	this.blockEnemy3.model.mesh.position.set(-4, 1, -4);
 
 	// Render the scene.
 	render.render(window.scene, testLevel.mainCamera);
-	testLevel.mainCamera.position.z = player.model.mesh.position.z;
+	testLevel.mainCamera.position.x = player.model.mesh.position.x + 4;
+	testLevel.mainCamera.position.z = player.model.mesh.position.z + 4;
     testLevel.mainCamera.lookAt(player.model.mesh.position);
 }
