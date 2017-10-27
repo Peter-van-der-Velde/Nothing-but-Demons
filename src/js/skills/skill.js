@@ -1,13 +1,14 @@
 class Skill {
-  constructor(name, description, manaCost, castTime, cooldown, range) {
+  constructor(name, description, manaCost, castTime, cooldown, range, icon, mesh) {
     this.name = name;
     this.description = description;
     this.manaCost = manaCost;
     this.castTime = castTime;
     this.cooldown = cooldown;
     this.range = range;
+    this.icon = icon;
+    this.mesh = mesh;
     this.target;
-
 
     this.cooldownLeft = 0;
   }
@@ -27,18 +28,18 @@ class Skill {
     if (!target) {
       // console.log("No target!");
       return;
-    }
-    if (player.mesh.position.distanceTo(target.mesh.position) > this.range) {
-      // console.log("Target is out of range!");
+    } else if (this.cooldownLeft != 0) {
+      // console.log("Skill is on cooldown!");
       return;
     } else if (player.mp < this.manaCost) {
       // console.log("Not enough mana!");
       return;
-    } else if (this.cooldownLeft != 0) {
-      // console.log("Skill is on cooldown!");
+    } else if (player.mesh.position.distanceTo(target.mesh.position) > this.range) {
+      // console.log("Target is out of range!");
       return;
     }
-
+    var mana = document.getElementById("playerManaBar");
+    mana.value = player.mp;
     player.mp -= this.manaCost;
     this.doSkill(player, target);
   }

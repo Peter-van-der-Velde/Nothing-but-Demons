@@ -49,23 +49,22 @@ class Input {
     }
 
     document.onkeydown = (e) => {
+      var rotateAngle = 0.05;
       e = e || window.event;
 	  keypressTest(e.keyCode);
       if (e.keyCode === 27) {
       }
       if (e.keyCode === 37) {
-        var rotateAngle = 0.05;
         this.left = true;
-        var rotation_matrix = new THREE.Matrix4().makeRotationZ(-rotateAngle);
-        window.player.mesh.matrix.multiplySelf(rotation_matrix);
-          window.player.mesh.rotation.setEulerFromRotationMatrix(  window.player.mesh.matrix);
+        var rotation_matrix = new THREE.Matrix4().makeRotationZ(rotateAngle);
+        player.mesh.matrix.multiplySelf(rotation_matrix);
+        player.mesh.rotation.setEulerFromRotationMatrix(player.mesh.matrix);
       }
       if (e.keyCode === 39) {
-        var rotateAngle = 0.05;
         this.right = true;
-        var rotation_matrix = new THREE.Matrix4().makeRotationZ(rotateAngle);
-          window.player.mesh.matrix.multiplySelf(rotation_matrix);
-          window.player.mesh.rotation.setEulerFromRotationMatrix(  window.player.mesh.matrix);
+        var rotation_matrix = new THREE.Matrix4().makeRotationZ(-rotateAngle);
+        player.mesh.matrix.multiplySelf(rotation_matrix);
+        player.mesh.rotation.setEulerFromRotationMatrix(player.mesh.matrix);
       }
       if (e.keyCode === 38) {
         this.up = true;

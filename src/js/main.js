@@ -6,10 +6,10 @@ animate();
 
 function init(){
 	timer = new THREE.Clock();
-  frameCount = 20;
+    frameCount = 20;
 
 	render = new Render(true, window.innerWidth, window.innerHeight);
-  testLevel = new Dungeon("dungeon", render);
+    testLevel = new Dungeon("dungeon", render);
 
 	// Create an event listener that resizes the renderer with the browser window.
 	window.addEventListener('resize', function() {
@@ -29,12 +29,10 @@ function init(){
 	this.blockEnemy3 = new CubeEnemy(scene = window.scene);
 	this.blockEnemy3.mesh.position.set(-4, 1, -4);
 
-
 	enemies.forEach(function(enemy) {
 		testLevel.add(enemy.mesh);
 	}, this);
 	testLevel.add(player.mesh);
-	//player.mesh.add(testLevel.mainCamera);
 
 	initAnim();
 }
@@ -63,15 +61,14 @@ function initAnim() {
 	} );
 }
 
-
-
-
 function animate() {
 	requestAnimationFrame( animate );
 
 	// Calculate the delta and fps
 	delta = timer.getDelta();
 	fps = Math.trunc(1.0 / delta);
+	
+	testLevel.update(delta);
 
 	if (mixer)
 		mixer.update( delta / 2.0 );
@@ -84,8 +81,9 @@ function animate() {
 	for (var i = 0; i < enemies.length; i++) {
 		enemies[i].update(delta, window.scene);
 	}
+
 	// Render the scene.
 	render.render(window.scene, testLevel.mainCamera);
-	testLevel.mainCamera.lookAt(player.mesh.position);
 	testLevel.mainCamera.position.z = player.mesh.position.z;
+    testLevel.mainCamera.lookAt(player.mesh.position);
 }

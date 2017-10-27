@@ -27,7 +27,7 @@ class Enemy extends Living {
         health.max = this.hp;
         this.id = name + enemies.length.toString();
         this.baseAttackSpeed = 2;
-
+        this.time = 0;
         this.type = OBJECT_TYPE.ENEMY;
 
         // needed for very basic collision
@@ -47,7 +47,10 @@ class Enemy extends Living {
      * @param {Living} target
      */
     attack(target) {
+        var playerHealth = document.getElementById("playerHealthBar");
+        playerHealth.value = target.hp;
         target.hp = target.hp - (this.totalAttack - (-30 + 2 * Math.sqrt(target.totalDefense * 25 + 220)));
+
     }
 
     /**
@@ -60,13 +63,16 @@ class Enemy extends Living {
             if (enemies[i].id == this.id) {
                 enemies.splice(i, 1);
                 break;
-            }
+          }
         }
-
-
         this.dropItems();
         this.replaceWithCorpse();
+        // setTimeout(function(){ window.location.href = "../src/gameOver.html"; }, 10000);
+        // $("html").fadeOut(speed = 10000);
+        //fadein 
+
     }
+
 
 
     /**
@@ -74,8 +80,14 @@ class Enemy extends Living {
      * @param {number} dt delta time
      */
     update(dt) {
-        if (this.hp <= 0)
-            this.die();
+      super.update(dt);
+
+
+
+        if (this.hp <= 0){
+          this.die();
+        }
+
 
         if (this.hp > this.hpMax)
             this.hp = this.hpMax;
@@ -89,6 +101,7 @@ class Enemy extends Living {
     replaceWithCorpse() {
         console.log('this is a corpse');
     }
+
 
     /**
      * drop the items of the enemy

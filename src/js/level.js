@@ -11,7 +11,6 @@ class Level {
     this.mainCamera = new THREE.PerspectiveCamera( 75, render.aspect, 0.1, 1000 );
     this.mainCamera.position.set(20, 20, 20);
     this.mainCamera.lookAt(new THREE.Vector3(0, 0, 0));
-
     render.setClearColor(0xCCCCFF, 1);
     let gridSize = 200;
     let gridDivisions = 200;
@@ -38,8 +37,8 @@ class Level {
     this.chest.load(window.scene);
   }
 
-  update() {
-
+  update(dt) {
+    this.chest.animate(dt)
   }
 
   add (mesh) {

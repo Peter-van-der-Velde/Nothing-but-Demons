@@ -191,16 +191,16 @@ html, body {
 	width:195px;
 }
 .playerHealth progress {
-	background: linear-gradient(to top, rgba(185, 5, 29, 1) 0%, rgba(249, 11, 43, 0.81) 20%, transparent 100%);
+	background: linear-gradient(to right, rgba(249, 11, 43, 0.81) 20%, transparent 70%);
 }
 .playerHealth progress::-webkit-progress-bar {
-	background: linear-gradient(to top, rgba(185, 5, 29, 1) 0%, rgba(249, 11, 43, 0.81) 20%, transparent 100%);
+	background: linear-gradient(to top, rgba(249, 11, 43, 0.81) 20%, transparent 100%);
 }
 .playerHealth progress::-webkit-progress-value {
-	background: linear-gradient(to top, rgba(185, 5, 29, 1) 0%, rgba(249, 11, 43, 0.81) 20%, transparent 100%);
-} 
+	background: linear-gradient(to top, rgba(249, 11, 43, 0.81) 20%, transparent 100%);
+}
 .playerHealth progress::-moz-progress-bar {
-	background: linear-gradient(to top, rgba(185, 5, 29, 1) 0%, rgba(249, 11, 43, 0.81) 20%, transparent 100%);
+	background: linear-gradient(to top, rgba(249, 11, 43, 0.81) 20%, transparent 100%);
 }
 .playerMana{
 	width:100%;
@@ -221,7 +221,7 @@ html, body {
 }
 .playerMana progress::-webkit-progress-value {
 	background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 20%, transparent 100%);
-} 
+}
 .playerMana progress::-moz-progress-bar {
 	background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 20%, transparent 100%);
 }
@@ -231,8 +231,8 @@ html, body {
 
 #inventory{
 	z-index: 9999;
-	width:300px;
-	height:300px;
+	width:400px;
+	height:400px;
     border: 20px solid #000;
     -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
@@ -376,8 +376,7 @@ select option{
     background-color:hotpink;
 }
 .inventory ul{
-    height:20px;
-    margin:0px;
+    margin:0px 7%;
     padding:0px;
     float:left;
 }
@@ -388,8 +387,8 @@ select option{
 
 }
 .inventorySlot{
-    width: 20px;
-    height:20px;
+    width: 32px;
+    height: 32px;
     background-color:red;
     float:left;
     list-style:none;
