@@ -61,7 +61,7 @@ class Living {
         this.totalDefense
         this.luck = 0;
 
-        this.mesh;
+        this.mesh = new THREE.Mesh();
         this.type = OBJECT_TYPE.LIVING;
 
         this.calcDerivedStats();

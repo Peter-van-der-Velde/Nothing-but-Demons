@@ -9,6 +9,8 @@ var enemies = [];
 
 scene = new THREE.Scene();
 
+var enemyRoutinePoints = [];
+
 var MATERIALS = {
   PHONG: 0,
   LAMBERT: 1,

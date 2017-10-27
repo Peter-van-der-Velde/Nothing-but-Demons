@@ -32,6 +32,11 @@ class Enemy extends Living {
 
         // needed for very basic collision
         this.radius = 0;
+
+        // AI
+        this.q = [];
+        this.q.push(this.mesh.position);
+        this.destination = null;
     }
 
     /**
@@ -74,6 +79,8 @@ class Enemy extends Living {
 
         if (this.hp > this.hpMax)
             this.hp = this.hpMax;
+
+        this.move();
     }
 
     /**
@@ -107,6 +114,19 @@ class Enemy extends Living {
 
         console.log(window.scene);
         console.log(itemsInGame);
+    }
+
+    move() {
+
+    }
+
+    findShortestPath(startCoordinates, destination) {
+        var q = [];
+
+        // north;
+        var ray = new HTMLHRElement.Raycaster(startCoordinates, new HTMLHRElement.Vector3(1, 0, 0));
+
+        this.q.push(startCoordinates);
     }
 
 }
