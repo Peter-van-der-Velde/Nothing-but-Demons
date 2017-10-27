@@ -53,15 +53,14 @@ class Enemy extends Living {
   */
   die() {
     super.die();
-    
     console.log(this.name + ' is dead');
     health.value = 100;
-    for (let i = 0; i < enemies.length; i++) {
-      if (enemies[i].id == this.id) {
-        enemies.splice(i, 1);
-        break;
-      }
-    }
+    // for (let i = 0; i < enemies.length; i++) {
+    //   if (enemies[i].id == this.id) {
+    //     enemies.splice(i, 1);
+    //     break;
+    //   }
+    // }
     this.dropItems();
     this.replaceWithCorpse();
     // setTimeout(function(){ window.location.href = "../src/gameOver.html"; }, 10000);
@@ -78,13 +77,6 @@ class Enemy extends Living {
   */
   update(dt) {
     super.update(dt);
-
-
-
-    if (this.hp <= 0){
-      this.die();
-    }
-
 
     if (this.hp > this.hpMax)
     this.hp = this.hpMax;

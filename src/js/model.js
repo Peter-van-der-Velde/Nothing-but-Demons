@@ -95,7 +95,6 @@ class Model {
   update(dt) {
     if (this.mixer) {
       this.mixer.update(dt);
-      this.clipActions[ANIMATION_TYPE.WALK].play();
     }
   }
 }

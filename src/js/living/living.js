@@ -26,6 +26,8 @@ class Living {
         this.hpRegen = 0;
         this.mpRegen = 2;
 
+        this.dead = false;
+
         this.hpMax = hp;
         this.hp = hp;
 
@@ -104,16 +106,19 @@ class Living {
 
     dealDamage(damage) {
       this.hp -= damage;
-      if (this.hp <= 0) {
+      if (this.hp <= 0 && this.dead === false) {
         this.hp = 0;
+        this.dead = true;
         this.die();
       }
       console.log("Enemy HP: " + this.hp);
     }
 
     die() {
-        console.log(this.name + 'is dead');
-        this.replaceWithCorpse();
+      // TODO: Replace death animation with actual death animation.
+      this.model.animationSwitch(ANIMATION_TYPE.ATTACK);
+      console.log(this.name + 'is dead');
+      this.replaceWithCorpse();
     }
 
     replaceWithCorpse() {
@@ -123,5 +128,9 @@ class Living {
 
     move () {
 
+    }
+
+    update(dt) {
+      this.model.update(dt);
     }
 }
