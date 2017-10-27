@@ -47,50 +47,21 @@ function init(){
 		testLevel.add(enemy.mesh);
 	}, this);
 	testLevel.add(player.mesh);
-
-	initAnim();
-}
-
-
-function initAnim() {
-	var loader = new THREE.JSONLoader();
-	loader.load( "models/chest_01/chest_02.json", function( geometry, materials ) {
-		var material = materials[ 0 ];
-		let texLoader = new THREE.TextureLoader();
-		material.map = texLoader.load("models/chest_01/textures/chest_01_diff.png");
-		material.emissive.set( 0x101010 );
-		material.skinning = true;
-		material.morphTargets = true;
-		var mesh = new THREE.SkinnedMesh( geometry, material );
-		mesh.position.y = -30;
-		mesh.scale.multiplyScalar( 5 );
-		mixer = new THREE.AnimationMixer( mesh );
-		for ( var i = 0; i < mesh.geometry.animations.length; i ++ ) {
-			var action = mixer.clipAction( mesh.geometry.animations[ i ] );
-			if ( i === 1 ) action.timeScale = 0.25;
-			action.play();
-		}
-		window.scene.add( mesh );
-		mesh.position.set(-20, 0, -3);
-	} );
 }
 
 function animate() {
 	requestAnimationFrame( animate );
 
-	// Calculate the delta and fps
+	// Calculate the delta
 	delta = timer.getDelta();
-	fps = Math.trunc(1.0 / delta);
 
 	testLevel.update(delta);
 
-	if (mixer)
-		mixer.update( delta / 2.0 );
-
 	window.player.update(delta);
-	enemies.forEach(function(enemy) {
-	 	enemy.update(delta, window.scene);
-	}, this);
+
+	for (let e of enemies) {
+		e.update(delta);
+	}
 
 	for (var i = 0; i < enemies.length; i++) {
 		enemies[i].update(delta, window.scene);
@@ -105,5 +76,5 @@ function animate() {
 	render.render(window.scene, testLevel.mainCamera);
 	testLevel.mainCamera.position.x = player.model.mesh.position.x + 4;
 	testLevel.mainCamera.position.z = player.model.mesh.position.z + 4;
-  testLevel.mainCamera.lookAt(player.model.mesh.position);
+  	testLevel.mainCamera.lookAt(player.model.mesh.position);
 }
