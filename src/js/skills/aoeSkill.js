@@ -45,16 +45,16 @@ class AoeSkill extends DamageSkill {
 
     if (this.target) {
       this.mesh.position.set(
-        this.target.model.mesh.position.x, 
-        this.target.model.mesh.position.y + 0.1, 
+        this.target.model.mesh.position.x,
+        this.target.model.mesh.position.y + 0.1,
         this.target.model.mesh.position.z
       );
     }
   }
 
-  doSkill(player, target) {
+  doSkill(actor, target) {
     this.interval = 1;
-    super.doSkill(player, target);
+    super.doSkill(actor, target);
     this.durationLeft = this.duration;
     window.scene.add( this.mesh );
     this.target = target;

@@ -17,8 +17,13 @@ class CubeEnemy extends Enemy {
     console.log(this);
   }
 
+  die() {
+    this.model.animationSwitch(ANIMATION_TYPE.WALK);
+    this.replaceWithCorpse();
+  }
+
   replaceWithCorpse() {
     this.model.mesh.material.color.setHex( 0xff0000 );
-    this.model.mesh.position.y = 0
+    // this.model.mesh.position.y = 2
   }
 }

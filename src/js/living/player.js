@@ -25,22 +25,6 @@ class Player extends Living {
     this.baseAttackSpeed = 2;
     this.input = new Input();
 
-    // Create player mesh
-    // var group = new THREE.Group();
-    // var bodyGeometry = new THREE.BoxGeometry(0.5, 2, 0.5);
-    // var bodyMaterial = new THREE.MeshNormalMaterial();
-    // this.bodyMesh = new THREE.Mesh(bodyGeometry, bodyMaterial);
-    // this.bodyMesh.position.set(0, 1, 0);
-    // var hatGeometry = new THREE.CylinderGeometry(0, 0.4, 0.8, 12);
-    // var hatMaterial = new THREE.MeshBasicMaterial({ color: 0x008000 });
-    // this.hatMesh = new THREE.Mesh(hatGeometry, hatMaterial);
-    // this.hatMesh.position.set(0, 2.4, 0);
-    // group.add(this.hatMesh);
-    // group.add(this.bodyMesh);
-    // this.mesh = group;
-    // this.mesh.position.set(0, 0, 0);
-
-
     this.type = OBJECT_TYPE.PLAYER;
     this.playerClass = playerClass;
     this.calcDerivedStats();
@@ -106,12 +90,12 @@ class Player extends Living {
   * @param {Enemy} target
   */
   attack(target) {
+    super.attack(target);
+
     var health = document.getElementById("health");
     var healthBar = document.getElementById("healtBar");
 
     health.style.display = "block";
-
-    this.equipment[EQUIPMENT_TYPE.WEAPON].attackSkill.activate(this, this.target);
 
     health.value = target.hp;
     if (target.hp <= 0) {
@@ -129,7 +113,7 @@ class Player extends Living {
     if (this.moving) {
       this.model.clipActions[ANIMATION_TYPE.WALK].play();
     } else {
-      this.model.clipActions[ANIMATION_TYPE.WALK].stop();      
+      this.model.clipActions[ANIMATION_TYPE.WALK].stop();
     }
 
     if (hp <= 0)

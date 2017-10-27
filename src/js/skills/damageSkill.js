@@ -8,8 +8,9 @@ class DamageSkill extends Skill {
     super.update(delta);
   }
 
-  doSkill(player, target) {
-    super.doSkill(player, target);
+  doSkill(actor, target) {
+    super.doSkill(actor, target);
     target.dealDamage(this.damage);
+    actor.model.animationSwitch(ANIMATION_TYPE.ATTACK);
   }
 }

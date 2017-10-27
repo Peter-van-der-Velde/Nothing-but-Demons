@@ -45,7 +45,7 @@ class Skill {
   }
 
   // Perform skill action.
-  doSkill(player, target) {
+  doSkill(actor, target) {
     this.cooldownLeft = this.cooldown;
   }
 }

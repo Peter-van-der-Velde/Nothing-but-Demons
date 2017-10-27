@@ -98,6 +98,10 @@ class Living {
       this.hp = (this.hp < this.hpMax) ? this.hp + this.hpRegen * delta : this.hpMax;
     }
 
+    attack(target) {
+      this.equipment[EQUIPMENT_TYPE.WEAPON].attackSkill.activate(this, this.target);
+    }
+
     dealDamage(damage) {
       this.hp -= damage;
       if (this.hp <= 0) {

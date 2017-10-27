@@ -40,7 +40,7 @@ class Model {
         materials[0].emissiveMap = texloader.load(texturePath + name + "_glow.png");
         materials[0].emissive.set(0xffffff);
       }
-      
+
       materials[0].skinning = true;
       materials[0].morphTargets = true;
 
@@ -56,6 +56,9 @@ class Model {
 
           // Set animation looping
           switch (e.name) {
+            case ANIMATION_TYPE.ATTACK:
+              self.clipActions[e.name].setLoop(THREE.loopOnce, 0);
+              break;
             case ANIMATION_TYPE.DIE:
               self.clipActions[e.name].setLoop(THREE.loopOnce, 0);
               break;
@@ -73,11 +76,6 @@ class Model {
     }
   }
 
-  lookAtHelper(v) {
-    if (this.mesh)
-      this.mesh.lookAt(v);
-  }
-
   animationSwitch(animationType) {
     if (!this.clipActions) {
       console.log("ERROR: no animations loaded for this model!");
@@ -90,6 +88,7 @@ class Model {
 
     if (this.clipActions[animationType]) {
       this.clipActions[animationType].play();
+      console.log(this.clipActions[animationType]);
     }
   }
 
