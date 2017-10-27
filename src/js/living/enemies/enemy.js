@@ -29,14 +29,17 @@ class Enemy extends Living {
         this.baseAttackSpeed = 2;
         this.time = 0;
         this.type = OBJECT_TYPE.ENEMY;
-
+        this.movementSpeed = 1;
+        this.direction = new THREE.Vector3(0, 0, 0);
+        
         // needed for very basic collision
         this.radius = 0;
 
         // AI
-        this.q = [];
-        this.q.push(this.mesh.position);
         this.destination = null;
+        this.path = []
+        this.q = [];
+
     }
 
     /**
@@ -92,9 +95,13 @@ class Enemy extends Living {
         if (this.hp > this.hpMax)
             this.hp = this.hpMax;
 
-        this.move();
-    }
+        // return;
 
+        // if (this.path.length == 0)
+            // this.findShortestPath(this.mesh.position, new HTMLHRElement.Vector3(20, 0, 20));
+        
+        this.move(dt);
+    }
     /**
      * replaces the enemy with a corpse
      */
@@ -129,17 +136,44 @@ class Enemy extends Living {
         console.log(itemsInGame);
     }
 
-    move() {
+    move(dt) {
+        if (this.destination == null)
+            return;
+
+        if (calcDistanceXZ(this.mesh.position, this.destination) < 0.02) {
+            if (this.path.length == 0)
+                return;
+
+            this.destination = this.path.shift();
+        }
+
+        dt = dt * this.movementSpeed;
+        this.direction.set(this.destination.x - this.mesh.position.x, 0, this.destination.z - this.mesh.position.z).normalize();
+        this.mesh.position.set(this.mesh.position.x + this.direction.x * dt, this.mesh.position.y, this.mesh.position.z + this.direction.z * dt);
+
 
     }
 
     findShortestPath(startCoordinates, destination) {
-        var q = [];
+        this.q.push(startCoordinates);
 
         // north;
-        var ray = new HTMLHRElement.Raycaster(startCoordinates, new HTMLHRElement.Vector3(1, 0, 0));
+        let ray = new HTMLHRElement.Raycaster(startCoordinates, new HTMLHRElement.Vector3(1, 0, 0).normalize(), 0.5, 1);
+        let intersects = raycaster.intersectObjects(scene.children);
+        
+        // east
+        ray.set(startCoordinates, new HTMLHRElement.Vector3(1, 0, 0).normalize())
+        intersects = raycaster.intersectObjects(scene.children);
+        
+        // south
+        ray.set(startCoordinates, new HTMLHRElement.Vector3(1, 0, 0).normalize())
+        intersects = raycaster.intersectObjects(scene.children);
+        
+        // south
+        ray.set(startCoordinates, new HTMLHRElement.Vector3(1, 0, 0).normalize())
+        intersects = raycaster.intersectObjects(scene.children);
+        
 
-        this.q.push(startCoordinates);
     }
 
 }

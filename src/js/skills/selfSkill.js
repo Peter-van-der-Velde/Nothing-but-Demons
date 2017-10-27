@@ -5,7 +5,7 @@ class SelfSkill extends Skill {
   }
 
   activate() {
-    else if (this.cooldownLeft != 0) {
+    if (this.cooldownLeft != 0) {
       // console.log("Skill is on cooldown!");
       return;
     } else if (player.mp < this.manaCost) {

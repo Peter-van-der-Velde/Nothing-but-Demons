@@ -61,6 +61,9 @@ function initAnim() {
 	} );
 }
 
+/**
+ * Animates the scene
+ */
 function animate() {
 	requestAnimationFrame( animate );
 
