@@ -5,7 +5,7 @@ class CubeEnemy extends Enemy {
   constructor() {
     super(name = "BasicEnemy", hp = 25, mp = 10, strength = 9, defense = 5, speed = 3, intelligence = 250, level = 3, experiencePoints = 9, items = [new ironShield()], weapons = [ironSword, ironShield, ironShield, ironShield]);
 
-    var bodyGeometry = new THREE.BoxGeometry( 1, 1, 1 );
+    var bodyGeometry = new THREE.BoxGeometry( 0.5, 1, 0.5 );
     var bodyMaterial = new THREE.MeshBasicMaterial({color: 0x008000});
     this.mesh = new THREE.Mesh( bodyGeometry, bodyMaterial );
     this.mesh.position.set(4, 1, 0);

@@ -96,8 +96,10 @@ class Enemy extends Living {
             this.hp = this.hpMax;
 
         if (this.path.length == 0) {
-            var index = Math.floor(Math.random() * ROUTE_POINTS.length);
-            this.findShortestPath(this.mesh.position, ROUTE_POINTS[index]);
+            // var index = Math.floor(Math.random() * ROUTE_POINTS.length);
+            // this.findShortestPath(this.mesh.position, ROUTE_POINTS[index]);
+            this.findShortestPath(this.mesh.position, new THREE.Vector3(0, 0, 0));
+            
         }
 
         this.move(dt);
@@ -155,46 +157,53 @@ class Enemy extends Living {
     }
 
     findShortestPath(startCoordinates, destination) {
-        this.q.push(new Node(startCoordinates, null));
+
+        this.q = [new Node(startCoordinates, null)];
         let nodes = [];
         let foundDestination = false;
 
-        let ray = new THREE.Raycaster(currentNode, new THREE.Vector3(0, 0, 0).normalize(), 0, 1);
+        let ray = new THREE.Raycaster(currentNode, new THREE.Vector3(0, 0, 0).normalize(), 0.4, 1);
         let intersects;
+
 
 
         while (this.q.length != 0) {
             var currentNode = this.q.shift();
             nodes.push(currentNode);
 
-            if (currentNode.position.distanceTo(destination) < 1) {
+            console.log("que: ");
+            console.log(this.q);
+            console.log(nodes);
+            console.log(currentNode);
+
+            if (currentNode.position.distanceTo(destination) < 3) {
                 foundDestination = true;
                 break;
             }
             // north;
             ray.set(currentNode.position, new THREE.Vector3(1, 0, 0).normalize())
-            intersects = raycaster.intersectObjects(window.scene.children);
+            intersects = ray.intersectObjects(window.scene.children);
             if (intersects.length == 0)
-                this.q.add(new Node(currentNode.position.add(new THREE.Vector3(1, 0, 0)), currentNode));
+                this.q.push(new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(1, 0, 0)), currentNode));
 
             // east
             ray.set(currentNode.position, new THREE.Vector3(0, 0, 1).normalize())
-            intersects = raycaster.intersectObjects(window.scene.children);
+            intersects = ray.intersectObjects(window.scene.children);
             if (intersects.length == 0)
-                this.q.add(currentNode.position.add(new THREE.Vector3(0, 0, 1), currentNode));
-
+                this.q.push(new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(0, 0, 1)), currentNode));
+                
             // south
             ray.set(currentNode.position, new THREE.Vector3(-1, 0, 0).normalize())
-            intersects = raycaster.intersectObjects(window.scene.children);
+            intersects = ray.intersectObjects(window.scene.children);
             if (intersects.length == 0)
-                this.q.add(currentNode.position.add(new HTMLHRElement.Vector3(-1, 0, 0), currentNode));
-
+                this.q.push(new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(-1, 0, 0)), currentNode));
+                
             // west
             ray.set(currentNode.position, new THREE.Vector3(0, 0, -1).normalize())
-            intersects = raycaster.intersectObjects(window.scene.children);
+            intersects = ray.intersectObjects(window.scene.children);
             if (intersects.length == 0)
-                this.q.add(currentNode.position.add(new THREE.Vector3(0, 0, -1), currentNode));
-
+                this.q.push(new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(0, 0, -1)), currentNode));
+                
         }
 
         if (foundDestination) {
@@ -209,5 +218,9 @@ class Enemy extends Living {
 
         this.path = [];
     }
+
+}
+
+function calcV3(v1, v2) {
 
 }
