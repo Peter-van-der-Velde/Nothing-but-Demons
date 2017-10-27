@@ -198,6 +198,7 @@ class Player extends Living {
     }
     updateInventory(item);
     broadcastPickUp(item.name);
+    waveDisplay();
     console.log(this.items);
     console.log(itemsInGame);
 

@@ -343,7 +343,7 @@ select option{
 }
 
 
-#itemPickUp {
+.itemPickUp {
     -webkit-animation: seconds 5.0s forwards;
     -webkit-animation-iteration-count: 1;
     -webkit-animation-delay: 5s;
@@ -371,7 +371,16 @@ select option{
     }
 }
 
-
+.waveDisplay{
+    position: absolute;
+    bottom: 60%;
+    left: 42%;
+}
+.waveDisplay h2{
+    font-family: diabloFont;
+    color: #f7ddac;
+    font-size:4em;
+}
 
 .menuBoxLeft ul{
 	padding:0px;
