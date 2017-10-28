@@ -29,7 +29,7 @@ class Enemy extends Living {
         this.baseAttackSpeed = 2;
         this.time = 0;
         this.type = OBJECT_TYPE.ENEMY;
-        this.movementSpeed = 1;
+        this.movementSpeed = 20;
         this.direction = new THREE.Vector3(0, 0, 0);
 
         // needed for very basic collision
@@ -38,8 +38,9 @@ class Enemy extends Living {
         // AI
         this.destination = null;
         this.path = []
-        this.q = [];
 
+        // temporary
+        this.attackClock = new THREE.Clock();
     }
 
     /**
@@ -52,8 +53,18 @@ class Enemy extends Living {
     attack(target) {
         var playerHealth = document.getElementById("playerHealthBar");
         playerHealth.value = target.hp;
-        target.hp = target.hp - (this.totalAttack - (-30 + 2 * Math.sqrt(target.totalDefense * 25 + 220)));
 
+        var time = this.attackClock.getElapsedTime();
+
+        if ((2 / this.equipment[EQUIPMENT_TYPE.WEAPON].attackSpeed) > time)
+            return;
+
+        // reset attack clock
+        this.attackClock.start();
+
+        target.hp = target.hp - Math.abs(this.totalAttack - (-30 + 2 * Math.sqrt(target.totalDefense * 25 + 220)));
+        // this.equipment[EQUIPMENT_TYPE.WEAPON].attackSkill.activate(this, this.target);
+        console.log('playerHP: ' + target.hp);
     }
 
     /**
@@ -73,9 +84,12 @@ class Enemy extends Living {
         // setTimeout(function(){ window.location.href = "../src/gameOver.html"; }, 10000);
         // $("html").fadeOut(speed = 10000);
         //fadein 
-
+		console.log("DICKE TITTEN, KARTOFFELSALAT");
+		console.log(enemies.length);
+		if (enemies.length.toString() == "0"){
+			waveDisplay();
+		}
     }
-
 
 
     /**
@@ -96,12 +110,26 @@ class Enemy extends Living {
             this.hp = this.hpMax;
 
         if (this.path.length == 0) {
-            // var index = Math.floor(Math.random() * ROUTE_POINTS.length);
-            // this.findShortestPath(this.mesh.position, ROUTE_POINTS[index]);
+
+            // this.destination = new THREE.Vector3(12, 0, 20);
+            // this.findPathRec(new Node(this.mesh.position, null));
             // this.findShortestPath(this.mesh.position, new THREE.Vector3(0, 0, 0));
         }
-        // console.log(this.path)
+
+        if (calcDistanceXZ(window.player.mesh.position, this.mesh.position) < 5) {
+            // var direction = new THREE.Vector3().addVectors(window.player.mesh.position, this.mesh.position.multiplyScalar(-1));
+            // var ray = THREE.Raycaster(this.mesh.position, direction, this.radius, 10);
+            // var intersects = ray.intersectObjects(window.scene.children);
+            // if (intersects.length != 0) {
+            // console.log('wham')
+            this.destination = window.player.mesh.position;
+        } else {
+            this.destination = null;
+        }
+
         this.move(dt);
+        if (calcDistanceXZ(this.mesh.position, window.player.mesh.position) < this.equipment[EQUIPMENT_TYPE.WEAPON].attackRange)
+            this.attack(window.player);
     }
     /**
      * replaces the enemy with a corpse
@@ -148,87 +176,10 @@ class Enemy extends Living {
             this.destination = this.path.shift();
         }
 
+        // if (this.destination == window.player.mesh.position)
+
         dt = dt * this.movementSpeed;
         this.direction.set(this.destination.x - this.mesh.position.x, 0, this.destination.z - this.mesh.position.z).normalize();
         this.mesh.position.set(this.mesh.position.x + this.direction.x * dt, this.mesh.position.y, this.mesh.position.z + this.direction.z * dt);
-
-
     }
-
-    findShortestPath(startCoordinates, destination) {
-
-        this.q = [new Node(startCoordinates, null)];
-        let nodes = [];
-        let foundDestination = false;
-
-        let ray = new THREE.Raycaster(currentNode, new THREE.Vector3(0, 0, 0).normalize(), 0.4, 4);
-        let intersects;
-
-
-
-        while (this.q.length != 0) {
-            var currentNode = this.q.shift();
-            nodes.push(currentNode);
-
-
-            if (calcDistanceXZ(currentNode.position, destination) < 8) {
-                foundDestination = true;
-                break;
-            }
-            // north;
-            ray.set(currentNode.position, new THREE.Vector3(1, 0, 0).normalize())
-            intersects = ray.intersectObjects(window.scene.children);
-            if (intersects.length == 0)
-                this.q.push(new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(4, 0, 0)), currentNode));
-
-            // east
-            ray.set(currentNode.position, new THREE.Vector3(0, 0, 1).normalize())
-            intersects = ray.intersectObjects(window.scene.children);
-            if (intersects.length == 0)
-                this.q.push(new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(0, 0, 4)), currentNode));
-                
-            // south
-            ray.set(currentNode.position, new THREE.Vector3(-1, 0, 0).normalize())
-            intersects = ray.intersectObjects(window.scene.children);
-            if (intersects.length == 0)
-                this.q.push(new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(-4, 0, 0)), currentNode));
-                
-            // west
-            ray.set(currentNode.position, new THREE.Vector3(0, 0, -1).normalize())
-            intersects = ray.intersectObjects(window.scene.children);
-            if (intersects.length == 0)
-                this.q.push(new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(0, 0, -4)), currentNode));
-                
-                console.log('hey')
-        }
-
-        if (foundDestination) {
-            // let nodePath = nodes[nodes.length - 1].returnAllNodes;
-            // this.path = [];
-
-            // for (var i = nodePath.length - 1; i >= 0; i--) {
-            //     this.path.push(nodePath[i].position);
-            // }
-            var node = nodes[nodes.length - 1];
-            while (node != null) {
-                this.path.push(node.position);
-                node = node.previous;
-            }
-            // because you start with the end point and move yourself to the startpoint you have to reverse the path.
-            this.path.reverse();
-
-            this.destination = this.path.shift();
-            this.q = [];
-            // console.log("que: ");
-            // console.log(this.q);
-            // console.log(nodes);
-            console.log('path: ')
-            console.log(this.path);
-
-            return;
-        }
-
-        // this.path = [];
-    }
-
 }

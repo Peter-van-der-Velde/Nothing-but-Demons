@@ -125,7 +125,7 @@ class Player extends Living {
   */
   update(dt) {
     super.update(dt);
-    if (hp <= 0)
+    if (this.hp <= 0)
       this.die();
 
     this.input.update();
@@ -179,7 +179,7 @@ class Player extends Living {
   * @param {Item} item
   */
   pickUpItem(item) {
-    if (this.items.length >= 20) {
+    if (this.items.length >= 60) {
       console.log("No more space available.")
       return;
     }
@@ -201,12 +201,9 @@ class Player extends Living {
     updateInventory(item);
     broadcastPickUp(item.name);
     console.log("PETEEEEEEER LIMONAAADEEE!");
-    console.log(enemies.length);
-    if (enemies.length.toString() == "0"){
-        setTimeout(function(){
-            waveDisplay();
-        }, 2000);
-    }
+    
+	
+	
     console.log(this.items);
     console.log(itemsInGame);
 
@@ -218,7 +215,6 @@ class Player extends Living {
   */
   die() {
     let playerHealthBar = document.getElementById("playerHealthBar");
-    alert("Game Over, you died.");
     playerHealthBar.value = this.hp;
     setTimeout(function(){ window.location.href = "../src/gameOver.html"; }, 3000);
     $("html").fadeOut(speed = 10000);

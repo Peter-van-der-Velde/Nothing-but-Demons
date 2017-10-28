@@ -5,6 +5,7 @@ this.input = new Input();
 init();
 animate();
 
+
 function init(){
 	timer = new THREE.Clock();
     frameCount = 20;
@@ -21,23 +22,21 @@ function init(){
 		testLevel.mainCamera.updateProjectionMatrix();
 
 	});
-
-
-	window.player  =  new Player (name = "Sparhawk", hp = 35, mp = 20, strength = 16, defense = 4, speed = 4, intelligence = 35, level = 5, experiencePoints = 12, items = [], weapons = [new ironSword(), new ironShield(), new ironShield(), new ironShield()], playerClass = "Black Mage", camera = testLevel.mainCamera, scene = window.scene);
+	window.player  =  new Player (name = "Sparhawk", hp = 50, mp = 20, strength = 16, defense = 14, speed = 4, intelligence = 35, level = 5, experiencePoints = 12, items = [], weapons = [new ironSword(), new ironShield(), new ironShield(), new ironShield()], playerClass = "Black Mage", camera = testLevel.mainCamera, scene = window.scene);
 	window.player.mesh.position.set(-6, player.mesh.position.y, 6);
-	this.blockEnemy = new CubeEnemy(scene = window.scene);
-	this.blockEnemy2 = new CubeEnemy(scene = window.scene);
-	this.blockEnemy2.mesh.position.set(4, 1, -4);
-	this.blockEnemy3 = new CubeEnemy(scene = window.scene);
-	this.blockEnemy3.mesh.position.set(-4, 1, -4);
+
+	waveDisplay();
 
 	enemies.forEach(function(enemy) {
 		testLevel.add(enemy.mesh);
 	}, this);
 	testLevel.add(player.mesh);
-	player.mesh.add(testLevel.camera);
-
+	drawInventory();
 	initAnim();
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 
@@ -61,7 +60,7 @@ function initAnim() {
 		}
 		window.scene.add( mesh );
 		mesh.position.set(-20, 0, -3);
-	} );
+	});
 }
 
 /**
@@ -87,6 +86,7 @@ function animate() {
 	for (var i = 0; i < enemies.length; i++) {
 		enemies[i].update(delta, window.scene);
 	}
+
 
 	var timerC = Date.now() * 0.0005;
 	// Render the scene.
