@@ -96,12 +96,11 @@ class Enemy extends Living {
             this.hp = this.hpMax;
 
         if (this.path.length == 0) {
-            // var index = Math.floor(Math.random() * ROUTE_POINTS.length);
-            // this.findShortestPath(this.mesh.position, ROUTE_POINTS[index]);
-            this.findShortestPath(this.mesh.position, new THREE.Vector3(0, 0, 0));
-            
+            var index = Math.floor(Math.random() * ROUTE_POINTS.length);
+            this.findShortestPath(this.mesh.position, ROUTE_POINTS[index]);
+            // this.findShortestPath(this.mesh.position, new THREE.Vector3(0, 0, 0));
         }
-
+        console.log(this.path)
         this.move(dt);
     }
     /**
@@ -162,7 +161,7 @@ class Enemy extends Living {
         let nodes = [];
         let foundDestination = false;
 
-        let ray = new THREE.Raycaster(currentNode, new THREE.Vector3(0, 0, 0).normalize(), 0.4, 1);
+        let ray = new THREE.Raycaster(currentNode, new THREE.Vector3(0, 0, 0).normalize(), 0.4, 4);
         let intersects;
 
 
@@ -171,12 +170,8 @@ class Enemy extends Living {
             var currentNode = this.q.shift();
             nodes.push(currentNode);
 
-            console.log("que: ");
-            console.log(this.q);
-            console.log(nodes);
-            console.log(currentNode);
 
-            if (currentNode.position.distanceTo(destination) < 3) {
+            if (calcDistanceXZ(currentNode.position, destination) < 8) {
                 foundDestination = true;
                 break;
             }
@@ -184,43 +179,56 @@ class Enemy extends Living {
             ray.set(currentNode.position, new THREE.Vector3(1, 0, 0).normalize())
             intersects = ray.intersectObjects(window.scene.children);
             if (intersects.length == 0)
-                this.q.push(new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(1, 0, 0)), currentNode));
+                this.q.push(new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(4, 0, 0)), currentNode));
 
             // east
             ray.set(currentNode.position, new THREE.Vector3(0, 0, 1).normalize())
             intersects = ray.intersectObjects(window.scene.children);
             if (intersects.length == 0)
-                this.q.push(new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(0, 0, 1)), currentNode));
+                this.q.push(new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(0, 0, 4)), currentNode));
                 
             // south
             ray.set(currentNode.position, new THREE.Vector3(-1, 0, 0).normalize())
             intersects = ray.intersectObjects(window.scene.children);
             if (intersects.length == 0)
-                this.q.push(new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(-1, 0, 0)), currentNode));
+                this.q.push(new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(-4, 0, 0)), currentNode));
                 
             // west
             ray.set(currentNode.position, new THREE.Vector3(0, 0, -1).normalize())
             intersects = ray.intersectObjects(window.scene.children);
             if (intersects.length == 0)
-                this.q.push(new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(0, 0, -1)), currentNode));
+                this.q.push(new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(0, 0, -4)), currentNode));
                 
+                console.log('hey')
         }
 
         if (foundDestination) {
-            let nodePath = nodes[nodes.length - 1].returnAllNodes;
-            this.path = [];
+            // let nodePath = nodes[nodes.length - 1].returnAllNodes;
+            // this.path = [];
 
-            for (var i = nodePath.length - 1; i >= 0; i--) {
-                this.path.push(nodePath[i].position);
+            // for (var i = nodePath.length - 1; i >= 0; i--) {
+            //     this.path.push(nodePath[i].position);
+            // }
+            var node = nodes[nodes.length - 1];
+            while (node != null) {
+                this.path.push(node.position);
+                node = node.previous;
             }
+            // because you start with the end point and move yourself to the startpoint you have to reverse the path.
+            this.path.reverse();
+
+            this.destination = this.path.shift();
+            this.q = [];
+            // console.log("que: ");
+            // console.log(this.q);
+            // console.log(nodes);
+            console.log('path: ')
+            console.log(this.path);
+
             return;
         }
 
-        this.path = [];
+        // this.path = [];
     }
-
-}
-
-function calcV3(v1, v2) {
 
 }
