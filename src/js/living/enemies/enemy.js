@@ -38,6 +38,9 @@ class Enemy extends Living {
         // AI
         this.destination = null;
         this.path = []
+
+        // temporary
+        this.attackClock = new THREE.Clock();
     }
 
     /**
@@ -50,8 +53,18 @@ class Enemy extends Living {
     attack(target) {
         var playerHealth = document.getElementById("playerHealthBar");
         playerHealth.value = target.hp;
-        target.hp = target.hp - (this.totalAttack - (-30 + 2 * Math.sqrt(target.totalDefense * 25 + 220)));
-        console.log('targetHp: ' + target.hp);
+
+        var time = this.attackClock.getElapsedTime();
+
+        if ((2 / this.equipment[EQUIPMENT_TYPE.WEAPON].attackSpeed) > time)
+            return;
+
+        // reset attack clock
+        this.attackClock.start();
+
+        target.hp = target.hp - Math.abs(this.totalAttack - (-30 + 2 * Math.sqrt(target.totalDefense * 25 + 220)));
+        // this.equipment[EQUIPMENT_TYPE.WEAPON].attackSkill.activate(this, this.target);
+        console.log('playerHP: ' + target.hp);
     }
 
     /**
@@ -107,7 +120,6 @@ class Enemy extends Living {
         }
 
         this.move(dt);
-        console.log(calcDistanceXZ(this.mesh.position, window.player.mesh.position) + ' < ' + this.equipment[EQUIPMENT_TYPE.WEAPON].attackRange)
         if (calcDistanceXZ(this.mesh.position, window.player.mesh.position) < this.equipment[EQUIPMENT_TYPE.WEAPON].attackRange)
             this.attack(window.player);
     }
