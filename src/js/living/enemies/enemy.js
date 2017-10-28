@@ -73,7 +73,11 @@ class Enemy extends Living {
         // setTimeout(function(){ window.location.href = "../src/gameOver.html"; }, 10000);
         // $("html").fadeOut(speed = 10000);
         //fadein 
-
+		console.log("DICKE TITTEN, KARTOFFELSALAT");
+		console.log(enemies.length);
+		if (enemies.length.toString() == "0"){
+			waveDisplay();
+		}
     }
 
 
