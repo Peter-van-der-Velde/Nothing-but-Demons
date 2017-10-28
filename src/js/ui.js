@@ -70,11 +70,6 @@ function waveDisplay(){
 function newWave(enemyName, x, z){
 	this.enemyName = new CubeEnemy(scene = window.scene);
 	this.enemyName.mesh.position.set(x, 1, z);
-	// this.blockEnemy = new CubeEnemy(scene = window.scene);
-	// this.blockEnemy2 = new CubeEnemy(scene = window.scene);
-	// this.blockEnemy2.mesh.position.set(4, 1, -4);
-	// this.blockEnemy3 = new CubeEnemy(scene = window.scene);
-	// this.blockEnemy3.mesh.position.set(-4, 1, -4);
 }
 
 function broadcastPickUp(item){
