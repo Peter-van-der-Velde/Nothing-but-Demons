@@ -1,4 +1,4 @@
-var inventoryHasBeenDrawn = false;
+var inventoryHasBeenDrawn = true;
 var waveNumber = 1;
 var resolution = "";
 var e = document.getElementById("selectResolution");
