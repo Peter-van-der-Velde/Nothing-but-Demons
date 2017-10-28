@@ -96,11 +96,11 @@ class Enemy extends Living {
             this.hp = this.hpMax;
 
         if (this.path.length == 0) {
-            var index = Math.floor(Math.random() * ROUTE_POINTS.length);
-            this.findShortestPath(this.mesh.position, ROUTE_POINTS[index]);
+            // var index = Math.floor(Math.random() * ROUTE_POINTS.length);
+            // this.findShortestPath(this.mesh.position, ROUTE_POINTS[index]);
             // this.findShortestPath(this.mesh.position, new THREE.Vector3(0, 0, 0));
         }
-        console.log(this.path)
+        // console.log(this.path)
         this.move(dt);
     }
     /**

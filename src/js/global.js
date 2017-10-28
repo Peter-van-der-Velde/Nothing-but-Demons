@@ -9,7 +9,7 @@ var enemies = [];
 
 scene = new THREE.Scene();
 
-var ROUTE_POINTS = [new THREE.Vector3(20, 0, 3), new THREE.Vector3(3, 0, -15), new THREE.Vector3(0, 0, 0), new THREE.Vector3(3, 0, 7)];;
+var ROUTE_POINTS = [new THREE.Vector3(20, 0, 3), new THREE.Vector3(3, 0, -15), new THREE.Vector3(0, 0, 0), new THREE.Vector3(3, 0, 7), new THREE.Vector3(30, 0, 7)];;
 
 var MATERIALS = {
   PHONG: 0,
