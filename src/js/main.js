@@ -1,5 +1,6 @@
 var WIDTH, HEIGHT, testLevel, aspect, controls, delta, fps, frameCount, timer, input;
 var mixer;
+this.input = new Input();
 
 init();
 animate();
@@ -18,6 +19,7 @@ function init(){
 		render.setSize(WIDTH, HEIGHT);
 		testLevel.mainCamera.aspect = WIDTH / HEIGHT;
 		testLevel.mainCamera.updateProjectionMatrix();
+
 	});
 
 
@@ -33,6 +35,7 @@ function init(){
 		testLevel.add(enemy.mesh);
 	}, this);
 	testLevel.add(player.mesh);
+	player.mesh.add(testLevel.camera);
 
 	initAnim();
 }
@@ -70,7 +73,7 @@ function animate() {
 	// Calculate the delta and fps
 	delta = timer.getDelta();
 	fps = Math.trunc(1.0 / delta);
-	
+
 	testLevel.update(delta);
 
 	if (mixer)
@@ -85,8 +88,10 @@ function animate() {
 		enemies[i].update(delta, window.scene);
 	}
 
+	var timerC = Date.now() * 0.0005;
 	// Render the scene.
 	render.render(window.scene, testLevel.mainCamera);
-	testLevel.mainCamera.position.z = player.mesh.position.z;
-    testLevel.mainCamera.lookAt(player.mesh.position);
+
+    //testLevel.mainCamera.lookAt(player.mesh.position);
+		//testLevel.mainCamera.position.z = player.mesh.position.z;
 }
