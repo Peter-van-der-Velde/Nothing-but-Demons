@@ -18,28 +18,12 @@
 */
 class Player extends Living {
 
-  constructor(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, playerClass, camera, scene) {
+  constructor(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, playerClass, camera, scene, model) {
 
-    super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
+    super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, model);
 
     this.baseAttackSpeed = 2;
     this.input = new Input();
-
-    // Create player mesh
-    var group = new THREE.Group();
-    var bodyGeometry = new THREE.BoxGeometry(0.5, 2, 0.5);
-    var bodyMaterial = new THREE.MeshNormalMaterial();
-    this.bodyMesh = new THREE.Mesh(bodyGeometry, bodyMaterial);
-    this.bodyMesh.position.set(0, 1, 0);
-    var hatGeometry = new THREE.CylinderGeometry(0, 0.4, 0.8, 12);
-    var hatMaterial = new THREE.MeshBasicMaterial({ color: 0x008000 });
-    this.hatMesh = new THREE.Mesh(hatGeometry, hatMaterial);
-    this.hatMesh.position.set(0, 2.4, 0);
-    group.add(this.hatMesh);
-    group.add(this.bodyMesh);
-    this.mesh = group;
-    this.mesh.position.set(0, 0, 0);
-
 
     this.type = OBJECT_TYPE.PLAYER;
     this.playerClass = playerClass;
@@ -59,7 +43,7 @@ class Player extends Living {
     health.value = 20;
 
     this.skills[0] = new AoeSkill("foo", "bar", 5, 0, 10, 3, 4, 6, 'img/skills/spinner.png', null);
-
+    this.mesh = null;
   }
 
   /**
@@ -106,12 +90,12 @@ class Player extends Living {
   * @param {Enemy} target
   */
   attack(target) {
+    super.attack(target);
+
     var health = document.getElementById("health");
     var healthBar = document.getElementById("healtBar");
 
     health.style.display = "block";
-
-    this.equipment[EQUIPMENT_TYPE.WEAPON].attackSkill.activate(this, this.target);
 
     health.value = target.hp;
     if (target.hp <= 0) {
@@ -125,6 +109,13 @@ class Player extends Living {
   */
   update(dt) {
     super.update(dt);
+
+    if (this.moving) {
+      this.model.clipActions[ANIMATION_TYPE.WALK].play();
+    } else {
+      this.model.clipActions[ANIMATION_TYPE.WALK].stop();
+    }
+
     if (this.hp <= 0)
       this.die();
 
@@ -139,7 +130,7 @@ class Player extends Living {
       }
 
       for (let i = 0; i < enemies.length; i++) {
-        if (calcDistanceXZ(enemies[i].mesh.position, this.destination) < 2)
+        if (calcDistanceXZ(enemies[i].model.mesh.position, this.destination) < 2)
           this.target = enemies[i];
       }
     }
@@ -154,7 +145,7 @@ class Player extends Living {
       return;
 
     if (this.target.type == OBJECT_TYPE.ITEM || this.target.type == OBJECT_TYPE.WEAPON) {
-      if (calcDistanceXZ(this.mesh.position, this.target.mesh.position) > 0.5)
+      if (calcDistanceXZ(this.model.mesh.position, this.target.mesh.position) > 0.5)
         return;
 
       this.pickUpItem(this.target);
@@ -188,7 +179,7 @@ class Player extends Living {
     this.items.push(item);
 
     // if (this.target == null)
-      // return;
+    // return;
 
     // removes item from itemsInGame arrray
     for (let i = 0; i < itemsInGame.length; i++) {
@@ -201,9 +192,9 @@ class Player extends Living {
     updateInventory(item);
     broadcastPickUp(item.name);
     console.log("PETEEEEEEER LIMONAAADEEE!");
-    
-	
-	
+
+
+
     console.log(this.items);
     console.log(itemsInGame);
 
@@ -216,8 +207,9 @@ class Player extends Living {
   die() {
     let playerHealthBar = document.getElementById("playerHealthBar");
     playerHealthBar.value = this.hp;
-    setTimeout(function(){ window.location.href = "../src/gameOver.html"; }, 3000);
+    setTimeout(function () { window.location.href = "../src/gameOver.html"; }, 12000);
     $("html").fadeOut(speed = 10000);
+    window.playerIsDead = true;
     // reset to last shrine/bonfire/savespot
   }
 
@@ -226,27 +218,29 @@ class Player extends Living {
   * @param {number} dt delta time
   */
   move(dt) {
-    if (this.input.click) {
+    if (this.input.click && this.model) {
       this.destination = this.getRayPos(this.scene);
-      this.mesh.lookAt(new THREE.Vector3(this.destination.x, this.mesh.position.y, this.destination.z));
+      this.model.mesh.lookAt(new THREE.Vector3(this.destination.x, this.model.mesh.position.y, this.destination.z));
+      this.moving = true;
     }
 
     if (this.destination == null)
       return;
 
-    if (calcDistanceXZ(this.destination, this.mesh.position) < 0.1) {
+    if (calcDistanceXZ(this.destination, this.model.mesh.position) < 0.1) {
       console.log('umm 0.1')
       this.destination = null;
+      this.moving = false;
       return;
     }
-   
+
     if (this.destination == null)
       return;
-   
+
     dt = dt * this.movementSpeed;
-    this.direction.set(this.destination.x - this.mesh.position.x, 0, this.destination.z - this.mesh.position.z).normalize();
-    this.mesh.position.set(this.mesh.position.x + this.direction.x * dt, this.mesh.position.y, this.mesh.position.z + this.direction.z * dt);
-  
+    this.direction.set(this.destination.x - this.model.mesh.position.x, 0, this.destination.z - this.model.mesh.position.z).normalize();
+    this.model.mesh.position.set(this.model.mesh.position.x + this.direction.x * dt, this.model.mesh.position.y, this.model.mesh.position.z + this.direction.z * dt);
+
     return;
   }
 

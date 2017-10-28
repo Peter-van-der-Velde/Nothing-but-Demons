@@ -34,7 +34,7 @@ class Skill {
     } else if (player.mp < this.manaCost) {
       // console.log("Not enough mana!");
       return;
-    } else if (player.mesh.position.distanceTo(target.mesh.position) > this.range) {
+    } else if (player.model.mesh.position.distanceTo(target.model.mesh.position) > this.range) {
       // console.log("Target is out of range!");
       return;
     }
@@ -45,7 +45,7 @@ class Skill {
   }
 
   // Perform skill action.
-  doSkill(player, target) {
+  doSkill(actor, target) {
     this.cooldownLeft = this.cooldown;
   }
 }
