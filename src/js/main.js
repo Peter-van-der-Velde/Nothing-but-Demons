@@ -33,6 +33,10 @@ function init(){
 	initAnim();
 }
 
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 
 function initAnim() {
 	var loader = new THREE.JSONLoader();
