@@ -1,5 +1,5 @@
 var inventoryHasBeenDrawn = false;
-var waveNumber = 2;
+var waveNumber = 1;
 var resolution = "";
 var e = document.getElementById("selectResolution");
 document.onreadystatechange = function () {
@@ -35,6 +35,7 @@ document.onreadystatechange = function () {
         }
         //checkCookie();
     }
+	
 }
 
 
@@ -42,15 +43,38 @@ function waveDisplay(){
     var waveContainer = document.getElementById("waveDisplay");
     var completeMessage = "<h2 class='waveComplete'>Wave complete!</h2>";
     var data = "<h2 class='itemPickUp'>Wave : " + waveNumber + "</h2>";
-    waveContainer.insertAdjacentHTML('afterbegin', completeMessage);
-    setTimeout(function(){
-        waveContainer.innerHTML = "";
-        waveContainer.insertAdjacentHTML('afterbegin', data);
-        waveNumber = waveNumber +1;
-        setTimeout(function(){
-            waveContainer.innerHTML = "";
-        }, 10000);
-    }, 3000);
+	var amountOfEnemies = Math.floor((Math.random() * 5) + waveNumber);
+	setTimeout(function(){
+		if(waveNumber != 1){
+			waveContainer.insertAdjacentHTML('afterbegin', completeMessage);
+		}
+		setTimeout(function(){
+			waveContainer.innerHTML = "";
+			waveContainer.insertAdjacentHTML('afterbegin', data);
+			waveNumber = waveNumber +1;
+			setTimeout(function(){
+				waveContainer.innerHTML = "";
+				for (i = 0; i < amountOfEnemies; i++){
+					var x = Math.floor((Math.random() * 10));
+					var z = Math.floor((Math.random() * 10));
+					newWave("peter", x, -z);
+				}
+				enemies.forEach(function(enemy) {
+					testLevel.add(enemy.mesh);
+				}, this);
+			}, 10000);
+		}, 3000);
+	}, 1000);
+}
+
+function newWave(enemyName, x, z){
+	this.enemyName = new CubeEnemy(scene = window.scene);
+	this.enemyName.mesh.position.set(x, 1, z);
+	// this.blockEnemy = new CubeEnemy(scene = window.scene);
+	// this.blockEnemy2 = new CubeEnemy(scene = window.scene);
+	// this.blockEnemy2.mesh.position.set(4, 1, -4);
+	// this.blockEnemy3 = new CubeEnemy(scene = window.scene);
+	// this.blockEnemy3.mesh.position.set(-4, 1, -4);
 }
 
 function broadcastPickUp(item){
@@ -98,10 +122,10 @@ function toggle(element){
 
 function keypressTest(keyCode){
 	switch(keyCode){
-		case 27:
+		case 27: //ESC
 			toggleMenu();
 			break;
-		case 73:
+		case 73: //i
 			toggleInventory();
 			if (!inventoryHasBeenDrawn){
                 drawInventory();
