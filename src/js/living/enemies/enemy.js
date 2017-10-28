@@ -37,8 +37,16 @@ class Enemy extends Living {
 
         // AI
         this.destination = null;
-        this.path = []
+        // this.path = []
         this.q = [];
+
+        // pathRecursive
+        this.destination2 = null;
+        this.q2 = [];
+        this.path = []
+        this.checked = [];
+        this.currentNode;
+        this.found = false;
 
     }
 
@@ -96,8 +104,14 @@ class Enemy extends Living {
             this.hp = this.hpMax;
 
         if (this.path.length == 0) {
+            // not so easy test
             // var index = Math.floor(Math.random() * ROUTE_POINTS.length);
+            // this.destination = ROUTE_POINTS[index];
             // this.findShortestPath(this.mesh.position, ROUTE_POINTS[index]);
+
+            // easy test
+            this.destination = new THREE.Vector3(12, 0, 20);
+            this.findPathRec(new Node(this.mesh.position, null));
             // this.findShortestPath(this.mesh.position, new THREE.Vector3(0, 0, 0));
         }
         // console.log(this.path)
@@ -161,9 +175,9 @@ class Enemy extends Living {
         let nodes = [];
         let foundDestination = false;
 
-        let ray = new THREE.Raycaster(currentNode, new THREE.Vector3(0, 0, 0).normalize(), 0.4, 4);
+        let ray = new THREE.Raycaster(currentNode, new THREE.Vector3(0, 0, 0).normalize(), 0.4, 2);
         let intersects;
-
+        let checked = []
 
 
         while (this.q.length != 0) {
@@ -171,44 +185,64 @@ class Enemy extends Living {
             nodes.push(currentNode);
 
 
-            if (calcDistanceXZ(currentNode.position, destination) < 8) {
+
+            if (calcDistanceXZ(currentNode.position, destination) < 5) {
                 foundDestination = true;
                 break;
             }
-            // north;
-            ray.set(currentNode.position, new THREE.Vector3(1, 0, 0).normalize())
-            intersects = ray.intersectObjects(window.scene.children);
-            if (intersects.length == 0)
-                this.q.push(new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(4, 0, 0)), currentNode));
 
-            // east
-            ray.set(currentNode.position, new THREE.Vector3(0, 0, 1).normalize())
-            intersects = ray.intersectObjects(window.scene.children);
-            if (intersects.length == 0)
-                this.q.push(new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(0, 0, 4)), currentNode));
-                
-            // south
-            ray.set(currentNode.position, new THREE.Vector3(-1, 0, 0).normalize())
-            intersects = ray.intersectObjects(window.scene.children);
-            if (intersects.length == 0)
-                this.q.push(new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(-4, 0, 0)), currentNode));
-                
-            // west
-            ray.set(currentNode.position, new THREE.Vector3(0, 0, -1).normalize())
-            intersects = ray.intersectObjects(window.scene.children);
-            if (intersects.length == 0)
-                this.q.push(new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(0, 0, -4)), currentNode));
-                
-                console.log('hey')
+            let directions = this.wichWay(currentNode.position, this.destination)
+            for (var i = 0; i < directions.length; i++) {
+                if (this.castRay(currentNode, directions[i]) == 0) {
+                    var newNode = new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(4, 0, 0)), currentNode);
+                    // if the location of the newNode Has not been checked already add it to the que and the position to the checked array
+                    if (checked.indexOf(newNode.position) == -1) {
+                        checked.push(newNode.position);
+                        this.q.push(newNode);
+                    }
+                }
+
+            }
+
+            // // north
+            // if (this.castRay(currentNode, 'n') == 0) {
+            //     var newNode = new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(4, 0, 0)), currentNode);
+            //     // if the location of the newNode Has not been checked already add it to the que and the position to the checked array
+            //     if (checked.indexOf(newNode.position) == -1) {
+            //         checked.push(newNode.position);
+            //         this.q.push(newNode);
+            //     }
+            // }
+
+            // // east
+            // if (this.castRay(currentNode, 'e') == 0) {
+            //     var newNode = new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(0, 0, 4)), currentNode);
+            //     if (checked.indexOf(newNode.position) == -1) {
+            //         checked.push(newNode.position);
+            //         this.q.push(newNode);
+            //     }
+            // }
+            // // south
+            // if (this.castRay(currentNode, 's') == 0) {
+            //     var newNode = new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(-4, 0, 0)), currentNode);
+            //     if (checked.indexOf(newNode.position) == -1) {
+            //         checked.push(newNode.position);
+            //         this.q.push(newNode);
+            //     }
+            // }
+            // // west
+            // if (this.castRay(currentNode, 'w') == 0) {
+            //     var newNode = new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(0, 0, -4)), currentNode);
+            //     if (checked.indexOf(newNode.position) == -1) {
+            //         checked.push(newNode.position);
+            //         this.q.push(newNode);
+            //     }
+            // }
+
+            console.log('hey')
         }
 
         if (foundDestination) {
-            // let nodePath = nodes[nodes.length - 1].returnAllNodes;
-            // this.path = [];
-
-            // for (var i = nodePath.length - 1; i >= 0; i--) {
-            //     this.path.push(nodePath[i].position);
-            // }
             var node = nodes[nodes.length - 1];
             while (node != null) {
                 this.path.push(node.position);
@@ -228,7 +262,109 @@ class Enemy extends Living {
             return;
         }
 
-        // this.path = [];
+        this.path = [];
+    }
+
+    findPathRec(currentNode) {
+        let directions = this.wichWay(currentNode.position, this.destination)
+
+        for (var i = 0; i < directions.length; i++) {
+            if (this.found == true)
+                return;
+
+            if(calcDistanceXZ(currentNode.position, this.destination) < 2) {
+                this.found = true;
+                var node = currentNode;
+                while (node != null) {
+                    this.path.push(node.position);
+                    node = node.previous;
+                }
+                this.path.reverse();
+                this.destination = this.path.shift();
+                return;
+            }
+
+            if (this.castRay(currentNode.position, directions[i]) == 0) {
+                var newNode;
+                if (directions[i] == 'n') newNode = new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(2, 0, 0)), currentNode);
+                if (directions[i] == 'e') newNode = new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(0, 0, 2)), currentNode);
+                if (directions[i] == 's') newNode = new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(-2, 0, 0)), currentNode);
+                if (directions[i] == 'w') newNode = new Node(new THREE.Vector3().addVectors(currentNode.position, new THREE.Vector3(0, 0, -2)), currentNode);
+
+
+                // if the location of the newNode Has not been checked already add it to the que and the position to the checked array
+                if (this.checked.indexOf(newNode.position) == -1) {
+                    this.checked.push(newNode.position);
+                    this.findPathRec(newNode);
+                }
+            }
+        }
+    }
+
+    /**
+     * this function calculates the order of checking the locations
+     * @param {THREE.Vector3} position 
+     * @param {THREE.Vector3} destination2 
+     */
+    wichWay(position, destination2) {
+        let dx = position.x - destination2.x
+        let dz = position.z - destination2.z
+        let directions = '';
+
+        if (Math.abs(dx) > Math.abs(dz)) {
+            if (dx >= 0) {
+                if (dz >= 0) {
+                    return 'swen';
+                }
+                return 'senw';
+            }
+            if (dz >= 0)
+                return 'nwse';
+
+            return 'nesw'
+        } else {
+            if (dz >= 0) {
+                if (dx >= 0) {
+                    return 'wsen';
+                }
+                return 'wnes';
+            }
+            if (dx >= 0)
+                return 'eswn';
+
+            return 'enws'
+        }
+    }
+
+    castRay(position, direction) {
+        let intersects;
+
+        switch (direction) {
+            case 'n':
+                // north;
+                var ray = new THREE.Raycaster(position, new THREE.Vector3(1, 0, 0).normalize(), 0.4, 2);
+                intersects = ray.intersectObjects(window.scene.children);
+                break;
+            case 'e':
+                // east
+                var ray = new THREE.Raycaster(position, new THREE.Vector3(0, 0, 1).normalize(), 0.4, 2);
+                intersects = ray.intersectObjects(window.scene.children);
+                break;
+            case 's':
+                // south
+                var ray = new THREE.Raycaster(position, new THREE.Vector3(-1, 0, 0).normalize(), 0.4, 2);
+                intersects = ray.intersectObjects(window.scene.children);
+                break;
+            case 'w':
+                // west
+                var ray = new THREE.Raycaster(position, new THREE.Vector3(0, 0, -1).normalize(), 0.4, 2);
+                intersects = ray.intersectObjects(window.scene.children);
+                break;
+            default:
+                console.error(direction + ' is not a legit direction')
+        }
+
+        return intersects.length;
     }
 
 }
