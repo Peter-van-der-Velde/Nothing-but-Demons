@@ -125,7 +125,7 @@ class Player extends Living {
   */
   update(dt) {
     super.update(dt);
-    if (hp <= 0)
+    if (this.hp <= 0)
       this.die();
 
     this.input.update();
@@ -218,7 +218,6 @@ class Player extends Living {
   */
   die() {
     let playerHealthBar = document.getElementById("playerHealthBar");
-    alert("Game Over, you died.");
     playerHealthBar.value = this.hp;
     setTimeout(function(){ window.location.href = "../src/gameOver.html"; }, 3000);
     $("html").fadeOut(speed = 10000);
