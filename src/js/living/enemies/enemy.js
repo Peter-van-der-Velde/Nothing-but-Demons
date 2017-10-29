@@ -143,6 +143,28 @@ class Enemy extends Living {
         console.log('this is a corpse');
     }
 
+    /**
+     * anti clipping code, <br>
+     * non functional atm
+     */
+    fxc() {
+        for (let enemy of enemies) {
+            let distanceEnemies = calcDistanceXZ(this.position, enemy.position);
+
+            let count = 0;
+
+            while (distanceEnemies <= (this.radius + enemy.radius) && count <= 100) {
+                distanceEnemies = calcDistanceXZ(this.position, enemy.position);
+
+                if (this.direction == new THREE.Vector3(0, 0, 0))
+                    this.direction = new THREE.Vector3(0, 0, 0)
+
+                this.position.x += this.direction.x * -delta;
+                this.position.z += this.direction.z * -delta;
+            }
+        }
+    }
+
 
     /**
      * drop the items of the enemy
