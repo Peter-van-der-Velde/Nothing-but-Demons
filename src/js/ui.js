@@ -81,28 +81,55 @@ function broadcastPickUp(item){
 
 
 
-function toggleMenu(){
+function toggleMenu(selection){
     var menu = document.getElementById("menuID");
     var pausedMenu = document.getElementById("pausedMenu");
     console.log(pausedMenu);
-    if(menu.style.display == "block"){
-        //Closes the options menu and opens the pausedmenu when ESC is pressed
-        menu.style.display = "none";
-        pausedMenu.style.display = "block";
-    }
-    else if(pausedMenu.style.display == "none"){
-        //Open the options menu with the press of ESC
-        console.log("block");
-        pausedMenu.style.display = "block";
-        var openMenu = new Audio('src/audio/openMenu.wav');
+	if (selection == "resume"){
+		menu.style.display = "none";
+		pausedMenu.style.display = "none";
+	}
+	else if(selection == "cancel"){
+		pausedMenu.style.display = "block";
+		menu.style.display = "none";
+	}
+	else if(selection == "options"){
+		pausedMenu.style.display = "none";
+		menu.style.display = "block";
+	}
+	else if(pausedMenu.style.display == "block"){
+		pausedMenu.style.display = "none";
+	}
+	else {
+		pausedMenu.style.display = "block";
+		menu.style.display = "none";
+		var openMenu = new Audio('audio/openMenu.wav');
         openMenu.volume = 0.1;
         openMenu.play();
-    }
-    else if(pausedMenu.style.display == "block"){
-        //Closes the options menu with the press of ESC
-        console.log("none");
-        pausedMenu.style.display = "none";
-    }
+	}
+	
+    // if(menu.style.display == "block"){
+        // //Closes the options menu and opens the pausedmenu when ESC is pressed
+        // menu.style.display = "none";
+        // pausedMenu.style.display = "block";
+    // }
+	// else if(pausedMenu.style.display == "block"){
+		// menu.style.display = "block";
+        // pausedMenu.style.display = "none";
+	// }
+    // else if(pausedMenu.style.display == "none"){
+        // //Open the options menu with the press of ESC
+        // console.log("block");
+        // pausedMenu.style.display = "block";
+        // var openMenu = new Audio('src/audio/openMenu.wav');
+        // openMenu.volume = 0.1;
+        // openMenu.play();
+    // }
+    // else if(pausedMenu.style.display == "block"){
+        // //Closes the options menu with the press of ESC
+        // console.log("none");
+        // pausedMenu.style.display = "none";
+    // }
 }
 
 function toggle(element){
@@ -204,8 +231,9 @@ function setVolume(){
 function applyChanges(){
     setVolume();
     var temp = document.getElementById('menuID');
-    var menuHeight = window.getComputedStyle(temp).getPropertyValue("height");
-    var menuWidth = window.getComputedStyle(temp).getPropertyValue("width");
+	var canvas = document.getElementById('renderCanvas');
+    var menuHeight = window.getComputedStyle(renderCanvas).getPropertyValue("height");
+    var menuWidth = window.getComputedStyle(renderCanvas).getPropertyValue("width");
     var e = document.getElementById("selectResolution");
     resolution = e.options[e.selectedIndex].value;
     var splitResolution = resolution.split(',');
