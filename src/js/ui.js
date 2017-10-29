@@ -1,4 +1,4 @@
-var inventoryHasBeenDrawn = false;
+var inventoryHasBeenDrawn = true;
 var waveNumber = 1;
 var resolution = "";
 var e = document.getElementById("selectResolution");
@@ -58,18 +58,17 @@ function waveDisplay(){
 					var x = Math.floor((Math.random() * 10));
 					var z = Math.floor((Math.random() * 10));
 					newWave("peter", x, -z);
-				}
-				enemies.forEach(function(enemy) {
-					testLevel.add(enemy.mesh);
-				}, this);
+				} 
 			}, 10000);
 		}, 3000);
 	}, 1000);
 }
 
 function newWave(enemyName, x, z){
-	this.enemyName = new CubeEnemy(scene = window.scene);
-	this.enemyName.mesh.position.set(x, 1, z);
+    this.enemyName = new CubeEnemy(scene = window.scene);
+    setTimeout(function() {
+        this.enemyName.model.mesh.position.set(x, 1, z);
+    }, 200);
 }
 
 function broadcastPickUp(item){

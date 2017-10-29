@@ -49,22 +49,22 @@ class Input {
     }
 
     document.onkeydown = (e) => {
-      var rotateAngle = 0.05;
       e = e || window.event;
 	  keypressTest(e.keyCode);
       if (e.keyCode === 27) {
       }
       if (e.keyCode === 37) {
         this.left = true;
-        var rotation_matrix = new THREE.Matrix4().makeRotationZ(rotateAngle);
-        player.mesh.matrix.multiplySelf(rotation_matrix);
-        player.mesh.rotation.setEulerFromRotationMatrix(player.mesh.matrix);
+        var timerC = Date.now() * 0.0005;
+        testLevel.mainCamera.position.x = Math.cos(timerC) * 10;
+        testLevel.mainCamera.position.z = Math.sin(timerC) * 10;
+        testLevel.mainCamera.lookAt(window.player.mesh.position);
       }
       if (e.keyCode === 39) {
         this.right = true;
-        var rotation_matrix = new THREE.Matrix4().makeRotationZ(-rotateAngle);
-        player.mesh.matrix.multiplySelf(rotation_matrix);
-        player.mesh.rotation.setEulerFromRotationMatrix(player.mesh.matrix);
+        testLevel.mainCamera.position.x = Math.sin(timerC) * 10;
+        testLevel.mainCamera.position.z = Math.cos(timerC) * 10;
+        testLevel.mainCamera.lookAt(window.player.mesh.position);
       }
       if (e.keyCode === 38) {
         this.up = true;

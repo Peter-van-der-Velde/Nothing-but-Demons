@@ -4,24 +4,24 @@
 var enemies = [];
 
 /**
- * the enemy class derived from the 'Living' class
- * @class
- * @extends Living
- * @param {string} name name of enemy
- * @param {number} hp amount of healing points of the enemy
- * @param {number} mp amount of mana points of the enemy
- * @param {number} strength the strength of the enemy
- * @param {number} speed the speed of the enemy
- * @param {number} intelligence the intelligence of the enemy
- * @param {number} level the level of the enemy
- * @param {number} experiencePoints the amount of experience you get when you defeat the enemy
- * @param {Item[]} items the items the enemy has
- * @param {Weapon[]} weapons the weapons the enemy has.
- */
+* the enemy class derived from the 'Living' class
+* @class
+* @extends Living
+* @param {string} name name of enemy
+* @param {number} hp amount of healing points of the enemy
+* @param {number} mp amount of mana points of the enemy
+* @param {number} strength the strength of the enemy
+* @param {number} speed the speed of the enemy
+* @param {number} intelligence the intelligence of the enemy
+* @param {number} level the level of the enemy
+* @param {number} experiencePoints the amount of experience you get when you defeat the enemy
+* @param {Item[]} items the items the enemy has
+* @param {Weapon[]} weapons the weapons the enemy has.
+*/
 class Enemy extends Living {
 
-    constructor(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons) {
-        super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons);
+    constructor(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, model) {
+        super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, model);
 
         let health = document.getElementById("health");
         health.max = this.hp;
@@ -84,14 +84,13 @@ class Enemy extends Living {
         // setTimeout(function(){ window.location.href = "../src/gameOver.html"; }, 10000);
         // $("html").fadeOut(speed = 10000);
         //fadein 
-		console.log("DICKE TITTEN, KARTOFFELSALAT");
-		console.log(enemies.length);
-		if (enemies.length.toString() == "0"){
-			waveDisplay();
-		}
+        console.log("DICKE TITTEN, KARTOFFELSALAT");
+        console.log(enemies.length);
+        if (enemies.length.toString() == "0") {
+            waveDisplay();
+        }
+
     }
-
-
     /**
      * update loop of enemy
      * @param {number} dt delta time
@@ -99,6 +98,8 @@ class Enemy extends Living {
     update(dt) {
         super.update(dt);
 
+        if (this.hp > this.hpMax)
+            this.hp = this.hpMax;
 
 
         if (this.hp <= 0) {
@@ -112,23 +113,26 @@ class Enemy extends Living {
         if (this.path.length == 0) {
 
             // this.destination = new THREE.Vector3(12, 0, 20);
-            // this.findPathRec(new Node(this.mesh.position, null));
-            // this.findShortestPath(this.mesh.position, new THREE.Vector3(0, 0, 0));
+            // this.findPathRec(new Node(this.model.mesh.position, null));
+            // this.findShortestPath(this.model.mesh.position, new THREE.Vector3(0, 0, 0));
         }
 
-        if (calcDistanceXZ(window.player.mesh.position, this.mesh.position) < 5) {
-            // var direction = new THREE.Vector3().addVectors(window.player.mesh.position, this.mesh.position.multiplyScalar(-1));
-            // var ray = THREE.Raycaster(this.mesh.position, direction, this.radius, 10);
+        // console.log('dist: ' + calcDistanceXZ(window.player.model.mesh.position, this.model.mesh.position))
+        if (calcDistanceXZ(window.player.model.mesh.position, this.model.mesh.position) < 5) {
+            // var direction = new THREE.Vector3().addVectors(window.player.model.mesh.position, this.model.mesh.position.multiplyScalar(-1));
+            // var ray = THREE.Raycaster(this.model.mesh.position, direction, this.radius, 10);
             // var intersects = ray.intersectObjects(window.scene.children);
             // if (intersects.length != 0) {
             // console.log('wham')
-            this.destination = window.player.mesh.position;
+            this.destination = window.player.model.mesh.position;
         } else {
             this.destination = null;
         }
 
         this.move(dt);
-        if (calcDistanceXZ(this.mesh.position, window.player.mesh.position) < this.equipment[EQUIPMENT_TYPE.WEAPON].attackRange)
+
+        // console.log('dist: ' + calcDistanceXZ(window.player.model.mesh.position, this.model.mesh.position) + ' < ' + this.equipment[EQUIPMENT_TYPE.WEAPON].attackRange)
+        if (calcDistanceXZ(this.model.mesh.position, window.player.model.mesh.position) < this.equipment[EQUIPMENT_TYPE.WEAPON].attackRange)
             this.attack(window.player);
     }
     /**
@@ -145,9 +149,9 @@ class Enemy extends Living {
     dropItems() {
 
         for (let item of this.items) {
-            let x = this.mesh.position.x + Math.floor(Math.random() * 5) / 10;
+            let x = this.model.mesh.position.x + Math.floor(Math.random() * 5) / 10;
             let y = 0.5;
-            let z = this.mesh.position.z + Math.floor(Math.random() * 5) / 10;
+            let z = this.model.mesh.position.z + Math.floor(Math.random() * 5) / 10;
             item.mesh.position.set(x, y, z);
 
             item.id = item.name + itemsInGame.length;
@@ -169,17 +173,17 @@ class Enemy extends Living {
         if (this.destination == null)
             return;
 
-        if (calcDistanceXZ(this.mesh.position, this.destination) < 0.02) {
+        if (calcDistanceXZ(this.model.mesh.position, this.destination) < 0.02) {
             if (this.path.length == 0)
                 return;
 
             this.destination = this.path.shift();
         }
 
-        // if (this.destination == window.player.mesh.position)
+        // if (this.destination == window.player.model.mesh.position)
 
         dt = dt * this.movementSpeed;
-        this.direction.set(this.destination.x - this.mesh.position.x, 0, this.destination.z - this.mesh.position.z).normalize();
-        this.mesh.position.set(this.mesh.position.x + this.direction.x * dt, this.mesh.position.y, this.mesh.position.z + this.direction.z * dt);
+        this.direction.set(this.destination.x - this.model.mesh.position.x, 0, this.destination.z - this.model.mesh.position.z).normalize();
+        this.model.mesh.position.set(this.model.mesh.position.x + this.direction.x * dt, this.model.mesh.position.y, this.model.mesh.position.z + this.direction.z * dt);
     }
 }

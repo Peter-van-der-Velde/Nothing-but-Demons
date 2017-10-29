@@ -17,11 +17,16 @@
  */
 class Living {
 
-    constructor (name, hp, mp, strength, defense, intelligence, speed, level, exp, items, weapons) {
+    constructor (name, hp, mp, strength, defense, intelligence, speed, level, exp, items, weapons, model) {
         this.name = name;
+        this.model = model;
+        this.moving = false;
+
         this.inventorySize = 20;
         this.hpRegen = 0;
         this.mpRegen = 2;
+
+        this.dead = false;
 
         this.hpMax = hp;
         this.hp = hp;
@@ -95,18 +100,25 @@ class Living {
       this.hp = (this.hp < this.hpMax) ? this.hp + this.hpRegen * delta : this.hpMax;
     }
 
+    attack(target) {
+      this.equipment[EQUIPMENT_TYPE.WEAPON].attackSkill.activate(this, this.target);
+    }
+
     dealDamage(damage) {
       this.hp -= damage;
-      if (this.hp <= 0) {
+      if (this.hp <= 0 && this.dead === false) {
         this.hp = 0;
+        this.dead = true;
         this.die();
       }
       console.log("Enemy HP: " + this.hp);
     }
 
     die() {
-        console.log(this.name + 'is dead');
-        this.replaceWithCorpse();
+      // TODO: Replace death animation with actual death animation.
+      this.model.animationSwitch(ANIMATION_TYPE.ATTACK);
+      console.log(this.name + 'is dead');
+      this.replaceWithCorpse();
     }
 
     replaceWithCorpse() {
@@ -116,5 +128,9 @@ class Living {
 
     move () {
 
+    }
+
+    update(dt) {
+      this.model.update(dt);
     }
 }

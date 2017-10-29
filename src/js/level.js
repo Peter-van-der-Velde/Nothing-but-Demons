@@ -9,7 +9,7 @@ class Level {
     this.levelName = levelName;
 
     this.mainCamera = new THREE.PerspectiveCamera( 75, render.aspect, 0.1, 1000 );
-    this.mainCamera.position.set(20, 20, 20);
+    this.mainCamera.position.set(20, 14, 20);
     this.mainCamera.lookAt(new THREE.Vector3(0, 0, 0));
     render.setClearColor(0xCCCCFF, 1);
     let gridSize = 200;
@@ -33,12 +33,12 @@ class Level {
     var aLight = new THREE.AmbientLight(0x404040);
     window.scene.add(lamp, aLight);
 
-    this.chest = new Model("chest_01", true);
-    this.chest.load(window.scene);
+    // this.chest = new Model("chest_01", true);
+    // this.chest.load(window.scene);
   }
 
   update(dt) {
-    this.chest.animate(dt)
+    // this.chest.update(dt)
   }
 
   add (mesh) {

@@ -1,93 +1,84 @@
 var WIDTH, HEIGHT, testLevel, aspect, controls, delta, fps, frameCount, timer, input;
 var mixer;
+this.input = new Input();
 
 init();
 animate();
 
 
-function init(){
+function init() {
 	timer = new THREE.Clock();
-    frameCount = 20;
+	frameCount = 20;
 
 	render = new Render(true, window.innerWidth, window.innerHeight);
-    testLevel = new Dungeon("dungeon", render);
+	testLevel = new Dungeon("dungeon", render);
 
 	// Create an event listener that resizes the renderer with the browser window.
-	window.addEventListener('resize', function() {
+	window.addEventListener('resize', function () {
 		WIDTH = window.innerWidth,
-		HEIGHT = window.innerHeight;
+			HEIGHT = window.innerHeight;
 		render.setSize(WIDTH, HEIGHT);
 		testLevel.mainCamera.aspect = WIDTH / HEIGHT;
 		testLevel.mainCamera.updateProjectionMatrix();
 	});
-	window.player  =  new Player (name = "Sparhawk", hp = 50, mp = 20, strength = 16, defense = 14, speed = 4, intelligence = 35, level = 5, experiencePoints = 12, items = [], weapons = [new ironSword(), new ironShield(), new ironShield(), new ironShield()], playerClass = "Black Mage", camera = testLevel.mainCamera, scene = window.scene);
-	window.player.mesh.position.set(-6, player.mesh.position.y, 6);
-	
+
+	window.player = new Player(
+		name = "Sparhawk",
+		hp = 35,
+		mp = 20,
+		strength = 16,
+		defense = 4,
+		speed = 4,
+		intelligence = 35,
+		level = 5,
+		experiencePoints = 12,
+		items = [],
+		weapons = [new ironSword(), new ironShield(), new ironShield(), new ironShield()],
+		playerClass = "Black Mage",
+		camera = testLevel.mainCamera,
+		scene = window.scene,
+		model = new Model("player", false, false)
+	);
+
+	// enemies.forEach(function(enemy) {
+	// 	testLevel.add(enemy.model.mesh);
+	// }, this);
+	// testLevel.add(window.player.model.mesh);
 	waveDisplay();
-
-	enemies.forEach(function(enemy) {
-		testLevel.add(enemy.mesh);
-	}, this);
-	testLevel.add(player.mesh);
 	drawInventory();
-	initAnim();
-}
-
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-
-function initAnim() {
-	var loader = new THREE.JSONLoader();
-	loader.load( "models/chest_01/chest_02.json", function( geometry, materials ) {
-		var material = materials[ 0 ];
-		let texLoader = new THREE.TextureLoader();
-		material.map = texLoader.load("models/chest_01/textures/chest_01_diff.png");
-		material.emissive.set( 0x101010 );
-		material.skinning = true;
-		material.morphTargets = true;
-		var mesh = new THREE.SkinnedMesh( geometry, material );
-		mesh.position.y = -30;
-		mesh.scale.multiplyScalar( 5 );
-		mixer = new THREE.AnimationMixer( mesh );
-		for ( var i = 0; i < mesh.geometry.animations.length; i ++ ) {
-			var action = mixer.clipAction( mesh.geometry.animations[ i ] );
-			if ( i === 1 ) action.timeScale = 0.25;
-			action.play();
-		}
-		window.scene.add( mesh );
-		mesh.position.set(-20, 0, -3);
-	});
 }
 
 /**
  * Animates the scene
  */
 function animate() {
-	requestAnimationFrame( animate );
+	requestAnimationFrame(animate);
 
-	// Calculate the delta and fps
+	// Calculate the delta
 	delta = timer.getDelta();
 	fps = Math.trunc(1.0 / delta);
-	
+
 	testLevel.update(delta);
 
-	if (mixer)
-		mixer.update( delta / 2.0 );
-
-	window.player.update(delta);
-	enemies.forEach(function(enemy) {
-	 	enemy.update(delta, window.scene);
-	}, this);
+	if (!playerIsDead) {
+		window.player.update(delta);
+		window.player.model.update(delta);
+	}
+	for (let e of enemies) {
+		e.update(delta);
+	}
 
 	for (var i = 0; i < enemies.length; i++) {
 		enemies[i].update(delta, window.scene);
 	}
-	
 
+	var timerC = Date.now() * 0.0005;
 	// Render the scene.
 	render.render(window.scene, testLevel.mainCamera);
-	testLevel.mainCamera.position.z = player.mesh.position.z;
-    testLevel.mainCamera.lookAt(player.mesh.position);
+// 	testLevel.mainCamera.position.x = player.model.mesh.position.x + 4;
+// 	testLevel.mainCamera.position.z = player.model.mesh.position.z + 4;
+// 	testLevel.mainCamera.lookAt(player.model.mesh.position);
+
+    //testLevel.mainCamera.lookAt(player.mesh.position);
+		//testLevel.mainCamera.position.z = player.mesh.position.z;
 }

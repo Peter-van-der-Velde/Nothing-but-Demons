@@ -25,7 +25,7 @@ class AoeSkill extends DamageSkill {
 
       if (this.target) {
         for (let e of enemies) {
-          if (e.mesh.position.distanceTo(this.target.mesh.position) < this.range && this.interval >= 1) {
+          if (e.model.mesh.position.distanceTo(this.target.model.mesh.position) < this.range && this.interval >= 1) {
             e.dealDamage(4);
           }
         }
@@ -44,13 +44,17 @@ class AoeSkill extends DamageSkill {
     this.mesh.rotation.z -= delta * 5;
 
     if (this.target) {
-      this.mesh.position.set(this.target.mesh.position.x, this.target.mesh.position.y + 0.1, this.target.mesh.position.z);
+      this.mesh.position.set(
+        this.target.model.mesh.position.x,
+        this.target.model.mesh.position.y + 0.1,
+        this.target.model.mesh.position.z
+      );
     }
   }
 
-  doSkill(player, target) {
+  doSkill(actor, target) {
     this.interval = 1;
-    super.doSkill(player, target);
+    super.doSkill(actor, target);
     this.durationLeft = this.duration;
     window.scene.add( this.mesh );
     this.target = target;
