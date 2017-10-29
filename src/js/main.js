@@ -84,5 +84,6 @@ function animate() {
 }
 
 function updateUI() {
-	document.getElementById("playerHealthBar").value = Math.abs(Math.floor(window.player.hp / window.player.hpMax * 100));
+	if (Math.floor(window.player.hp / window.player.hpMax * 100) > 0)
+		document.getElementById("playerHealthBar").value = Math.abs(Math.floor(window.player.hp / window.player.hpMax * 100));
 }
