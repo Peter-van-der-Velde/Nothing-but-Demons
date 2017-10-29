@@ -12,6 +12,7 @@
 
   "scripts": {
     "start": "http-server -c-1",
+    "server": "node index.js",
     "doc": "node node_modules/jsdoc/jsdoc.js -c ./doc/config.json --readme README.md"
   },
 
