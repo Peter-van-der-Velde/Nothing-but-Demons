@@ -72,12 +72,11 @@ function animate() {
 		enemies[i].update(delta, window.scene);
 	}
 
-	var timerC = Date.now() * 0.0005;
 	// Render the scene.
 	render.render(window.scene, testLevel.mainCamera);
-// 	testLevel.mainCamera.position.x = player.model.mesh.position.x + 4;
-// 	testLevel.mainCamera.position.z = player.model.mesh.position.z + 4;
-// 	testLevel.mainCamera.lookAt(player.model.mesh.position);
+		testLevel.mainCamera.position.x = player.model.mesh.position.x + 4;
+		testLevel.mainCamera.position.z = player.model.mesh.position.z + 4;
+   	testLevel.mainCamera.lookAt(player.model.mesh.position);
 
     //testLevel.mainCamera.lookAt(player.mesh.position);
 		//testLevel.mainCamera.position.z = player.mesh.position.z;

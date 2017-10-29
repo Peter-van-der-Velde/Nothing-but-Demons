@@ -58,13 +58,12 @@ class Input {
         var timerC = Date.now() * 0.0005;
         testLevel.mainCamera.position.x = Math.cos(timerC) * 10;
         testLevel.mainCamera.position.z = Math.sin(timerC) * 10;
-        testLevel.mainCamera.lookAt(window.player.mesh.position);
       }
       if (e.keyCode === 39) {
         this.right = true;
-        testLevel.mainCamera.position.x = Math.sin(timerC) * 10;
-        testLevel.mainCamera.position.z = Math.cos(timerC) * 10;
-        testLevel.mainCamera.lookAt(window.player.mesh.position);
+        var timerD = Date.now() * 0.0005;
+        testLevel.mainCamera.position.x = Math.sin(timerD) * 10
+        testLevel.mainCamera.position.z = Math.cos(timerD) * 10;
       }
       if (e.keyCode === 38) {
         this.up = true;
