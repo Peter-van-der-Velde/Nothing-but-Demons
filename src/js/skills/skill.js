@@ -31,13 +31,13 @@ class Skill {
     } else if (this.cooldownLeft != 0) {
       // console.log("Skill is on cooldown!");
       return;
-    } else if (player.mp < this.manaCost) {
-      // console.log("Not enough mana!");
+    } else if (window.player.mp < this.manaCost) {
+      console.log("Not enough mana!");
       return;
-    } else if (player.model.mesh.position.distanceTo(target.model.mesh.position) > this.range) {
+    } //else if (player.mesh.position.distanceTo(target.mesh.position) > this.range) {
       // console.log("Target is out of range!");
-      return;
-    }
+      //return;
+    //}
     var mana = document.getElementById("playerManaBar");
     mana.value = player.mp;
     player.mp -= this.manaCost;
@@ -45,7 +45,7 @@ class Skill {
   }
 
   // Perform skill action.
-  doSkill(actor, target) {
+  doSkill(player, target) {
     this.cooldownLeft = this.cooldown;
   }
 }

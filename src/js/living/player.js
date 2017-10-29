@@ -39,11 +39,10 @@ class Player extends Living {
     this.target = null;
     console.log(this);
 
-    let health = document.getElementById("health");
-    health.value = 20;
-
     this.skills[0] = new AoeSkill("foo", "bar", 5, 0, 10, 3, 4, 6, 'img/skills/spinner.png', null);
     this.mesh = null;
+
+
   }
 
   /**
@@ -93,7 +92,6 @@ class Player extends Living {
     super.attack(target);
 
     var health = document.getElementById("health");
-    var healthBar = document.getElementById("healtBar");
 
     health.style.display = "block";
 
@@ -109,6 +107,16 @@ class Player extends Living {
   */
   update(dt) {
     super.update(dt);
+
+    let mana = document.getElementById("playerManaBar");
+    let health = document.getElementById("playerHealthBar");
+
+    if(health.value < health.max){
+      health.value = health.value + 0.1/10;
+    }
+    if(mana.value < mana.max){
+      mana.value = mana.value + 0.1/10;
+    }
 
     if (this.moving) {
       this.model.clipActions[ANIMATION_TYPE.WALK].play();
@@ -205,8 +213,6 @@ class Player extends Living {
   * when player dies use this function
   */
   die() {
-    let playerHealthBar = document.getElementById("playerHealthBar");
-    playerHealthBar.value = this.hp;
     setTimeout(function () { window.location.href = "../src/gameOver.html"; }, 12000);
     $("html").fadeOut(speed = 10000);
     window.playerIsDead = true;

@@ -51,10 +51,9 @@ class Enemy extends Living {
      * @param {Living} target
      */
     attack(target) {
-        // var playerHealth = document.getElementById("playerHealthBar");
-        // playerHealth.value = Math.floor(target.hp);
 
         var time = this.attackClock.getElapsedTime();
+        var playerHealth = document.getElementById("playerHealthBar");
 
         if ((2 / this.equipment[EQUIPMENT_TYPE.WEAPON].attackSpeed) > time)
             return;
@@ -64,6 +63,7 @@ class Enemy extends Living {
 
         target.hp = target.hp - Math.abs(this.totalAttack - (-30 + 2 * Math.sqrt(target.totalDefense * 25 + 220)));
         // this.equipment[EQUIPMENT_TYPE.WEAPON].attackSkill.activate(this, this.target);
+        //playerHealth.value = Math.floor(target.hp);
         console.log('playerHP: ' + target.hp);
     }
 
@@ -83,7 +83,7 @@ class Enemy extends Living {
         this.replaceWithCorpse();
         // setTimeout(function(){ window.location.href = "../src/gameOver.html"; }, 10000);
         // $("html").fadeOut(speed = 10000);
-        //fadein 
+        //fadein
         console.log("DICKE TITTEN, KARTOFFELSALAT");
         console.log(enemies.length);
         if (enemies.length.toString() == "0") {
@@ -182,7 +182,7 @@ class Enemy extends Living {
 
         // if (this.destination == window.player.model.mesh.position)
         this.model.mesh.lookAt(this.destination);
-        
+
         dt = dt * this.movementSpeed;
         this.direction.set(this.destination.x - this.model.mesh.position.x, 0, this.destination.z - this.model.mesh.position.z).normalize();
         this.model.mesh.position.set(this.model.mesh.position.x + this.direction.x * dt, this.model.mesh.position.y, this.model.mesh.position.z + this.direction.z * dt);

@@ -190,17 +190,21 @@ html, body {
 	height:50px;
 	width:195px;
 }
-.playerHealth progress {
-	background: linear-gradient(to right, rgba(249, 11, 43, 0.81) 20%, transparent 70%);
+ .playerHealth progress {
+	/*background: linear-gradient(to right, rgba(249, 11, 43, 0.81) 20%, transparent 70%);*/
+
 }
-.playerHealth progress::-webkit-progress-bar {
-	background: linear-gradient(to top, rgba(249, 11, 43, 0.81) 20%, transparent 100%);
+ .playerHealth progress::-webkit-progress-bar {
+	/*background: linear-gradient(to top, rgba(249, 11, 43, 0.81) 20%, transparent 100%);*/
+
 }
 .playerHealth progress::-webkit-progress-value {
-	background: linear-gradient(to top, rgba(249, 11, 43, 0.81) 20%, transparent 100%);
+  /*background: linear-gradient(to top, rgba(249, 11, 43, 0.81) 20%, transparent 100%);*/
+
 }
 .playerHealth progress::-moz-progress-bar {
-	background: linear-gradient(to top, rgba(249, 11, 43, 0.81) 20%, transparent 100%);
+	/*background: linear-gradient(to top, rgba(249, 11, 43, 0.81) 20%, transparent 100%);*/
+
 }
 .playerMana{
 	width:100%;
@@ -214,16 +218,16 @@ html, body {
 }
 
 .playerMana progress {
-	background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 0%, transparent 100%);
+	/*background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 0%, transparent 100%);*/
 }
 .playerMana progress::-webkit-progress-bar {
-	background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 20%, transparent 100%);
+	/*background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 20%, transparent 100%);*/
 }
 .playerMana progress::-webkit-progress-value {
-	background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 20%, transparent 100%);
+	/*background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 20%, transparent 100%);*/
 }
 .playerMana progress::-moz-progress-bar {
-	background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 20%, transparent 100%);
+	/*background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 20%, transparent 100%);*/
 }
 
 
