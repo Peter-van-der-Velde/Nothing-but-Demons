@@ -51,6 +51,7 @@ class Enemy extends Living {
      * @param {Living} target
      */
     attack(target) {
+        // console.log(window.player)
 
         var time = this.attackClock.getElapsedTime();
         var playerHealth = document.getElementById("playerHealthBar");
