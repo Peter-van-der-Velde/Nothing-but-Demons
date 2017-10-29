@@ -51,8 +51,8 @@ class Enemy extends Living {
      * @param {Living} target
      */
     attack(target) {
-        var playerHealth = document.getElementById("playerHealthBar");
-        playerHealth.value = target.hp;
+        // var playerHealth = document.getElementById("playerHealthBar");
+        // playerHealth.value = Math.floor(target.hp);
 
         var time = this.attackClock.getElapsedTime();
 
@@ -181,7 +181,8 @@ class Enemy extends Living {
         }
 
         // if (this.destination == window.player.model.mesh.position)
-
+        this.model.mesh.lookAt(this.destination);
+        
         dt = dt * this.movementSpeed;
         this.direction.set(this.destination.x - this.model.mesh.position.x, 0, this.destination.z - this.model.mesh.position.z).normalize();
         this.model.mesh.position.set(this.model.mesh.position.x + this.direction.x * dt, this.model.mesh.position.y, this.model.mesh.position.z + this.direction.z * dt);
