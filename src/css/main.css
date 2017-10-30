@@ -237,10 +237,12 @@ html, body {
 }
  .playerHealth progress::-webkit-progress-bar {
 	/*background: linear-gradient(to top, rgba(249, 11, 43, 0.81) 20%, transparent 100%);*/
+  background-color: red;
 
 }
 .playerHealth progress::-webkit-progress-value {
   /*background: linear-gradient(to top, rgba(249, 11, 43, 0.81) 20%, transparent 100%);*/
+  background-color: red;
 
 }
 .playerHealth progress::-moz-progress-bar {
@@ -265,9 +267,11 @@ html, body {
 }
 .playerMana progress::-webkit-progress-bar {
 	/*background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 20%, transparent 100%);*/
+  background-color: blue;
 }
 .playerMana progress::-webkit-progress-value {
 	/*background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 20%, transparent 100%);*/
+  background-color: blue;
 }
 .playerMana progress::-moz-progress-bar {
 	/*background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 20%, transparent 100%);*/

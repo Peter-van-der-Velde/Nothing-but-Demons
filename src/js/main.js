@@ -62,7 +62,6 @@ function animate() {
 
 	if (!playerIsDead) {
 		window.player.update(delta);
-		window.player.model.update(delta);
 	}
 	for (let e of enemies) {
 		e.update(delta);
@@ -73,7 +72,7 @@ function animate() {
 	}
 
     playerStats();
-
+	
 	// Render the scene.
 	render.render(window.scene, testLevel.mainCamera);
 	testLevel.mainCamera.position.x = player.model.mesh.position.x + 4;

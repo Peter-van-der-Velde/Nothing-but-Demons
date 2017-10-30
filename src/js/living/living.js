@@ -116,7 +116,7 @@ class Living {
 
     die() {
       // TODO: Replace death animation with actual death animation.
-      this.model.animationSwitch(ANIMATION_TYPE.ATTACK);
+      this.model.animationSwitch(ANIMATION_TYPE.DIE);
       console.log(this.name + 'is dead');
       this.replaceWithCorpse();
     }
