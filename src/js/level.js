@@ -31,7 +31,7 @@ class Level {
     this.floor = new Model('floor', true, false, 10);
     this.wall = new Model("walls", true, false, 10);
 
-    let boss = new SkeletonBoss();
+    // let boss = new SkeletonBoss();
 
     var lamp = new THREE.PointLight(0xffffff, 1, 50, 0);
     lamp.position.set(0, 5, 10);

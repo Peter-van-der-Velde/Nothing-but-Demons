@@ -79,18 +79,25 @@ class Enemy extends Living {
     this.model.animationStopAllButThis(ANIMATION_TYPE.DIE);
     this.model.animationSwitch(ANIMATION_TYPE.DIE);
 
-    // health.value = 100;
-    // for (let i = 0; i < enemies.length; i++) {
-    //     if (enemies[i].id == this.id) {
-    //         enemies.splice(i, 1);
-    //         break;
-    //     }
-    // }
+    // Remove enemies from the enemy array and move them to deadEnemies
+    for (let i = 0; i < enemies.length; i++) {
+        if (enemies[i].id == this.id) {
+            enemies.splice(i, 1);
+            deadEnemies.push(this);
+            break;
+        }
+    }
+
+    // Clean the skeletons from the closet
+    if (deadEnemies.length > 10) {
+      window.scene.remove(deadEnemies[0].model.mesh);
+      deadEnemies.shift();
+    }
+
     this.dropItems();
     this.replaceWithCorpse();
-    // setTimeout(function(){ window.location.href = "../src/gameOver.html"; }, 10000);
-    // $("html").fadeOut(speed = 10000);
-    //fadein
+
+    // Wave switching
     console.log(enemies.length);
     window.player.score += 25;
     console.log('WAVE: ' + window.waveNumber)
