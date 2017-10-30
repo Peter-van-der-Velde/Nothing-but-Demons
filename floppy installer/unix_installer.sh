@@ -24,14 +24,15 @@ if [ ! -e "$INSTALLATION_LOCATION" ]; then
 fi
 
 cd /tmp/
-rm -rvf /tmp/c3-master
+rm -rv /tmp/c3-master
 unzip /tmp/master.zip
 cp -rv c3-master/* "$INSTALLATION_LOCATION"
-rm -rvf /tmp/c3-master
+rm -rv /tmp/c3-master
 
 rm /usr/bin/nothing-but-demons
 ln -s "$INSTALLATION_LOCATION/nothing-but-demons" /usr/bin/
 chmod 755 /usr/bin/nothing-but-demons
+chmod 777 "$INSTALLATION_LOCATION"
 
 echo ""
 echo "installation is complete,"
