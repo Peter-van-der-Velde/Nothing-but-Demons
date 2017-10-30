@@ -23,7 +23,7 @@ class Enemy extends Living {
     constructor(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, model) {
         super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, model);
 
-        let enemyHealth = document.getElementById("enemyHealth");
+        let enemyHealth = document.getElementById("enemyHealth1");
         enemyHealth.max = this.hp;
         this.id = name + enemies.length.toString();
         this.baseAttackSpeed = 2;
