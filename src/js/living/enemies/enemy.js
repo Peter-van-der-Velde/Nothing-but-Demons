@@ -106,11 +106,11 @@ class Enemy extends Living {
 
     if (!this.dead) {
 
-
-
       if (this.moving) {
+        this.model.animationStopAllButThis(ANIMATION_TYPE.WALK);
         this.model.animationSwitch(ANIMATION_TYPE.WALK);
       } else {
+        this.model.animationStopAllButThis(ANIMATION_TYPE.IDLE);
         this.model.animationSwitch(ANIMATION_TYPE.IDLE);
       }
 
@@ -142,7 +142,7 @@ class Enemy extends Living {
         this.destination = null;
       }
 
-      if (this.destination) {
+      if (this.destination != null) {
         this.moving = true;
       } else {
         this.moving = false;
@@ -228,8 +228,10 @@ class Enemy extends Living {
   }
 
   move(dt) {
-    if (this.destination == null)
-    return;
+    if (this.destination == null) {
+      this.moving = false;
+      return;
+    }
 
     if (calcDistanceXZ(this.model.mesh.position, this.destination) < 0.02) {
       if (this.path.length == 0)
