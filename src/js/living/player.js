@@ -21,6 +21,8 @@ class Player extends Living {
   constructor(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, playerClass, camera, scene, model) {
 
     super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, model);
+    this.hpRegen = 1;
+    this.mpRegen = 1;
 
     this.baseAttackSpeed = 2;
     this.input = new Input();

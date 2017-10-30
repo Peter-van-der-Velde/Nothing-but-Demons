@@ -34,14 +34,12 @@ class Skill {
     } else if (actor.mp < this.manaCost) {
       // console.log("Not enough mana!");
       return;
+    } else if (!actor.model.mesh || !target.model.mesh) {
+      return;
     } else if (actor.model.mesh.position.distanceTo(target.model.mesh.position) > this.range) {
       // console.log("Target is out of range!");
       return;
     }
-
-    // TODO: Move manabar code to player.js
-    // var mana = document.getElementById("playerManaBar");
-    // mana.value = actor.mp;
     actor.mp -= this.manaCost;
     this.doSkill(actor, target);
   }

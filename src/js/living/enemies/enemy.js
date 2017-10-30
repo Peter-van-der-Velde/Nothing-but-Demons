@@ -44,6 +44,7 @@ class Enemy extends Living {
     this.attackClock = new THREE.Clock();
 
     this.moving = false;
+    // enemies.push(this);
   }
 
   /**
@@ -153,6 +154,7 @@ class Enemy extends Living {
 
       // console.log('dist: ' + calcDistanceXZ(window.player.model.mesh.position, this.model.mesh.position))
       if (window.player.model.mesh && this.model.mesh) {
+        // this.fixClipping();
         if (calcDistanceXZ(window.player.model.mesh.position, this.model.mesh.position) < 5) {
           // var direction = new THREE.Vector3().addVectors(window.player.model.mesh.position, this.model.mesh.position.multiplyScalar(-1));
           // var ray = THREE.Raycaster(this.model.mesh.position, direction, this.radius, 10);

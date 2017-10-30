@@ -2,7 +2,7 @@
 
 class CubeEnemy extends Enemy {
 
-  constructor() {
+  constructor(startPos = new THREE.Vector2(0, 0)) {
 	var z = getRandomInt(0, 5);
 	console.log("Z = " + z);
 	if(z < 1){
@@ -16,11 +16,9 @@ class CubeEnemy extends Enemy {
 
     this.radius = 0.5;
     this.movementSpeed = 1;
-    this.model = new Model("skeleton");
+    this.model = new Model("skeleton", false, false, 1, startPos);
 
     // add enemies to the enemy array
-    enemies.push(this);
-    console.log(this);
   }
 
   replaceWithCorpse() {

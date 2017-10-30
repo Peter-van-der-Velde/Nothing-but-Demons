@@ -73,9 +73,27 @@ function waveDisplay(){
 }
 
 function newWave(enemyName, x, z){
-    this.enemyName = new CubeEnemy(scene = window.scene);
+    var a = waveNumber;
+    if (a > 5) {
+        a = 5;
+    }
+
+    console.log(a);
+
+    for (var i = 0; i < a; i++) {
+        var x = Math.random() * 5;
+        var z = Math.random() * 5;
+        enemies.push(new CubeEnemy(new THREE.Vector2(x, z)));
+    }
+
+    // for (var i = 0; i < (waveNumber / 5) - 1; i++) {
+    //     var x = Math.random() * 5;
+    //     var z = Math.random() * 5;
+    //     enemies.push(new SkeletonBoss(new THREE.Vector2(x, z)));
+    // }
+    
     // setTimeout(function() {
-        this.enemyName.model.mesh.position.set(x, 0, z);
+        // this.enemyName.model.mesh.position.set(x, 0, z);
     // }, 200);
 }
 
