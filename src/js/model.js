@@ -1,6 +1,6 @@
 "use strict"
 class Model {
-  constructor(name = "", diffuse = false, glow = false, tiling = 1, startPos = new THREE.Vector2(0, 0)) {
+  constructor(name = "", diffuse = false, glow = false, tiling = 1, startPos = new THREE.Vector2(0, 0), startRot = 0) {
     this.name = name;
     this.mesh;
     this.mixer;
@@ -9,6 +9,7 @@ class Model {
     this.tiling = tiling;
     this.startX = startPos.x;
     this.startZ = startPos.y;
+    this.startRot = startRot;
 
     this.path = "models/" + name + "/";
     this.texturePath = this.path + "textures/";
@@ -88,6 +89,7 @@ class Model {
       }
 
       self.mesh.name = name;
+      self.mesh.rotation.y += self.startRot;
       self.mesh.position.set(self.startX, 0 , self.startZ);
       window.scene.add(self.mesh);
     }

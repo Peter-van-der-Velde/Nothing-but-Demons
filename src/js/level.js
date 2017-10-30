@@ -30,6 +30,9 @@ class Level {
 
     this.floor = new Model('floor', true, false, 10);
     this.wall = new Model("walls", true, false, 10);
+    this.chests = [];
+    this.chests.push(new Chest(new THREE.Vector2(-6, -6)));
+    this.chests.push(new Chest(new THREE.Vector2(6, 6), -3.92699));
 
     // let boss = new SkeletonBoss();
 
@@ -43,7 +46,9 @@ class Level {
   }
 
   update(dt) {
-    // this.chest.update(dt)
+    for (let e of this.chests) {
+      e.update(dt)
+    }
   }
 
   add (mesh) {
