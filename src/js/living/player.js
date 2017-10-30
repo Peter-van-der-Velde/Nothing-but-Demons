@@ -211,7 +211,7 @@ class Player extends Living {
     }
     updateInventory(item);
     broadcastPickUp(item.name);
-    player.defense = player.defense + item.defense;
+    player.defense = parseInt(player.defense) + parseInt(item.defense);
     console.log("PETEEEEEEER LIMONAAADEEE!");
 
 
