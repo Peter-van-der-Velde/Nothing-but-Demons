@@ -2100,7 +2100,7 @@
         "DbgName":"Material.001",
         "doubleSided":false,
         "specularCoef":50,
-        "colorDiffuse":[0.64,0.64,0.64],
+        "colorDiffuse":[0.0, 0.2, 1],
         "depthTest":true,
         "transparent":false,
         "blending":1

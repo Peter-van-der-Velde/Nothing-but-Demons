@@ -2,39 +2,33 @@
   "name": "nothing_but_demons",
   "description": "a 2d game written in javascript inspired by Diablo",
   "version": "0.0.4",
-
   "author": [
     "Marco Geertsma",
     "Peter van der Velde",
     "Pieter Westra",
     "Wesley Hofsma"
   ],
-
   "scripts": {
     "start": "http-server -c-1",
+    "php-install": "php install.php",
+    "php-server": "php -S php -S 0.0.0.0:8000",
     "doc": "node node_modules/jsdoc/jsdoc.js -c ./doc/config.json --readme README.md"
   },
-
   "dependencies": {
-
   },
-
   "devDependencies": {
     "jsdoc": "^3.3.3",
     "http-server": "^0.10.0"
   },
-
   "repository": {
     "type": "git",
     "url": "https://github.com/Peter-van-der-Velde/c3.git"
   },
-
   "keywords": [
     "Game",
     "EcmaScript",
     "JavaScript"
   ],
-
   "readmeFilename": "README.md",
-  "license": ""
+  "license": "ZLIB"
 }

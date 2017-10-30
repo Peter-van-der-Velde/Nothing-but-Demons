@@ -1,0 +1,10 @@
+CREATE DATABASE nbd;
+
+use nbd;
+
+CREATE TABLE leaderboard (
+	id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+	name VARCHAR(30) NOT NULL,
+	score INT(3) NOT NULL,
+	date TIMESTAMP
+);

@@ -25,7 +25,7 @@ class Weapon extends Item {
           "Weapon attack",    // Description
           0,                  // Mana cost
           0,                  // Cast time
-          this.attackSpeed,                  // Cooldown
+          this.attackSpeed,   // Cooldown
           this.attackRange,   // Range
           this.power,         // Attack power
           null

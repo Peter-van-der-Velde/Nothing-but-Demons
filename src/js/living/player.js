@@ -42,7 +42,7 @@ class Player extends Living {
     this.skills[0] = new AoeSkill("foo", "bar", 5, 0, 10, 3, 4, 6, 'img/skills/spinner.png', null);
     this.mesh = null;
 
-
+    this.score = 0;
   }
 
   /**
@@ -58,6 +58,8 @@ class Player extends Living {
     this.defense += Math.abs(Math.floor((dice.roll() - 3) / 3) - 3);
     this.intelligence += Math.abs(Math.floor((dice.roll() - 3) / 3) - 3);
     this.luck += Math.abs(Math.floor((dice.roll() - 3) / 3) - 3);
+
+    this.score += this.level * 20;
   }
 
   /**
@@ -91,13 +93,14 @@ class Player extends Living {
   attack(target) {
     super.attack(target);
 
-    var health = document.getElementById("health");
+    let enemyHealthDisplay = document.getElementById("enemyHealth");
+    let enemyHealth = document.getElementById("enemyHealth1");
 
-    health.style.display = "block";
+    enemyHealthDisplay.style.display = "block";
 
-    health.value = target.hp;
+    enemyHealth.value = target.hp;
     if (target.hp <= 0) {
-      health.style.display = "none";
+      enemyHealthDisplay.style.display = "none";
     }
   }
 
@@ -108,24 +111,25 @@ class Player extends Living {
   update(dt) {
     super.update(dt);
 
+    // Set hp and mp bars.
     let mana = document.getElementById("playerManaBar");
     let health = document.getElementById("playerHealthBar");
 
-    if(health.value < health.max){
-      health.value = health.value + 0.1/10;
-    }
-    if(mana.value < mana.max){
-      mana.value = mana.value + 0.1/10;
-    }
+    mana.max = this.mpMax;
+    mana.value = this.mp;
+    health.max = this.hpMax;
+    health.value = this.hp;
 
     if (this.moving) {
-      this.model.clipActions[ANIMATION_TYPE.WALK].play();
+      this.model.animationSwitch(ANIMATION_TYPE.WALK);
     } else {
-      this.model.clipActions[ANIMATION_TYPE.WALK].stop();
+      this.model.animationStop(ANIMATION_TYPE.WALK);
+      this.model.animationSwitch(ANIMATION_TYPE.IDLE);
     }
 
-    if (this.hp <= 0)
+    if (this.hp <= 0) {
       this.die();
+    }
 
     this.input.update();
     this.move(dt);
@@ -138,8 +142,11 @@ class Player extends Living {
       }
 
       for (let i = 0; i < enemies.length; i++) {
-        if (calcDistanceXZ(enemies[i].model.mesh.position, this.destination) < 2)
-          this.target = enemies[i];
+        if (enemies[i].model.mesh) {
+          if (calcDistanceXZ(enemies[i].model.mesh.position, this.destination) < 2) {
+            this.target = enemies[i];
+          }
+        }
       }
     }
 
@@ -147,6 +154,11 @@ class Player extends Living {
 
     if (this.input.one) {
       this.skills[0].activate(this, this);
+      var putSkillOnCooldown = document.getElementById("skillSpinner");
+      putSkillOnCooldown.style.opacity = 0.5;
+      setTimeout(function(){
+        putSkillOnCooldown.style.opacity = 1;
+      }, 9000);
     }
 
     if (this.target == null)
@@ -199,6 +211,7 @@ class Player extends Living {
     }
     updateInventory(item);
     broadcastPickUp(item.name);
+    player.defense = player.defense + item.defense;
     console.log("PETEEEEEEER LIMONAAADEEE!");
 
 
@@ -213,7 +226,10 @@ class Player extends Living {
   * when player dies use this function
   */
   die() {
-    setTimeout(function () { window.location.href = "../src/gameOver.html"; }, 12000);
+    var name = this.name;
+    var score = this.score;
+    
+    setTimeout(function () { window.location.replace("create.php?name=" + name + "&score=" + score + ""); }, 12000);
     $("html").fadeOut(speed = 10000);
     window.playerIsDead = true;
     // reset to last shrine/bonfire/savespot

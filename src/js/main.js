@@ -11,7 +11,8 @@ function init() {
 	frameCount = 20;
 
 	render = new Render(true, window.innerWidth, window.innerHeight);
-	testLevel = new Dungeon("dungeon", render);
+	// testLevel = new Dungeon("dungeon", render);
+	testLevel = new Level("test", render);
 
 	// Create an event listener that resizes the renderer with the browser window.
 	window.addEventListener('resize', function () {
@@ -62,22 +63,28 @@ function animate() {
 
 	if (!playerIsDead) {
 		window.player.update(delta);
-		window.player.model.update(delta);
 	}
 	for (let e of enemies) {
 		e.update(delta);
 	}
-
-	for (var i = 0; i < enemies.length; i++) {
-		enemies[i].update(delta, window.scene);
+	for (let e of deadEnemies) {
+		e.update(delta);
 	}
+
+    playerStats();
 
 	// Render the scene.
 	render.render(window.scene, testLevel.mainCamera);
-		testLevel.mainCamera.position.x = player.model.mesh.position.x + 4;
-		testLevel.mainCamera.position.z = player.model.mesh.position.z + 4;
-   	testLevel.mainCamera.lookAt(player.model.mesh.position);
+	testLevel.mainCamera.position.x = player.model.mesh.position.x + 4;
+	testLevel.mainCamera.position.z = player.model.mesh.position.z + 4;
+	testLevel.mainCamera.lookAt(player.model.mesh.position);
 
-    //testLevel.mainCamera.lookAt(player.mesh.position);
-		//testLevel.mainCamera.position.z = player.mesh.position.z;
+	//testLevel.mainCamera.lookAt(player.mesh.position);
+	//testLevel.mainCamera.position.z = player.mesh.position.z;
+	this.updateUI();
+}
+
+function updateUI() {
+	if (Math.floor(window.player.hp / window.player.hpMax * 100) > 0)
+		document.getElementById("playerHealthBar").value = Math.abs(Math.floor(window.player.hp / window.player.hpMax * 100));
 }

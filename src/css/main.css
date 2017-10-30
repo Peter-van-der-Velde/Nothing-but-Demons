@@ -167,6 +167,23 @@ html, body {
 	display:none;
 }
 
+.playerInformation{
+    position: absolute;
+    font-family: diabloFont;
+    color:#f7ddac;
+    margin: 0px 0px 0px 10px;
+    background-color: black;
+    opacity: 0.6;
+    padding: 10px;
+    border-radius: 10px;
+}
+.playerInformation ul{
+    padding:0px;
+}
+.playerInformation li{
+    list-style:none;
+}
+
 /*
 	Building the menu
 */
@@ -180,30 +197,57 @@ html, body {
     z-index: 9999;
     width: 1300px;
 }
+.skillBar{
+    width: 100%;
+    bottom: 23px;
+    position: absolute;
+}
+.skillIcon{
+    width:36px !important;
+    height:36px;
+    opacity:1;
+    margin:0 !important;
+    padding:0;
+}
+#skillSpinner{
+    left:613px;
+}
+#skillFireball{
+    left:666px;
+}
+#skillHeal{
+    left:717px;
+}
+
 .playerHealth{
 	width:100%;
 	position:absolute;
 	bottom: 65px;
+
 }
 .playerHealth progress{
 	margin: 0px 0px 0px 625px;
 	height:50px;
 	width:195px;
+
 }
  .playerHealth progress {
-	/*background: linear-gradient(to right, rgba(249, 11, 43, 0.81) 20%, transparent 70%);*/
+	background: linear-gradient(to right, rgba(249, 11, 43, 0.81) 0%, transparent 100%);
 
 }
  .playerHealth progress::-webkit-progress-bar {
 	/*background: linear-gradient(to top, rgba(249, 11, 43, 0.81) 20%, transparent 100%);*/
+  background-color: red;
 
 }
 .playerHealth progress::-webkit-progress-value {
   /*background: linear-gradient(to top, rgba(249, 11, 43, 0.81) 20%, transparent 100%);*/
+  background-color: red;
 
 }
 .playerHealth progress::-moz-progress-bar {
 	/*background: linear-gradient(to top, rgba(249, 11, 43, 0.81) 20%, transparent 100%);*/
+  background-color: red;
 
 }
 .playerMana{
@@ -218,16 +262,65 @@ html, body {
 }
 
 .playerMana progress {
-	/*background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 0%, transparent 100%);*/
+	background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 0%, transparent 100%);
+
 }
 .playerMana progress::-webkit-progress-bar {
 	/*background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 20%, transparent 100%);*/
+  background-color: blue;
 }
 .playerMana progress::-webkit-progress-value {
 	/*background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 20%, transparent 100%);*/
+  background-color: blue;
 }
 .playerMana progress::-moz-progress-bar {
 	/*background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 20%, transparent 100%);*/
+  background-color: blue;
+}
+
+.healthBar{
+  width:100%;
+  z-index: 9999;
+  position: absolute;
+  height:7%;
+}
+.enemyHealthBar{
+  width:12% !important;
+  margin-left: 44% !important;
+  margin-right: 44% !important;
+}
+
+#enemyHealth{
+  position: absolute;
+  z-index: 9999;
+}
+
+#enemyHealth1{
+  margin: 17px 0px 0px 870px;
+}
+
+progress {
+  -webkit-appeareance: none;
+  appearance: none;
+  width: 185px;
+  height: 19px;
+}
+
+#enemyHealth progress {
+	background: linear-gradient(to right, rgba(249, 11, 43, 0.81) 0%, transparent 100%);
+
+}
+#enemyHealth progress::-webkit-progress-bar {
+	/*background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 20%, transparent 100%);*/
+  background-color: red;
+}
+#enemyHealth progress::-webkit-progress-value {
+	/*background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 20%, transparent 100%);*/
+  background-color: red;
+}
+#enemyHealth progress::-moz-progress-bar {
+	/*background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 20%, transparent 100%);*/
+  background-color: red;
 }
 
 
@@ -749,22 +842,7 @@ input[type=range]:focus::-ms-fill-upper {
   background: #367ebd;
 }
 
-.healthBar{
-  position: absolute;
-  z-index: 6000;
-}
 
-#health{
-  position: absolute;
-  z-index: 9999;
-}
-
-progress {
-  -webkit-appeareance: none;
-  appearance: none;
-  width: 250px;
-  height: 20px;
-}
 
 #videoItems{display:block;}
 #soundItems{display:none;}
