@@ -58,6 +58,8 @@ class Player extends Living {
     this.defense += Math.abs(Math.floor((dice.roll() - 3) / 3) - 3);
     this.intelligence += Math.abs(Math.floor((dice.roll() - 3) / 3) - 3);
     this.luck += Math.abs(Math.floor((dice.roll() - 3) / 3) - 3);
+
+    this.score += this.level * 20;
   }
 
   /**

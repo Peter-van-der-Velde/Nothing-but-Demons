@@ -13,5 +13,6 @@ class SkeletonBoss extends Enemy {
 
   replaceWithCorpse() {
     this.model.mesh.material.color.setHex( 0xff0000 );
+    window.player.score += 200;
   }
 }

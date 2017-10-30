@@ -92,8 +92,11 @@ class Enemy extends Living {
     // $("html").fadeOut(speed = 10000);
     //fadein
     console.log(enemies.length);
+    window.player.score += 25;
+    console.log('WAVE: ' + window.waveNumber)
     if (enemies.length.toString() == "0") {
       waveDisplay();
+      window.player.score += 10 * window.waveNumber;
     }
 
   }
