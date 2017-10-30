@@ -23,8 +23,8 @@ class Enemy extends Living {
     constructor(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, model) {
         super(name, hp, mp, strength, defense, speed, intelligence, level, experiencePoints, items, weapons, model);
 
-        let health = document.getElementById("health");
-        health.max = this.hp;
+        let enemyHealth = document.getElementById("enemyHealth");
+        enemyHealth.max = this.hp;
         this.id = name + enemies.length.toString();
         this.baseAttackSpeed = 2;
         this.time = 0;
@@ -73,7 +73,7 @@ class Enemy extends Living {
      */
     die() {
         console.log(this.name + ' is dead');
-        health.value = 100;
+        enemyHealth.value = 100;
         for (let i = 0; i < enemies.length; i++) {
             if (enemies[i].id == this.id) {
                 enemies.splice(i, 1);
@@ -102,14 +102,9 @@ class Enemy extends Living {
         if (this.hp > this.hpMax)
             this.hp = this.hpMax;
 
-
         if (this.hp <= 0) {
             this.die();
         }
-
-
-        if (this.hp > this.hpMax)
-            this.hp = this.hpMax;
 
         if (this.path.length == 0) {
 

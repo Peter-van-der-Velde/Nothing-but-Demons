@@ -91,13 +91,13 @@ class Player extends Living {
   attack(target) {
     super.attack(target);
 
-    var health = document.getElementById("health");
+    var enemyHealth = document.getElementById("enemyHealth");
 
-    health.style.display = "block";
+    enemyHealth.style.display = "block";
 
-    health.value = target.hp;
+    enemyHealth.value = target.hp;
     if (target.hp <= 0) {
-      health.style.display = "none";
+      enemyHealth.style.display = "none";
     }
   }
 
@@ -112,10 +112,10 @@ class Player extends Living {
     let health = document.getElementById("playerHealthBar");
 
     if(health.value < health.max){
-      health.value = health.value + 0.1/10;
+      health.value = health.value + 0.1/3;
     }
     if(mana.value < mana.max){
-      mana.value = mana.value + 0.1/10;
+      mana.value = mana.value + 0.1/3;
     }
 
     if (this.moving) {

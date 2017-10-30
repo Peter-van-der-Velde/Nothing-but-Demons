@@ -184,14 +184,16 @@ html, body {
 	width:100%;
 	position:absolute;
 	bottom: 65px;
+
 }
 .playerHealth progress{
 	margin: 0px 0px 0px 625px;
 	height:50px;
 	width:195px;
+
 }
  .playerHealth progress {
-	/*background: linear-gradient(to right, rgba(249, 11, 43, 0.81) 20%, transparent 70%);*/
+	background: linear-gradient(to right, rgba(249, 11, 43, 0.81) 0%, transparent 100%);
 
 }
  .playerHealth progress::-webkit-progress-bar {
@@ -204,6 +206,7 @@ html, body {
 }
 .playerHealth progress::-moz-progress-bar {
 	/*background: linear-gradient(to top, rgba(249, 11, 43, 0.81) 20%, transparent 100%);*/
+  background-color: red;
 
 }
 .playerMana{
@@ -218,7 +221,8 @@ html, body {
 }
 
 .playerMana progress {
-	/*background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 0%, transparent 100%);*/
+	background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 0%, transparent 100%);
+
 }
 .playerMana progress::-webkit-progress-bar {
 	/*background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 20%, transparent 100%);*/
@@ -228,6 +232,24 @@ html, body {
 }
 .playerMana progress::-moz-progress-bar {
 	/*background: linear-gradient(to top, rgba(18, 87, 100, 1) 0%, rgba(34, 55, 191, 0.96) 20%, transparent 100%);*/
+  background-color: blue;
+}
+
+.healthBar{
+  position: absolute;
+  z-index: 6000;
+}
+
+#enemyHealth{
+  position: absolute;
+  z-index: 9999;
+}
+
+progress {
+  -webkit-appeareance: none;
+  appearance: none;
+  width: 250px;
+  height: 20px;
 }
 
 
@@ -749,22 +771,7 @@ input[type=range]:focus::-ms-fill-upper {
   background: #367ebd;
 }
 
-.healthBar{
-  position: absolute;
-  z-index: 6000;
-}
 
-#health{
-  position: absolute;
-  z-index: 9999;
-}
-
-progress {
-  -webkit-appeareance: none;
-  appearance: none;
-  width: 250px;
-  height: 20px;
-}
 
 #videoItems{display:block;}
 #soundItems{display:none;}
