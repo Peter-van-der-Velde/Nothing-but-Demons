@@ -40,8 +40,8 @@ class Skill {
     }
 
     // TODO: Move manabar code to player.js
-    var mana = document.getElementById("playerManaBar");
-    mana.value = actor.mp;
+    // var mana = document.getElementById("playerManaBar");
+    // mana.value = actor.mp;
     actor.mp -= this.manaCost;
     this.doSkill(actor, target);
   }

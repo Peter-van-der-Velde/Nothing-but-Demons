@@ -24,7 +24,7 @@ class Living {
 
         this.inventorySize = 20;
         this.hpRegen = 0;
-        this.mpRegen = 2;
+        this.mpRegen = 1;
 
         this.dead = false;
 
@@ -131,6 +131,7 @@ class Living {
     }
 
     update(dt) {
+      this.regenStats(dt);
       this.model.update(dt);
     }
 }
