@@ -72,7 +72,7 @@ class Model {
               self.clipActions[e.name].setLoop(THREE.loopOnce, 0);
               break;
             case ANIMATION_TYPE.DIE:
-              self.clipActions[e.name].setLoop(THREE.loopOnce, 2);
+              self.clipActions[e.name].setLoop(THREE.loopOnce, 0);
               self.clipActions[e.name].clampWhenFinished = true;
               break;
             case ANIMATION_TYPE.OPEN:
@@ -90,16 +90,26 @@ class Model {
     }
   }
 
+  animationStopAllButThis(animationType) {
+    for (let key in this.clipActions) {
+      if (key != animationType) {
+        this.clipActions[key].stop();
+      }
+    }
+  }
+
+  animationStop(animationType) {
+    for (var key in this.clipActions) {
+      if (key === animationType){
+        this.clipActions[key].stop();
+      }
+    }
+  }
+
   animationSwitch(animationType) {
     if (!this.clipActions) {
       console.log("ERROR: no animations loaded for this model!");
       return;
-    }
-
-    for (var key in this.clipActions) {
-      if (key != animationType){
-        this.clipActions[key].stop();
-      }
     }
 
     if (this.clipActions[animationType]) {
