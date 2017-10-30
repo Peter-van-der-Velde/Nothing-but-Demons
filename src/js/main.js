@@ -11,7 +11,8 @@ function init() {
 	frameCount = 20;
 
 	render = new Render(true, window.innerWidth, window.innerHeight);
-	testLevel = new Dungeon("dungeon", render);
+	// testLevel = new Dungeon("dungeon", render);
+	testLevel = new Level("test", render);
 
 	// Create an event listener that resizes the renderer with the browser window.
 	window.addEventListener('resize', function () {
