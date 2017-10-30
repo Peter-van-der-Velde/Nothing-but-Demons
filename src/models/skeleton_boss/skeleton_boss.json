@@ -5,7 +5,7 @@
         "visible":true,
         "doubleSided":false,
         "depthWrite":true,
-        "colorDiffuse":[0.64,0.64,0.64],
+        "colorDiffuse":[0.4, 0.4, 0],
         "wireframe":false,
         "blending":1,
         "colorEmissive":[0,0,0],

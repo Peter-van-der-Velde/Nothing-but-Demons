@@ -41,8 +41,6 @@ class Player extends Living {
 
     this.skills[0] = new AoeSkill("foo", "bar", 5, 0, 10, 3, 4, 6, 'img/skills/spinner.png', null);
     this.mesh = null;
-
-
   }
 
   /**
@@ -120,9 +118,9 @@ class Player extends Living {
     }
 
     if (this.moving) {
-      this.model.clipActions[ANIMATION_TYPE.WALK].play();
+      this.model.animationSwitch(ANIMATION_TYPE.WALK);
     } else {
-      this.model.clipActions[ANIMATION_TYPE.WALK].stop();
+      this.model.animationSwitch(ANIMATION_TYPE.IDLE);
     }
 
     if (this.hp <= 0)
@@ -205,6 +203,7 @@ class Player extends Living {
     }
     updateInventory(item);
     broadcastPickUp(item.name);
+    player.defense = player.defense + item.defense;
     console.log("PETEEEEEEER LIMONAAADEEE!");
 
 
