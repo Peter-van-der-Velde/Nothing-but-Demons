@@ -138,8 +138,11 @@ class Player extends Living {
       }
 
       for (let i = 0; i < enemies.length; i++) {
-        if (calcDistanceXZ(enemies[i].model.mesh.position, this.destination) < 2)
-          this.target = enemies[i];
+        if (enemies[i].model.mesh) {
+          if (calcDistanceXZ(enemies[i].model.mesh.position, this.destination) < 2) {
+            this.target = enemies[i];
+          }
+        }
       }
     }
 
