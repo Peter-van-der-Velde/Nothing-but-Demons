@@ -10,7 +10,9 @@ class DamageSkill extends Skill {
 
   doSkill(actor, target) {
     super.doSkill(actor, target);
-    target.dealDamage(this.damage);
+    if (target != actor) {
+      target.dealDamage(this.damage);
+    }
     actor.model.animationStop(ANIMATION_TYPE.ATTACK);
     actor.model.animationSwitch(ANIMATION_TYPE.ATTACK);
   }

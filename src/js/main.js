@@ -67,6 +67,9 @@ function animate() {
 	for (let e of enemies) {
 		e.update(delta);
 	}
+	for (let e of deadEnemies) {
+		e.update(delta);
+	}
 
     playerStats();
 

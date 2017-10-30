@@ -111,15 +111,14 @@ class Player extends Living {
   update(dt) {
     super.update(dt);
 
+    // Set hp and mp bars.
     let mana = document.getElementById("playerManaBar");
     let health = document.getElementById("playerHealthBar");
 
-    if(health.value < health.max){
-      health.value = health.value + 0.1/3;
-    }
-    if(mana.value < mana.max){
-      mana.value = mana.value + 0.1/3;
-    }
+    mana.max = this.mpMax;
+    mana.value = this.mp;
+    health.max = this.hpMax;
+    health.value = this.hp;
 
     if (this.moving) {
       this.model.animationSwitch(ANIMATION_TYPE.WALK);
@@ -128,8 +127,9 @@ class Player extends Living {
       this.model.animationSwitch(ANIMATION_TYPE.IDLE);
     }
 
-    if (this.hp <= 0)
+    if (this.hp <= 0) {
       this.die();
+    }
 
     this.input.update();
     this.move(dt);
