@@ -1,0 +1,3 @@
+#!/bin/bash
+php install.php
+php -S php -S 0.0.0.0:8000
