@@ -13,9 +13,9 @@ try
 	$sql = "SELECT * 
 					FROM leaderboard
            ORDER BY score DESC
+					 LIMIT 10
            ";
 	$statement = $connection->prepare($sql);
-	// $statement->bindParam(':location', $location, PDO::PARAM_STR);
 	$statement->execute();
 	$result = $statement->fetchAll();
 }
@@ -34,19 +34,23 @@ if ($result && $statement->rowCount() > 0)
 	<table>
 		<thead>
 			<tr>
-			<th>Name</th>
+				<th>#</th>		
+				<th>Name</th>
 				<th>Score</th>
 			</tr>
 		</thead>
 		<tbody>
 <?php 
+	$counter = 1;
 	foreach ($result as $row) 
 	{ ?>
 		<tr>
+			<td><?php echo escape($counter); ?></td>		
 			<td><?php echo escape($row["name"]); ?></td>
 			<td><?php echo escape($row["score"]); ?></td>
 		</tr>
 	<?php 
+	$counter++;
 	} ?>
 	</tbody>
 </table>
@@ -58,4 +62,4 @@ else
 <?php
 } ?> 
 
-<a href="index.php">Back to home</a>
+<a href="../index.php">Back to home</a>
