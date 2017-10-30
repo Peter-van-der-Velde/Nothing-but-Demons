@@ -68,12 +68,8 @@ function animate() {
 		e.update(delta);
 	}
 
-	for (var i = 0; i < enemies.length; i++) {
-		enemies[i].update(delta, window.scene);
-	}
-
     playerStats();
-	
+
 	// Render the scene.
 	render.render(window.scene, testLevel.mainCamera);
 	testLevel.mainCamera.position.x = player.model.mesh.position.x + 4;
