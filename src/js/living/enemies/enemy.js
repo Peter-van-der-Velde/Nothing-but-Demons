@@ -159,7 +159,7 @@ class Enemy extends Living {
           this.attack(window.player);
         }
 
-        this.fixClipping();
+        // this.fixClipping();
       }
 
     }
