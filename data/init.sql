@@ -1,13 +1,10 @@
-CREATE DATABASE test;
+CREATE DATABASE nbd;
 
-use test;
+use nbd;
 
-CREATE TABLE users (
+CREATE TABLE leaderboard (
 	id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-	firstname VARCHAR(30) NOT NULL,
-	lastname VARCHAR(30) NOT NULL,
-	email VARCHAR(50) NOT NULL,
-	age INT(3),
-	location VARCHAR(50),
+	name VARCHAR(30) NOT NULL,
+	score INT(3) NOT NULL,
 	date TIMESTAMP
 );
