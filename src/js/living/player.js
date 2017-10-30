@@ -43,7 +43,6 @@ class Player extends Living {
     this.mesh = null;
 
     this.score = 0;
-
   }
 
   /**
@@ -92,13 +91,14 @@ class Player extends Living {
   attack(target) {
     super.attack(target);
 
-    var health = document.getElementById("health");
+    let enemyHealthDisplay = document.getElementById("enemyHealth");
+    let enemyHealth = document.getElementById("enemyHealth1");
 
-    health.style.display = "block";
+    enemyHealthDisplay.style.display = "block";
 
-    health.value = target.hp;
+    enemyHealth.value = target.hp;
     if (target.hp <= 0) {
-      health.style.display = "none";
+      enemyHealthDisplay.style.display = "none";
     }
   }
 
@@ -113,16 +113,17 @@ class Player extends Living {
     let health = document.getElementById("playerHealthBar");
 
     if(health.value < health.max){
-      health.value = health.value + 0.1/10;
+      health.value = health.value + 0.1/3;
     }
     if(mana.value < mana.max){
-      mana.value = mana.value + 0.1/10;
+      mana.value = mana.value + 0.1/3;
     }
 
     if (this.moving) {
-      this.model.clipActions[ANIMATION_TYPE.WALK].play();
+      this.model.animationSwitch(ANIMATION_TYPE.WALK);
     } else {
-      this.model.clipActions[ANIMATION_TYPE.WALK].stop();
+      this.model.animationStop(ANIMATION_TYPE.WALK);
+      this.model.animationSwitch(ANIMATION_TYPE.IDLE);
     }
 
     if (this.hp <= 0)
@@ -139,8 +140,11 @@ class Player extends Living {
       }
 
       for (let i = 0; i < enemies.length; i++) {
-        if (calcDistanceXZ(enemies[i].model.mesh.position, this.destination) < 2)
-          this.target = enemies[i];
+        if (enemies[i].model.mesh) {
+          if (calcDistanceXZ(enemies[i].model.mesh.position, this.destination) < 2) {
+            this.target = enemies[i];
+          }
+        }
       }
     }
 
@@ -148,6 +152,11 @@ class Player extends Living {
 
     if (this.input.one) {
       this.skills[0].activate(this, this);
+      var putSkillOnCooldown = document.getElementById("skillSpinner");
+      putSkillOnCooldown.style.opacity = 0.5;
+      setTimeout(function(){
+        putSkillOnCooldown.style.opacity = 1;
+      }, 9000);
     }
 
     if (this.target == null)
@@ -200,6 +209,7 @@ class Player extends Living {
     }
     updateInventory(item);
     broadcastPickUp(item.name);
+    player.defense = player.defense + item.defense;
     console.log("PETEEEEEEER LIMONAAADEEE!");
 
 
@@ -214,7 +224,10 @@ class Player extends Living {
   * when player dies use this function
   */
   die() {
-    setTimeout(function () { window.location.href = "../src/create.php&name=" + this.name + "&score=" + this.score ; }, 12000);
+    var name = this.name;
+    var score = this.score;
+    
+    setTimeout(function () { window.location.replace("create.php?name=" + name + "&score=" + score + ""); }, 12000);
     $("html").fadeOut(speed = 10000);
     window.playerIsDead = true;
     // reset to last shrine/bonfire/savespot

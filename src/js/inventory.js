@@ -32,7 +32,13 @@ function drawInventory() {
 function updateInventory(item) {
     var inventoryElement = document.getElementById("inventory");
     var pickedUpItem = true;
-    var data = '<li class="inventorySlot"><img class="item" src="img/shield.png" alt="Shield"><img src="img/inventorySlot.png" alt="Inventory Slot"></li>';
+    if (item.name == "iron shield"){
+        var data = '<li class="inventorySlot"><img class="item" src="img/shield.png" alt="Shield"><img src="img/inventorySlot.png" alt="Inventory Slot"></li>';
+    }
+    else if(item.name == "diamond shield"){
+        var data = '<li class="inventorySlot"><img class="item" src="img/diamondShield.png" alt="Diamond Shield"><img src="img/inventorySlot.png" alt="Inventory Slot"></li>';
+    }
+
     console.log(item);
     console.log(inventory);
     while (pickedUpItem) {

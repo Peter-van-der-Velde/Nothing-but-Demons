@@ -17,6 +17,9 @@
   <script type="text/javascript">
       $(document).ready(function(){
           console.log("Document loaded!");
+          $( "#playerInformation" ).load( "playerInformation.html", function() {
+              console.log("#Player info Loaded");
+          });
           $( "#hudDisplay" ).load( "hud.html", function() {
             console.log("#Hud Loaded");
           });
@@ -33,9 +36,6 @@
   </script>
 </head>
 <body oncontextmenu="return false;">
-  <div class="healthBar">
-    <progress id="health" value="100" max="100" style="display:none;"></progress>
-  </div>
   <!-- Audio player -->
 	<audio controls autoplay id="backgroundPlayer">
 		<!-- <source src="audio/ambient.mp3" type="audio/mp3"> -->
@@ -48,6 +48,9 @@
 
   <!-- Wave display -->
   <div class="waveDisplay" id="waveDisplay" style="display:block;"></div>
+
+  <!--Player information-->
+  <div class="playerInformation" id="playerInformation"></div>
 
   <!-- HUD display -->
   <div class="hudDisplay" id="hudDisplay" style="display:block"></div>
@@ -90,13 +93,14 @@
   <script src="js/equipment/weapons/shields.js"></script>
   <script src="js/dice.js"></script>
   <script src="js/node.js"></script>
-  
+
 
   <!-- All living creatures -->
   <script src="js/living/living.js"></script>
   <script src="js/living/player.js"></script>
   <script src="js/living/enemies/enemy.js"></script>
   <script src="js/living/enemies/cube.js"></script>
+  <script src="js/living/enemies/skeletonBoss.js"></script>
 
   <script src="js/model.js"></script>
   <script src="js/gameObject.js"></script>
