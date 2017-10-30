@@ -180,6 +180,28 @@ html, body {
     z-index: 9999;
     width: 1300px;
 }
+.skillBar{
+    width: 100%;
+    bottom: 23px;
+    position: absolute;
+}
+.skillIcon{
+    width:36px !important;
+    height:36px;
+    opacity:1;
+    margin:0 !important;
+    padding:0;
+}
+#skillSpinner{
+    left:613px;
+}
+#skillFireball{
+    left:666px;
+}
+#skillHeal{
+    left:717px;
+}
+
 .playerHealth{
 	width:100%;
 	position:absolute;
