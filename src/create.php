@@ -38,3 +38,5 @@
 	}
 	
 ?>
+<script>window.location.replace('read.php')</script>
+

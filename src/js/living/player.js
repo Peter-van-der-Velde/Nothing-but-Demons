@@ -214,7 +214,7 @@ class Player extends Living {
   * when player dies use this function
   */
   die() {
-    setTimeout(function () { window.location.href = "../src/create.php&name=" + this.name + "&" ; }, 12000);
+    setTimeout(function () { window.location.href = "../src/create.php&name=" + this.name + "&score=" + this.score ; }, 12000);
     $("html").fadeOut(speed = 10000);
     window.playerIsDead = true;
     // reset to last shrine/bonfire/savespot
