@@ -131,16 +131,19 @@ class Enemy extends Living {
       }
 
       // console.log('dist: ' + calcDistanceXZ(window.player.model.mesh.position, this.model.mesh.position))
-      if (calcDistanceXZ(window.player.model.mesh.position, this.model.mesh.position) < 5) {
-        // var direction = new THREE.Vector3().addVectors(window.player.model.mesh.position, this.model.mesh.position.multiplyScalar(-1));
-        // var ray = THREE.Raycaster(this.model.mesh.position, direction, this.radius, 10);
-        // var intersects = ray.intersectObjects(window.scene.children);
-        // if (intersects.length != 0) {
-        // console.log('wham')
-        this.destination = window.player.model.mesh.position;
-      } else {
-        this.destination = null;
+      if (window.player.model.mesh && this.model.mesh) {
+        if (calcDistanceXZ(window.player.model.mesh.position, this.model.mesh.position) < 5) {
+          // var direction = new THREE.Vector3().addVectors(window.player.model.mesh.position, this.model.mesh.position.multiplyScalar(-1));
+          // var ray = THREE.Raycaster(this.model.mesh.position, direction, this.radius, 10);
+          // var intersects = ray.intersectObjects(window.scene.children);
+          // if (intersects.length != 0) {
+          // console.log('wham')
+          this.destination = window.player.model.mesh.position;
+        } else {
+          this.destination = null;
+        }
       }
+
 
       if (this.destination != null) {
         this.moving = true;
@@ -151,11 +154,13 @@ class Enemy extends Living {
       this.move(dt);
 
       // console.log('dist: ' + calcDistanceXZ(window.player.model.mesh.position, this.model.mesh.position) + ' < ' + this.equipment[EQUIPMENT_TYPE.WEAPON].attackRange)
-      if (calcDistanceXZ(this.model.mesh.position, window.player.model.mesh.position) < this.equipment[EQUIPMENT_TYPE.WEAPON].attackRange) {
-        this.attack(window.player);
-      }
+      if (window.player.model.mesh && this.model.mesh) {
+        if (calcDistanceXZ(this.model.mesh.position, window.player.model.mesh.position) < this.equipment[EQUIPMENT_TYPE.WEAPON].attackRange) {
+          this.attack(window.player);
+        }
 
-      this.fixClipping();
+        this.fixClipping();
+      }
 
     }
 
