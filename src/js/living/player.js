@@ -147,6 +147,11 @@ class Player extends Living {
 
     if (this.input.one) {
       this.skills[0].activate(this, this);
+      var putSkillOnCooldown = document.getElementById("skillSpinner");
+      putSkillOnCooldown.style.opacity = 0.5;
+      setTimeout(function(){
+        putSkillOnCooldown.style.opacity = 1;
+      }, 9000);
     }
 
     if (this.target == null)
