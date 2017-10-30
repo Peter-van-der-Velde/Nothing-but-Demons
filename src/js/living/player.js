@@ -145,7 +145,7 @@ class Player extends Living {
       return;
 
     if (this.target.type == OBJECT_TYPE.ITEM || this.target.type == OBJECT_TYPE.WEAPON) {
-      if (calcDistanceXZ(this.mesh.position, this.target.mesh.position) > 0.5)
+      if (calcDistanceXZ(this.model.mesh.position, this.target.mesh.position) > 0.5)
         return;
 
       this.pickUpItem(this.target);

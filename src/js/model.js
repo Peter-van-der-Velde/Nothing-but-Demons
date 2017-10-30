@@ -10,8 +10,6 @@ class Model {
     this.path = "models/" + name + "/";
     this.texturePath = this.path + "textures/";
 
-    this.timer = 0;
-
     this.load(window.scene);
   }
 
