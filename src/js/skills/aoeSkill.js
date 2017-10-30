@@ -1,6 +1,6 @@
 class AoeSkill extends DamageSkill {
   constructor(name, description, manaCost, castTime, cooldown, range, damage, duration, icon, mesh) {
-    super(name, description, manaCost, castTime, cooldown, range, icon, mesh);
+    super(name, description, manaCost, castTime, cooldown, range, damage, icon, mesh);
     this.duration = duration;
     this.durationLeft = 0;
     this.interval = 0;

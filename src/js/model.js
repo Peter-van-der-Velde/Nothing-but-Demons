@@ -1,11 +1,12 @@
 "use strict"
 class Model {
-  constructor(name = "", diffuse = false, glow = false) {
+  constructor(name = "", diffuse = false, glow = false, tiling = 1) {
     this.name = name;
     this.mesh;
     this.mixer;
     this.diffuse = diffuse;
     this.glow = glow;
+    this.tiling = tiling;
 
     this.path = "models/" + name + "/";
     this.texturePath = this.path + "textures/";
@@ -32,17 +33,27 @@ class Model {
 
       // Load in the proper textures
       if (diffuse) {
-        materials[0].map = texloader.load(texturePath + name + "_diff.png");
+        let tex = texloader.load(texturePath + name + "_diff.png");
+        tex.wrapS = THREE.RepeatWrapping;
+        tex.wrapT = THREE.RepeatWrapping;
+        tex.repeat.set(self.tiling, self.tiling);
+        materials[0].map = tex;
       }
       if (glow) { // TODO: make the emissive map work like it should...
         materials[0].emissiveMap = texloader.load(texturePath + name + "_glow.png");
+        tex.wrapS = THREE.RepeatWrapping;
+        tex.wrapT = THREE.RepeatWrapping;
+        tex.repeat.set(self.tiling, self.tiling);
+        materials[0].map = tex;
+
         materials[0].emissive.set(0xffffff);
       }
 
       materials[0].skinning = true;
       materials[0].morphTargets = true;
+      materials[0].side = THREE.FrontSide;
 
-      self.mesh = new THREE.SkinnedMesh(geometry, materials[0]);
+      self.mesh = new THREE.Mesh(geometry, materials[0]);
 
       if (self.mesh.geometry.animations) {
         self.mesh = new THREE.SkinnedMesh(geometry, materials[0]);
@@ -61,7 +72,7 @@ class Model {
               self.clipActions[e.name].setLoop(THREE.loopOnce, 0);
               break;
             case ANIMATION_TYPE.DIE:
-              self.clipActions[e.name].setLoop(THREE.loopOnce, 2);
+              self.clipActions[e.name].setLoop(THREE.loopOnce, 0);
               self.clipActions[e.name].clampWhenFinished = true;
               break;
             case ANIMATION_TYPE.OPEN:
@@ -75,7 +86,23 @@ class Model {
       }
 
       self.mesh.name = name;
-      scene.add(self.mesh);
+      window.scene.add(self.mesh);
+    }
+  }
+
+  animationStopAllButThis(animationType) {
+    for (let key in this.clipActions) {
+      if (key != animationType) {
+        this.clipActions[key].stop();
+      }
+    }
+  }
+
+  animationStop(animationType) {
+    for (var key in this.clipActions) {
+      if (key === animationType){
+        this.clipActions[key].stop();
+      }
     }
   }
 
@@ -83,12 +110,6 @@ class Model {
     if (!this.clipActions) {
       console.log("ERROR: no animations loaded for this model!");
       return;
-    }
-
-    for (var key in this.clipActions) {
-      if (key != animationType){
-        this.clipActions[key].stop();
-      }
     }
 
     if (this.clipActions[animationType]) {

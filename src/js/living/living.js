@@ -24,7 +24,7 @@ class Living {
 
         this.inventorySize = 20;
         this.hpRegen = 0;
-        this.mpRegen = 2;
+        this.mpRegen = 1;
 
         this.dead = false;
 
@@ -101,7 +101,7 @@ class Living {
     }
 
     attack(target) {
-      this.equipment[EQUIPMENT_TYPE.WEAPON].attackSkill.activate(this, this.target);
+      this.equipment[EQUIPMENT_TYPE.WEAPON].attackSkill.activate(this, target);
     }
 
     dealDamage(damage) {
@@ -131,6 +131,7 @@ class Living {
     }
 
     update(dt) {
+      this.regenStats(dt);
       this.model.update(dt);
     }
 }

@@ -7,6 +7,7 @@ var itemsInGame = [];
 
 // list of all enemies in the 3d gameworld
 var enemies = [];
+var deadEnemies = [];
 
 scene = new THREE.Scene();
 

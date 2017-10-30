@@ -74,9 +74,9 @@ function waveDisplay(){
 
 function newWave(enemyName, x, z){
     this.enemyName = new CubeEnemy(scene = window.scene);
-    setTimeout(function() {
+    // setTimeout(function() {
         this.enemyName.model.mesh.position.set(x, 0, z);
-    }, 200);
+    // }, 200);
 }
 
 function broadcastPickUp(item){

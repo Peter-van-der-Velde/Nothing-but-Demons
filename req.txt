@@ -1,0 +1,5 @@
+mysql
+mysql-php
+php
+npm
+node
