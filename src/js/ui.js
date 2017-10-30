@@ -38,6 +38,14 @@ document.onreadystatechange = function () {
 	
 }
 
+function playerStats(){
+    var playerInformationWrapper = document.getElementById("playerStats");
+    playerInformationWrapper.innerHTML = "";
+    playerInformationWrapper.insertAdjacentHTML('afterbegin', "<li>" + "Items : " + player.items + "</li>");
+    playerInformationWrapper.insertAdjacentHTML('afterbegin', "<li>" + "Defence : " + player.defense + "</li>");
+    playerInformationWrapper.insertAdjacentHTML('afterbegin', "<li>" + "Health : " + player.hp) + "</li>";
+    playerInformationWrapper.insertAdjacentHTML('afterbegin', "<li>" + "Name : " + player.name + "</li>");
+}
 
 function waveDisplay(){
     var waveContainer = document.getElementById("waveDisplay");
