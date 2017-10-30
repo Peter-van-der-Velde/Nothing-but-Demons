@@ -9,6 +9,7 @@ try
 {	
 	require "../config.php";
 	require "../common.php";
+
 	$connection = new PDO($dsn, $username, $password, $options);
 	$sql = "SELECT * 
 					FROM leaderboard
@@ -30,6 +31,9 @@ catch(PDOException $error)
 <?php  
 if ($result && $statement->rowCount() > 0) 
 { ?>
+	<h2>Your score:</h2>
+	<?php echo '<p>your name: ', $_GET['name'], '</p>'; ?>
+	<?php echo '<p>your score: ', $_GET['score'], '</p>'; ?>
 	<h2>Leaderboards:</h2>
 	<table>
 		<thead>
@@ -63,3 +67,13 @@ else
 } ?> 
 
 <a href="../index.php">Back to home</a>
+
+<script>
+function getUrlVars() {
+	var vars = {};
+	var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+		vars[key] = value;
+	});
+	return vars;
+}
+</script>

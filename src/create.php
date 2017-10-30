@@ -38,5 +38,15 @@
 	}
 	
 ?>
-<script>window.location.replace('read.php')</script>
+<script>
+function getUrlVars() {
+	var vars = {};
+	var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+		vars[key] = value;
+	});
+	return vars;
+}
+
+window.location.replace('read.php?name=' + getUrlVars()["name"] + '&score=' + getUrlVars()["score"]);
+</script>
 
