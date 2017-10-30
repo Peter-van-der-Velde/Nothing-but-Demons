@@ -17,6 +17,9 @@
   <script type="text/javascript">
       $(document).ready(function(){
           console.log("Document loaded!");
+          $( "#playerInformation" ).load( "playerInformation.html", function() {
+              console.log("#Player info Loaded");
+          });
           $( "#hudDisplay" ).load( "hud.html", function() {
             console.log("#Hud Loaded");
           });
@@ -48,6 +51,9 @@
 
   <!-- Wave display -->
   <div class="waveDisplay" id="waveDisplay" style="display:block;"></div>
+
+  <!--Player information-->
+  <div class="playerInformation" id="playerInformation"></div>
 
   <!-- HUD display -->
   <div class="hudDisplay" id="hudDisplay" style="display:block"></div>

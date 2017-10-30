@@ -202,6 +202,7 @@ class Player extends Living {
     }
     updateInventory(item);
     broadcastPickUp(item.name);
+    player.defense = player.defense + item.defense;
     console.log("PETEEEEEEER LIMONAAADEEE!");
 
 
