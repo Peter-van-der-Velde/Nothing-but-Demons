@@ -89,13 +89,14 @@ class Player extends Living {
   attack(target) {
     super.attack(target);
 
-    var enemyHealth = document.getElementById("enemyHealth");
+    let enemyHealthDisplay = document.getElementById("enemyHealth");
+    let enemyHealth = document.getElementById("enemyHealth1");
 
-    enemyHealth.style.display = "block";
+    enemyHealthDisplay.style.display = "block";
 
     enemyHealth.value = target.hp;
     if (target.hp <= 0) {
-      enemyHealth.style.display = "none";
+      enemyHealthDisplay.style.display = "none";
     }
   }
 
