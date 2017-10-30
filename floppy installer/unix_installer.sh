@@ -31,6 +31,7 @@ rm -rvf /tmp/c3-master
 
 rm /usr/bin/nothing-but-demons
 ln -s "$INSTALLATION_LOCATION/nothing-but-demons" /usr/bin/
+chmod 755 /usr/bin/nothing-but-demons
 
 echo ""
 echo "installation is complete,"
