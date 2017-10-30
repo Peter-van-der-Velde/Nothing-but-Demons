@@ -119,9 +119,9 @@ class Player extends Living {
     }
 
     if (this.moving) {
-      this.model.clipActions[ANIMATION_TYPE.WALK].play();
+      this.model.animationSwitch(ANIMATION_TYPE.WALK);
     } else {
-      this.model.clipActions[ANIMATION_TYPE.WALK].stop();
+      this.model.animationSwitch(ANIMATION_TYPE.IDLE);
     }
 
     if (this.hp <= 0)

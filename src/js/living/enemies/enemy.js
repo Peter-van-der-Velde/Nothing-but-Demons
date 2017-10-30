@@ -41,6 +41,8 @@ class Enemy extends Living {
 
         // temporary
         this.attackClock = new THREE.Clock();
+
+        this.moving = false;
     }
 
     /**
@@ -72,24 +74,24 @@ class Enemy extends Living {
      * kills the enemy
      */
     die() {
-        console.log(this.name + ' is dead');
-        health.value = 100;
-        for (let i = 0; i < enemies.length; i++) {
-            if (enemies[i].id == this.id) {
-                enemies.splice(i, 1);
-                break;
-            }
-        }
-        this.dropItems();
-        this.replaceWithCorpse();
-        // setTimeout(function(){ window.location.href = "../src/gameOver.html"; }, 10000);
-        // $("html").fadeOut(speed = 10000);
-        //fadein
-        console.log("DICKE TITTEN, KARTOFFELSALAT");
-        console.log(enemies.length);
-        if (enemies.length.toString() == "0") {
-            waveDisplay();
-        }
+      super.die();
+      this.model.animationSwitch(ANIMATION_TYPE.DIE);
+      health.value = 100;
+      for (let i = 0; i < enemies.length; i++) {
+          if (enemies[i].id == this.id) {
+              enemies.splice(i, 1);
+              break;
+          }
+      }
+      this.dropItems();
+      this.replaceWithCorpse();
+      // setTimeout(function(){ window.location.href = "../src/gameOver.html"; }, 10000);
+      // $("html").fadeOut(speed = 10000);
+      //fadein
+      console.log(enemies.length);
+      if (enemies.length.toString() == "0") {
+          waveDisplay();
+      }
 
     }
     /**
@@ -99,14 +101,14 @@ class Enemy extends Living {
     update(dt) {
         super.update(dt);
 
-        if (this.hp > this.hpMax)
-            this.hp = this.hpMax;
-
-
-        if (this.hp <= 0) {
-            this.die();
+        if (this.moving) {
+          this.model.animationSwitch(ANIMATION_TYPE.WALK);
+        } else {
+          this.model.animationSwitch(ANIMATION_TYPE.IDLE);
         }
 
+        if (this.hp <= 0)
+          this.die();
 
         if (this.hp > this.hpMax)
             this.hp = this.hpMax;
@@ -130,6 +132,12 @@ class Enemy extends Living {
             this.destination = null;
         }
 
+        if (this.destination) {
+          this.moving = true;
+        } else {
+          this.moving = false;
+        }
+
         this.move(dt);
 
         // console.log('dist: ' + calcDistanceXZ(window.player.model.mesh.position, this.model.mesh.position) + ' < ' + this.equipment[EQUIPMENT_TYPE.WEAPON].attackRange)
@@ -141,6 +149,7 @@ class Enemy extends Living {
      */
     replaceWithCorpse() {
         console.log('this is a corpse');
+        this.model.animationSwitch(ANIMATION_TYPE.DIE);
     }
 
     /**
@@ -182,14 +191,14 @@ class Enemy extends Living {
             itemsInGame.push(item);
             window.scene.add(item.mesh);
 
-            console.log(item);
+            // console.log(item);
         }
 
-        for (var item of itemsInGame)
-            console.log(item);
+        // for (var item of itemsInGame)
+            // console.log(item);
 
-        console.log(window.scene);
-        console.log(itemsInGame);
+        // console.log(window.scene);
+        // console.log(itemsInGame);
     }
 
     move(dt) {

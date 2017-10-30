@@ -62,14 +62,9 @@ function animate() {
 
 	if (!playerIsDead) {
 		window.player.update(delta);
-		window.player.model.update(delta);
 	}
 	for (let e of enemies) {
 		e.update(delta);
-	}
-
-	for (var i = 0; i < enemies.length; i++) {
-		enemies[i].update(delta, window.scene);
 	}
 
 	// Render the scene.

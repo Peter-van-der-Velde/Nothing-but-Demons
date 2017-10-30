@@ -25,7 +25,7 @@ class Model {
     var texturePath = this.texturePath;
 
     var loader = new THREE.JSONLoader();
-    loader.load('models/player.json', handleLoad);
+    loader.load(jsonPath, handleLoad);
 
     function handleLoad(geometry, materials) {
       var texloader = new THREE.TextureLoader();
@@ -61,7 +61,7 @@ class Model {
               self.clipActions[e.name].setLoop(THREE.loopOnce, 0);
               break;
             case ANIMATION_TYPE.DIE:
-              self.clipActions[e.name].setLoop(THREE.loopOnce, 0);
+              self.clipActions[e.name].setLoop(THREE.loopOnce, 2);
               self.clipActions[e.name].clampWhenFinished = true;
               break;
             case ANIMATION_TYPE.OPEN:
@@ -86,12 +86,13 @@ class Model {
     }
 
     for (var key in this.clipActions) {
-      this.clipActions[key].stop();
+      if (key != animationType){
+        this.clipActions[key].stop();
+      }
     }
 
     if (this.clipActions[animationType]) {
       this.clipActions[animationType].play();
-      console.log(this.clipActions[animationType]);
     }
   }
 

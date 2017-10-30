@@ -35,7 +35,7 @@ document.onreadystatechange = function () {
         }
         //checkCookie();
     }
-	
+
 }
 
 
@@ -58,7 +58,7 @@ function waveDisplay(){
 					var x = Math.floor((Math.random() * 10));
 					var z = Math.floor((Math.random() * 10));
 					newWave("peter", x, -z);
-				} 
+				}
 			}, 10000);
 		}, 3000);
 	}, 1000);
@@ -67,7 +67,7 @@ function waveDisplay(){
 function newWave(enemyName, x, z){
     this.enemyName = new CubeEnemy(scene = window.scene);
     setTimeout(function() {
-        this.enemyName.model.mesh.position.set(x, 1, z);
+        this.enemyName.model.mesh.position.set(x, 0, z);
     }, 200);
 }
 
@@ -107,7 +107,7 @@ function toggleMenu(selection){
         openMenu.volume = 0.1;
         openMenu.play();
 	}
-	
+
     // if(menu.style.display == "block"){
         // //Closes the options menu and opens the pausedmenu when ESC is pressed
         // menu.style.display = "none";
