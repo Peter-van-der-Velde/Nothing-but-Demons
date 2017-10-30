@@ -101,7 +101,7 @@ class Living {
     }
 
     attack(target) {
-      this.equipment[EQUIPMENT_TYPE.WEAPON].attackSkill.activate(this, this.target);
+      this.equipment[EQUIPMENT_TYPE.WEAPON].attackSkill.activate(this, target);
     }
 
     dealDamage(damage) {

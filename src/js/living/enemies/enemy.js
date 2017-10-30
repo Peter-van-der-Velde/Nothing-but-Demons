@@ -54,21 +54,29 @@ class Enemy extends Living {
   * @param {Living} target
   */
   attack(target) {
+    super.attack(target);
+    //this.equipment[EQUIPMENT_TYPE.WEAPON].attackSkill.activate(this, target);
+
+    /* 
+     * Please only use the weapon skill to attack.
+     * Otherwise the attack animation will not play.
+     */
+
     // console.log(window.player)
 
-    var time = this.attackClock.getElapsedTime();
-    var playerHealth = document.getElementById("playerHealthBar");
+    // var time = this.attackClock.getElapsedTime();
+    // var playerHealth = document.getElementById("playerHealthBar");
 
-    if ((2 / this.equipment[EQUIPMENT_TYPE.WEAPON].attackSpeed) > time)
-    return;
+    // if ((2 / this.equipment[EQUIPMENT_TYPE.WEAPON].attackSpeed) > time)
+    // return;
 
-    // reset attack clock
-    this.attackClock.start();
+    // // reset attack clock
+    // this.attackClock.start();
 
-    target.hp = target.hp - Math.abs(this.totalAttack - (-30 + 2 * Math.sqrt(target.totalDefense * 25 + 220)));
-    // this.equipment[EQUIPMENT_TYPE.WEAPON].attackSkill.activate(this, this.target);
-    //playerHealth.value = Math.floor(target.hp);
-    console.log('playerHP: ' + target.hp);
+    // target.hp = target.hp - Math.abs(this.totalAttack - (-30 + 2 * Math.sqrt(target.totalDefense * 25 + 220)));
+    // // this.equipment[EQUIPMENT_TYPE.WEAPON].attackSkill.activate(this, this.target);
+    // //playerHealth.value = Math.floor(target.hp);
+    // console.log('playerHP: ' + target.hp);
   }
 
   /**
@@ -116,11 +124,14 @@ class Enemy extends Living {
 
     if (!this.dead) {
 
+      this.equipment[EQUIPMENT_TYPE.WEAPON].attackSkill.update(dt);
+      this.attack(window.player);
+
       if (this.moving) {
         this.model.animationStopAllButThis(ANIMATION_TYPE.WALK);
         this.model.animationSwitch(ANIMATION_TYPE.WALK);
       } else {
-        this.model.animationStopAllButThis(ANIMATION_TYPE.IDLE);
+        this.model.animationStop(ANIMATION_TYPE.WALK);
         this.model.animationSwitch(ANIMATION_TYPE.IDLE);
       }
 
@@ -164,13 +175,13 @@ class Enemy extends Living {
       this.move(dt);
 
       // console.log('dist: ' + calcDistanceXZ(window.player.model.mesh.position, this.model.mesh.position) + ' < ' + this.equipment[EQUIPMENT_TYPE.WEAPON].attackRange)
-      if (window.player.model.mesh && this.model.mesh) {
-        if (calcDistanceXZ(this.model.mesh.position, window.player.model.mesh.position) < this.equipment[EQUIPMENT_TYPE.WEAPON].attackRange) {
-          this.attack(window.player);
-        }
+      // if (window.player.model.mesh && this.model.mesh) {
+      //   if (calcDistanceXZ(this.model.mesh.position, window.player.model.mesh.position) < this.equipment[EQUIPMENT_TYPE.WEAPON].attackRange) {
+      //     this.attack(window.player);
+      //   }
 
-        // this.fixClipping();
-      }
+      //   // this.fixClipping();
+      // }
 
     }
 
@@ -248,9 +259,11 @@ class Enemy extends Living {
       return;
     }
 
-    if (calcDistanceXZ(this.model.mesh.position, this.destination) < 0.02) {
-      if (this.path.length == 0)
-      return;
+    if (calcDistanceXZ(this.model.mesh.position, this.destination) <= 1) {
+      if (this.path.length == 0) {
+        this.moving = false;
+        return;
+      }
 
       this.destination = this.path.shift();
     }
