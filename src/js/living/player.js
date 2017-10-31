@@ -61,6 +61,7 @@ class Player extends Living {
     this.intelligence += Math.abs(Math.floor((dice.roll() - 3) / 3) - 3);
     this.luck += Math.abs(Math.floor((dice.roll() - 3) / 3) - 3);
 
+    this.level += 1;
     this.score += this.level * 20;
   }
 
@@ -70,8 +71,8 @@ class Player extends Living {
   */
   nextLevel(level) {
     let exponent = 1.5
-    let baseXP = 1000
-    return math.floor(baseXP * (level ^ exponent))
+    let baseXP = 100
+    return Math.floor(baseXP * (level ^ exponent))
   }
 
   /**
@@ -112,6 +113,14 @@ class Player extends Living {
   */
   update(dt) {
     super.update(dt);
+
+    // console.log(this.nextLevel(this.level) + ' < ' + this.experiencePoints);
+    // if (this.nextLevel(this.level) <= this.experiencePoints) {
+    //   this.experiencePoints = this.experiencePoints - this.nextLevel(this.level);
+    //   this.levelUp();
+    //   console.log('LEVEL UP!');
+    // }
+
 
     // Set hp and mp bars.
     let mana = document.getElementById("playerManaBar");
