@@ -5,13 +5,13 @@
  *
  */
 
-try 
-{	
+try
+{
 	require "../config.php";
 	require "../common.php";
 
 	$connection = new PDO($dsn, $username, $password, $options);
-	$sql = "SELECT * 
+	$sql = "SELECT *
 					FROM leaderboard
            ORDER BY score DESC
 					 LIMIT 10
@@ -21,15 +21,15 @@ try
 	$result = $statement->fetchAll();
 }
 
-catch(PDOException $error) 
+catch(PDOException $error)
 {
 	echo $sql . "<br>" . $error->getMessage();
 }
 ?>
 
 
-<?php  
-if ($result && $statement->rowCount() > 0) 
+<?php
+if ($result && $statement->rowCount() > 0)
 { ?>
 	<h2>Your score:</h2>
 	<?php echo '<p>your name: ', $_GET['name'], '</p>'; ?>
@@ -38,33 +38,33 @@ if ($result && $statement->rowCount() > 0)
 	<table>
 		<thead>
 			<tr>
-				<th>#</th>		
+				<th>#</th>
 				<th>Name</th>
 				<th>Score</th>
 			</tr>
 		</thead>
 		<tbody>
-<?php 
+<?php
 	$counter = 1;
-	foreach ($result as $row) 
+	foreach ($result as $row)
 	{ ?>
 		<tr>
-			<td><?php echo escape($counter); ?></td>		
+			<td><?php echo escape($counter); ?></td>
 			<td><?php echo escape($row["name"]); ?></td>
 			<td><?php echo escape($row["score"]); ?></td>
 		</tr>
-	<?php 
+	<?php
 	$counter++;
 	} ?>
 	</tbody>
 </table>
-<?php 
-} 
-else 
+<?php
+}
+else
 { ?>
 	<blockquote>No results were found.</blockquote>
 <?php
-} ?> 
+} ?>
 
 <a href="../index.php">Back to home</a>
 
