@@ -296,14 +296,14 @@ html, body {
 }
 
 #enemyHealth1{
-  margin: 17px 0px 0px 870px;
+  margin: 34px 0px 0px 870px;
 }
 
 progress {
   -webkit-appeareance: none;
   appearance: none;
   width: 185px;
-  height: 19px;
+  height: 17px;
 }
 
 #enemyHealth progress {
@@ -745,31 +745,7 @@ select option{
 	padding-left: 5px;
 }
 
-.scoreBoardBody{
-    background-image: url(../img/scoreBG.png);
-}
-.scoreBoardWrapper{
-    width:40%;
-    margin:100px auto;
-    background-color:#000;
-    opacity:0.6;
-    text-align: center;
-    font-family:diabloFont;
-    color: #f7ddac;
-    padding:20px;
-    border-radius:20px;
-}
-.scoreBoardWrapper table{
-    margin:0 auto;
-    color: #f7ddac;
-}
-.scoreBoardWrapper table td{
-    margin: 0px 10px;
-}
-.scoreBoardWrapper .button{
-    height:60px !important;
-    margin:20px auto;
-}
+
 
 
 

@@ -87,4 +87,6 @@ function animate() {
 function updateUI() {
 	if (Math.floor(window.player.hp / window.player.hpMax * 100) > 0)
 		document.getElementById("playerHealthBar").value = Math.abs(Math.floor(window.player.hp / window.player.hpMax * 100));
+		if (Math.floor(window.player.mp / window.player.mpMax * 100) > 0)
+			document.getElementById("playerManaBar").value = Math.abs(Math.floor(window.player.mp / window.player.mpMax * 100));
 }
