@@ -41,6 +41,11 @@ function init() {
 		model = new Model("player", false, false)
 	);
 
+	if (window.getUrlVars()['name'])
+		window.player.name = window.getUrlVars()['name'];
+
+	console.log(window.player);
+
 	// enemies.forEach(function(enemy) {
 	// 	testLevel.add(enemy.model.mesh);
 	// }, this);
