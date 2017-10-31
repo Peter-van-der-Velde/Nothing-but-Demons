@@ -88,6 +88,9 @@ class Enemy extends Living {
     this.model.animationStopAllButThis(ANIMATION_TYPE.DIE);
     this.model.animationSwitch(ANIMATION_TYPE.DIE);
 
+    // if enemy is killled add experience points to player
+    window.player.experiencePoints += this.experiencePoints;
+
     // Remove enemies from the enemy array and move them to deadEnemies
     for (let i = 0; i < enemies.length; i++) {
         if (enemies[i].id == this.id) {
