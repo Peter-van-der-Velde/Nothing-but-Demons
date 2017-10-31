@@ -49,6 +49,12 @@ function init() {
 	drawInventory();
 }
 
+function getValue(){
+    var retVal = prompt("Enter your name : ", "your name here");
+    player.name = retVal;
+}
+
+
 /**
  * Animates the scene
  */
