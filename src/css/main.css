@@ -296,14 +296,14 @@ html, body {
 }
 
 #enemyHealth1{
-  margin: 17px 0px 0px 870px;
+  margin: 34px 0px 0px 870px;
 }
 
 progress {
   -webkit-appeareance: none;
   appearance: none;
   width: 185px;
-  height: 19px;
+  height: 17px;
 }
 
 #enemyHealth progress {
