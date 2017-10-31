@@ -40,7 +40,7 @@ class Level {
     lamp.position.set(0, 5, 10);
     var aLight = new THREE.AmbientLight(0x606060);
     window.scene.add(lamp, aLight);
-
+    //test
     // this.chest = new Model("chest_01", true);
     // this.chest.load(window.scene);
   }
