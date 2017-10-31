@@ -71,7 +71,7 @@ class Player extends Living {
   */
   nextLevel(level) {
     let exponent = 1.5
-    let baseXP = 10
+    let baseXP = 100
     return Math.floor(baseXP * (level ^ exponent))
   }
 
@@ -114,8 +114,9 @@ class Player extends Living {
   update(dt) {
     super.update(dt);
 
-    // if (this.nextLevel(this.level) >= this.experiencePoints) {
-    //   this.experiencePoints = this.experiencePoints - nextLevel(this.level);
+    // console.log(this.nextLevel(this.level) + ' < ' + this.experiencePoints);
+    // if (this.nextLevel(this.level) <= this.experiencePoints) {
+    //   this.experiencePoints = this.experiencePoints - this.nextLevel(this.level);
     //   this.levelUp();
     //   console.log('LEVEL UP!');
     // }
