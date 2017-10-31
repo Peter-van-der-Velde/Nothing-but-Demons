@@ -1,4 +1,13 @@
-<?php
+<html>
+  <head>
+    <meta charset="UTF-8">
+		<title>Leaderboards</title>
+
+		<link rel="stylesheet" href="css/main.css">
+  </head>
+  <body class="scoreBoardBody">
+	  <div class="scoreBoardWrapper">
+			<?php
 
 /**
  * Function to query information ordered by score
@@ -31,9 +40,8 @@ catch(PDOException $error)
 <?php
 if ($result && $statement->rowCount() > 0)
 { ?>
-	<h2>Your score:</h2>
-	<?php echo '<p>your name: ', $_GET['name'], '</p>'; ?>
-	<?php echo '<p>your score: ', $_GET['score'], '</p>'; ?>
+	<?php echo '<h2>your name: ', $_GET['name'], '</h2>'; ?>
+	<?php echo '<h2>your score: ', $_GET['score'], '</h2>'; ?>
 	<h2>Leaderboards:</h2>
 	<table>
 		<thead>
@@ -66,14 +74,23 @@ else
 <?php
 } ?>
 
-<a href="../index.php">Back to home</a>
+<div class="button" id="button1">
+					<a href="../index.php">Return to home<span class="shift">?</span></a>
+					<div class="mask"></div>
+				</div>
 
 <script>
-function getUrlVars() {
-	var vars = {};
-	var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-		vars[key] = value;
-	});
-	return vars;
-}
-</script>
+			function getUrlVars() {
+				var vars = {};
+				var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+					vars[key] = value;
+				});
+				return vars;
+			}
+			var name = getUrlVars()['name'];
+			console.log(name);
+
+			</script>
+	  </div>
+  </body>
+</html>
