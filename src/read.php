@@ -40,8 +40,10 @@ catch(PDOException $error)
 <?php
 if ($result && $statement->rowCount() > 0)
 { ?>
+    <hr>
 	<?php echo '<h2>your name: ', $_GET['name'], '</h2>'; ?>
 	<?php echo '<h2>your score: ', $_GET['score'], '</h2>'; ?>
+	<hr>
 	<h2>Leaderboards:</h2>
 	<table>
 		<thead>
