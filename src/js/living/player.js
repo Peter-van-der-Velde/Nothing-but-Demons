@@ -125,9 +125,7 @@ class Player extends Living {
     let mana = document.getElementById("playerManaBar");
     let health = document.getElementById("playerHealthBar");
 
-    mana.max = this.mpMax;
     mana.value = this.mp;
-    health.max = this.hpMax;
     health.value = this.hp;
 
     if (this.moving) {
@@ -238,7 +236,7 @@ class Player extends Living {
   die() {
     var name = this.name;
     var score = this.score;
-    
+
     setTimeout(function () { window.location.replace("create.php?name=" + name + "&score=" + score + ""); }, 12000);
     $("html").fadeOut(speed = 10000);
     window.playerIsDead = true;
